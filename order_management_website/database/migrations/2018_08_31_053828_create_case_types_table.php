@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateCaseTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('case_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->nullable();;
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('name', 30);
+            $table->string('slug', 30)->nullable();;
+            $table->boolean('enabled')->default(true);
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('case_types');
     }
 }
