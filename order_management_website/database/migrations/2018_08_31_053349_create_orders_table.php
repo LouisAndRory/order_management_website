@@ -16,16 +16,17 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('status_id', false, true)->nullable();
-            $table->string('name', 30)->nullable();;
+            $table->string('name', 30)->nullable();
             $table->string('name_backup', 30)->nullable();
-            $table->string('phone', 20)->nullable();;
+            $table->string('phone', 20)->nullable();
             $table->string('phone_backup', 20)->nullable();
-            $table->string('email', 50)->nullable();;
+            $table->string('email', 50)->nullable();
             $table->integer('deposit')->nullable();
             $table->integer('extra_fee')->nullable();
+            $table->boolean('final_paid')->default(false);
             $table->date('engaged_date')->nullable();
             $table->date('married_date')->nullable();
-            $table->text('remark')->nullable();;
+            $table->text('remark')->nullable();
             $table->boolean('card_required')->default(false);
             $table->boolean('wood_required')->default(false);
             $table->timestamps();

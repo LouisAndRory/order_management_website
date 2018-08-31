@@ -18,6 +18,7 @@ class Order extends Model
     protected $casts = [
         'card_required' => 'boolean',
         'wood_required' => 'boolean',
+        'final_paid' => 'boolean',
         'engaged_date' => 'date:Y-m-d',
         'married_date' => 'data:Y-m-d'
     ];
@@ -25,6 +26,6 @@ class Order extends Model
     protected $fillable = [
         'status_id', 'name', 'name_backup', 'phone', 'phone_backup',
         'email', 'deposit', 'extra_fee', 'engaged_date', 'married_date',
-        'remark', 'card_required', 'wood_required'
+        'remark', 'card_required', 'wood_required', 'final_paid'
     ];
 }
