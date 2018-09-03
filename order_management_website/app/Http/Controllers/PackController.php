@@ -6,5 +6,18 @@ use Illuminate\Http\Request;
 
 class PackController extends Controller
 {
-    //
+    public function index()
+    {
+
+    }
+
+    public function store()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
 }
