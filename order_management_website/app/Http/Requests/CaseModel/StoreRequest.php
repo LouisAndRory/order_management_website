@@ -24,7 +24,9 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|max:30',
+            'slug' => 'nullable|max:30',
+            'enabled' => 'nullable|boolean',
         ];
     }
 }
