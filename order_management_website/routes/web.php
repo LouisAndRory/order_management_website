@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['prefix' => 'order'], function () {
+    Route::get('/create', 'OrderController@create');
+    Route::get('/{id}', 'OrderController@show');
+    Route::get('/{id}/edit', 'OrderController@edit');
+    Route::post('/', 'OrderController@store');
+    Route::put('/{id}', 'OrderController@update');
+});
+
 Route::group(['prefix' => 'cookie'], function () {
     Route::get('/', 'CookieController@index');
     Route::post('/', 'CookieController@store');

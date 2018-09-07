@@ -30,6 +30,7 @@ class CreateOrdersTable extends Migration
             $table->boolean('card_required')->default(false);
             $table->boolean('wood_required')->default(false);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('status_id')->references('id')->on('order_statuses')->onDelete('cascade');
         });

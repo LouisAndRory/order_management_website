@@ -23,7 +23,9 @@ class CreatePackagesTable extends Migration
             $table->text('remark')->nullable();
             $table->date('sent_at')->nullable();
             $table->date('arrived_at')->nullable();
+            $table->boolean('checked')->default(false);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('status_id')->references('id')->on('package_statuses')->onDelete('cascade');
