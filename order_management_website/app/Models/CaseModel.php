@@ -23,6 +23,12 @@ class CaseModel extends Model
     protected $casts = [];
 
     protected $fillable = [
-        'order_id', 'case_type_od', 'price', 'amount'
+        'order_id', 'case_type_id', 'price', 'amount'
     ];
+
+    public function cookies()
+    {
+        return $this->belongsToMany('App\Models\Cookie', 'case_has_cookies',
+            'case_id', 'cookie_id');
+    }
 }

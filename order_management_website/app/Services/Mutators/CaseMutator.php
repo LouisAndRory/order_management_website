@@ -10,22 +10,59 @@ namespace App\Services\Mutators;
 
 
 use App\Models\CaseModel;
+use DB;
 
 class CaseMutator implements MutatorContract
 {
+    /**
+     * @param array $data
+     * @return CaseModel|\Illuminate\Database\Eloquent\Model
+     * @throws \Exception
+     */
     public function store($data = [])
     {
-        $case = CaseModel::create($data);
+        try {
+            DB::beginTransaction();
 
-        return $case;
+            $case = CaseModel::create($data);
+            info("Case created", $case->toArray());
+
+            DB::commit();
+
+            return $case;
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            DB::rollBack();
+
+            throw $e;
+        }
     }
 
+    /**
+     * @param $id
+     * @param array $data
+     * @return CaseModel|CaseModel[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @throws \Exception
+     */
     public function update($id, $data = [])
     {
-        $case = CaseModel::findOrFail($id);
-        $case->update($data);
+        try {
+            DB::beginTransaction();
 
-        return $case;
+            $case = CaseModel::findOrFail($id);
+            $case->update($data);
+
+            info("Case updated", $case->toArray());
+
+            DB::commit();
+
+            return $case;
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            DB::rollBack();
+
+            throw $e;
+        }
     }
 
     public function delete($id)

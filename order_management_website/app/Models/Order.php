@@ -32,4 +32,9 @@ class Order extends Model
         'email', 'deposit', 'extra_fee', 'engaged_date', 'married_date',
         'remark', 'card_required', 'wood_required', 'final_paid'
     ];
+
+    public function cases()
+    {
+        return $this->hasMany('App\Models\CaseModel', 'order_id');
+    }
 }
