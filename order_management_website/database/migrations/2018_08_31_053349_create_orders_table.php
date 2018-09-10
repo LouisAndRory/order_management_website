@@ -15,11 +15,10 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('status_id', false, true)->nullable();
-            $table->string('name', 30)->nullable();
-            $table->string('name_backup', 30)->nullable();
-            $table->string('phone', 20)->nullable();
-            $table->string('phone_backup', 20)->nullable();
+            $table->string('name', 100)->nullable();
+            $table->string('name_backup', 100)->nullable();
+            $table->string('phone', 100)->nullable();
+            $table->string('phone_backup', 100)->nullable();
             $table->string('email', 50)->nullable();
             $table->integer('deposit')->nullable();
             $table->integer('extra_fee')->nullable();
@@ -31,8 +30,6 @@ class CreateOrdersTable extends Migration
             $table->boolean('wood_required')->default(false);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('status_id')->references('id')->on('order_statuses')->onDelete('cascade');
         });
     }
 

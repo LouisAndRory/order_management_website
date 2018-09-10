@@ -16,10 +16,9 @@ class CreatePackagesTable extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('order_id', false, true)->nullable();
-            $table->integer('status_id', false, true)->nullable();
-            $table->string('name', 30)->nullable();
-            $table->string('phone', 20)->nullable();
-            $table->string('address', 100)->nullable();
+            $table->string('name', 100)->nullable();
+            $table->string('phone', 100)->nullable();
+            $table->string('address', 255)->nullable();
             $table->text('remark')->nullable();
             $table->date('sent_at')->nullable();
             $table->date('arrived_at')->nullable();
@@ -28,7 +27,6 @@ class CreatePackagesTable extends Migration
             $table->softDeletes();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('status_id')->references('id')->on('package_statuses')->onDelete('cascade');
         });
     }
 
