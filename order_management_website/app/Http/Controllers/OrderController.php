@@ -29,7 +29,7 @@ class OrderController extends Controller
         ])->where('enabled', '=', true)
             ->get();
 
-        return response()->json([
+        return view('order.create',[
             'caseTypes' => $caseTypes,
             'cookies' => $cookies,
             'packs' => $packs
