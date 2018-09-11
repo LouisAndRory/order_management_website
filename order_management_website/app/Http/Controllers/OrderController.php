@@ -16,18 +16,15 @@ class OrderController extends Controller
     {
         $caseTypes = CaseType::select([
             'id', 'name'
-        ])->where('enabled', '=', true)
-            ->get();
+        ])->get();
 
         $cookies = Cookie::select([
             'id', 'name'
-        ])->where('enabled', '=', true)
-            ->get();
+        ])->get();
 
         $packs = Pack::select([
             'id', 'name'
-        ])->where('enabled', '=', true)
-            ->get();
+        ])->get();
 
         return response()->json([
             'caseTypes' => $caseTypes,
@@ -63,5 +60,19 @@ class OrderController extends Controller
     public function update(UpdateRequest $request, $id)
     {
 
+    }
+
+    public function delete($id)
+    {
+        info("OrderController@delete", $id);
+
+        $orderMutator = new OrderMutator();
+        try {
+            $orderMutator->delete($id);
+
+            return response()->json_deleted();
+        } catch (\Exception $e) {
+            return response()->json_deleted_failed();
+        }
     }
 }

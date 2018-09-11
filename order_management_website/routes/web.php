@@ -21,6 +21,7 @@ Route::group(['prefix' => 'order'], function () {
     Route::get('/{id}/edit', 'OrderController@edit');
     Route::post('/', 'OrderController@store');
     Route::put('/{id}', 'OrderController@update');
+    Route::delete('/{id}', 'OrderController@delete');
 });
 
 Route::group(['prefix' => 'cookie'], function () {

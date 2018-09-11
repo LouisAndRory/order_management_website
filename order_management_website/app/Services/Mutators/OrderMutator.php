@@ -77,9 +77,12 @@ class OrderMutator implements MutatorContract
         }
     }
 
+    /**
+     * @param $id
+     * @throws \Exception
+     */
     public function delete($id)
     {
-        $order = Order::find($id);
-        $order->delete();
+        Order::find($id)->delete();
     }
 }
