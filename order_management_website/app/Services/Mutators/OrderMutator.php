@@ -21,8 +21,6 @@ class OrderMutator implements MutatorContract
 
             $order = Order::create($data);
 
-            info("Order created", $order->toArray());
-
             if (array_has($data, 'cases')) {
                 $caseData = array_get($data, 'cases', []);
                 if (!empty($caseData)) {
@@ -42,6 +40,8 @@ class OrderMutator implements MutatorContract
                     }
                 }
             }
+
+            info("Order created", $order->toArray());
 
             DB::commit();
 
@@ -66,6 +66,46 @@ class OrderMutator implements MutatorContract
 
             $order = Order::findOrFail($id);
             $order->update($data);
+
+            if (array_has($data, 'cases')) {
+                $caseData = array_get($data, 'cases', []);
+                if (!empty($caseData)) {
+                    $caseMutator = new CaseMutator();
+
+                    $allCaseIds = $order->cases()->pluck('id')->toArray();
+                    foreach ($caseData as $caseDatum) {
+                        $caseId = array_get($caseDatum, 'id', null);
+                        if ($caseId) {
+                            $case = $caseMutator->update($caseId, $caseDatum);
+                        } else {
+                            $case = $caseMutator->store($caseDatum);
+                            $order->cases()->save($case);
+                        }
+
+                        if (in_array($caseId, $allCaseIds)) {
+                            $key = array_search($caseId, $allCaseIds);
+                            unset($allCaseIds[$key]);
+                        }
+
+                        if (array_has($caseDatum, 'cookies')) {
+                            $cookieData = array_get($caseDatum, 'cookies');
+                            if (!empty($cookieData)) {
+                                $case->cookies()->detach();
+                                foreach ($cookieData as $cookieDatum) {
+                                    $case->cookies()->attach($case->id, $cookieDatum);
+                                }
+                            }
+                        }
+                    }
+
+                    //-- remove case which doesn't exist in input ids
+                    foreach ($allCaseIds as $id) {
+                        $caseMutator->delete($id);
+                    }
+                }
+            }
+
+            info("Order updated", $order->toArray());
 
             DB::commit();
 

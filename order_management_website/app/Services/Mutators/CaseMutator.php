@@ -67,6 +67,6 @@ class CaseMutator implements MutatorContract
 
     public function delete($id)
     {
-
+        CaseModel::findOrFail($id)->delete();
     }
 }

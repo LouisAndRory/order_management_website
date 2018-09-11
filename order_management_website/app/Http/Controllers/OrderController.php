@@ -59,7 +59,16 @@ class OrderController extends Controller
 
     public function update(UpdateRequest $request, $id)
     {
+        info("OrderController@update", $request->all());
 
+        $orderMutator = new OrderMutator();
+        try {
+            $orderMutator->update($id, $request->all());
+
+            return response()->json_updated();
+        } catch (\Exception $e) {
+            return response()->json_update_failed();
+        }
     }
 
     public function delete($id)
