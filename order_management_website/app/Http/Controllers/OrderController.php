@@ -6,6 +6,7 @@ use App\Http\Requests\Order\StoreRequest;
 use App\Http\Requests\Order\UpdateRequest;
 use App\Models\CaseType;
 use App\Models\Cookie;
+use App\Models\Order;
 use App\Models\Pack;
 use App\Services\Mutators\OrderMutator;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class OrderController extends Controller
             'id', 'name'
         ])->get();
 
-        return view('order.create',[
+        return view('order.create', [
             'caseTypes' => $caseTypes,
             'cookies' => $cookies,
             'packs' => $packs
@@ -35,7 +36,54 @@ class OrderController extends Controller
 
     public function edit($id)
     {
+        $order = Order::select([
+            'id', 'name', 'name_backup', 'phone', 'phone_backup',
+            'email', 'deposit', 'extra_fee', 'final_paid', 'engaged_date',
+            'married_date', 'remark', 'card_required', 'wood_required'
+        ])->with([
+            'cases:id,order_id,case_type_id,price,amount',
+            'cases.cookies'
+        ])->findOrFail($id);
 
+        //-- change format
+        foreach ($order->cases as $case) {
+            foreach ($case->cookies as $key => $cookie) {
+                $case->cookies[$key] = $cookie->pivot;
+            }
+        }
+
+        $caseTypeIds = collect($order->cases)->pluck('case_type_id')->toArray();
+        $caseTypes = CaseType::select([
+            'id', 'name'
+        ])->whereIn('id', $caseTypeIds)
+            ->get();
+
+        $packIds = collect([]);
+        $cookieIds = collect([]);
+        foreach ($order->cases as $case) {
+            $cookieId = collect($case->cookies)->pluck('cookie_id')->toArray();
+            $cookieIds = $cookieIds->concat($cookieId);
+
+            $packId = collect($case->cookies)->pluck('pack_id')->toArray();
+            $packIds = $packIds->concat($packId);
+        }
+        $cookieIds = $cookieIds->unique()->toArray();
+        $packIds = $packIds->unique()->toArray();
+
+        $cookies = Cookie::select([
+            'id', 'name'
+        ])->whereIn('id', $cookieIds)->get();
+
+        $packs = Pack::select([
+            'id', 'name'
+        ])->whereIn('id', $packIds)->get();
+
+        return view('order.create', [
+            'order' => $order,
+            'caseTypes' => $caseTypes,
+            'cookies' => $cookies,
+            'packs' => $packs
+        ]);
     }
 
     public function show($id)

@@ -29,6 +29,6 @@ class CaseModel extends Model
     public function cookies()
     {
         return $this->belongsToMany('App\Models\Cookie', 'case_has_cookies',
-            'case_id', 'cookie_id');
+            'case_id', 'cookie_id')->withPivot(['pack_id', 'amount']);
     }
 }

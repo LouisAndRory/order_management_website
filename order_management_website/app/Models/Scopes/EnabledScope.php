@@ -19,6 +19,6 @@ class EnabledScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('enabled', '=', true);
+        $builder->orWhere('enabled', '=', true);
     }
 }
