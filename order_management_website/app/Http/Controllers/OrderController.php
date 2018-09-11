@@ -26,7 +26,7 @@ class OrderController extends Controller
             'id', 'name'
         ])->get();
 
-        return response()->json([
+        return view('order.create',[
             'caseTypes' => $caseTypes,
             'cookies' => $cookies,
             'packs' => $packs

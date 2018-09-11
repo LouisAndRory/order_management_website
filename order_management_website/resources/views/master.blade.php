@@ -60,7 +60,7 @@
                 </header><!-- /header -->
                 <!-- Header-->
 
-                <div class="content mt-3">
+                <div class="content mt-3 container">
                     @yield('content')
                 </div> <!-- .content -->
             </div><!-- /#right-panel -->
