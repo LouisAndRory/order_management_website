@@ -15,14 +15,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('test', function() {
-   $order = \App\Models\Order::findOrFail(2725);
-
-   info($order->toArray());
-
-   return response()->json($order->cases()->pluck('id'));
-});
-
 Route::group(['prefix' => 'order'], function () {
     Route::get('/create', 'OrderController@create');
     Route::get('/{id}', 'OrderController@show');
