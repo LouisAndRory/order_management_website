@@ -9,6 +9,77 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+.title-line::after {
+    position: absolute;
+    content: "";
+}
+.cursor-pointer:hover {
+    cursor: pointer;
+}
+
+.card .close {
+    right: 0.5rem;
+    top: -2px;
+    font-size: 40px;
+    z-index: 2;
+}
+
+.material-switch > {
+    label {
+        cursor: pointer;
+        height: 0px;
+        position: relative;
+        width: 40px;
+        &::before {
+            background: rgb(0, 0, 0);
+            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            content: '';
+            height: 16px;
+            margin-top: -8px;
+            position: absolute;
+            opacity: 0.3;
+            transition: all 0.4s ease-in-out;
+            width: 40px;
+        }
+        &::after {
+            background: rgb(255, 255, 255);
+            border-radius: 16px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+            content: '';
+            height: 24px;
+            left: -4px;
+            margin-top: -8px;
+            position: absolute;
+            top: -4px;
+            transition: all 0.3s ease-in-out;
+            width: 24px;
+        }
+    }
+    input[type="checkbox"]:checked + label {
+        &::before {
+            background: inherit;
+            opacity: 0.5;
+        }
+        &::after {
+            background: inherit;
+            left: 20px;
+        }
+    }
+}
+
+/* Custom Font Size */
+$MAX_COUSTOM_FONT: 80;
+$MIN_COUSTOM_FONT: 8;
+@mixin font-size-list {
+  @for $i from $MIN_COUSTOM_FONT through $MAX_COUSTOM_FONT {
+    .font-size-#{$i} {
+      font-size: #{$i}px
+    }
+  }
+}
+@include font-size-list;
+
 .bg-flat-color-1 {background: #20a8d8};
 .bg-flat-color-2 {background: #63c2de};
 .bg-flat-color-3 {background: #ffc107};
