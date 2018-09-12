@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -32,6 +33,20 @@ class Order extends Model
         'email', 'deposit', 'extra_fee', 'engaged_date', 'married_date',
         'remark', 'card_required', 'wood_required', 'final_paid'
     ];
+
+    public function setEngagedDateAttribute($value)
+    {
+        if ($value) {
+            $this->attributes['engaged_date'] = Carbon::parse($value)->setTimezone(config('app.timezone'))->toDateString();
+        }
+    }
+
+    public function setMarriedDateAttribute($value)
+    {
+        if ($value) {
+            $this->attributes['married_date'] = Carbon::parse($value)->setTimezone(config('app.timezone'))->toDateString();
+        }
+    }
 
     public function cases()
     {

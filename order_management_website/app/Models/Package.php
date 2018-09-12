@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -28,4 +29,18 @@ class Package extends Model
         'order_id', 'status_id', 'name', 'phone', 'address',
         'remark', 'sent_at', 'arrived_at'
     ];
+
+    public function setSentAtAttribute($value)
+    {
+        if ($value) {
+            $this->attributes['sent_at'] = Carbon::parse($value)->setTimezone(config('app.timezone'))->toDateString();
+        }
+    }
+
+    public function setArrivedAtAttribute($value)
+    {
+        if ($value) {
+            $this->attributes['arrived_at'] = Carbon::parse($value)->setTimezone(config('app.timezone'))->toDateString();
+        }
+    }
 }

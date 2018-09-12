@@ -59,5 +59,15 @@ class ResponseMacroServiceProvider extends ServiceProvider
             }
             return Response::json($returnArray, 400);
         });
+
+        Response::macro('json_deleted_failed', function($value = []) {
+            $returnArray = [
+                'message' => 'Delete failed.'
+            ];
+            if (!empty($value)) {
+                $returnArray = array_merge($returnArray, $value);
+            }
+            return Response::json($returnArray, 400);
+        });
     }
 }
