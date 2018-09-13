@@ -93,7 +93,8 @@ class OrderController extends Controller
         ])->with([
             'cases' => function ($q) {
                 $q->select([
-                    'cases.id', 'cases.order_id', 'case_types.name', 'cases.amount', 'cases.price'
+                    'cases.id', 'cases.order_id', 'case_types.name AS case_type_name',
+                    'cases.amount', 'cases.price', 'cases.case_type_id AS case_type_id'
                 ])->join('case_types', 'cases.case_type_id', '=', 'case_types.id')
                     ->with([
                         'cookies' => function ($q) {
@@ -121,8 +122,16 @@ class OrderController extends Controller
             }
         ])->findOrFail($id);
 
+        $caseTypeIds = $order->cases->pluck('case_type_id')->toArray();
+        $caseTypes = CaseType::withoutGlobalScopes()
+            ->select([
+                'id', 'name'
+            ])->whereIn('id', $caseTypeIds)
+            ->get();
+
         return view('', [
-            'order' => $order
+            'order' => $order,
+            'caseTypes' => $caseTypes
         ]);
     }
 

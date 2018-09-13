@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Package;
 
+use App\Rules\Package\AmountLimit;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -32,7 +33,9 @@ class StoreRequest extends FormRequest
             'sent_at' => 'nullable|date',
             'arrived_at' => 'required|date',
             'checked' => 'nullable|boolean',
-            'cases' => 'nullable|array',
+            'cases' => [
+                'nullable', 'array', new AmountLimit($this)
+            ],
             'cases.*.case_id' => 'required|exists:cases,id',
             'cases.*.amount' => 'nullable|integer'
         ];

@@ -112,6 +112,7 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
+    'package_case_amount_limit' => '超過禮盒總盒數',
 
     /*
     |--------------------------------------------------------------------------
