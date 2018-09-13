@@ -33,7 +33,7 @@ class OrderMutator implements MutatorContract
                             $cookieData = array_get($caseDatum, 'cookies');
                             if (!empty($cookieData)) {
                                 foreach ($cookieData as $cookieDatum) {
-                                    $case->cookies()->attach($case->id, $cookieDatum);
+                                    $case->cookies()->create($cookieDatum);
                                 }
                             }
                         }
@@ -90,9 +90,9 @@ class OrderMutator implements MutatorContract
                         if (array_has($caseDatum, 'cookies')) {
                             $cookieData = array_get($caseDatum, 'cookies');
                             if (!empty($cookieData)) {
-                                $case->cookies()->detach();
+                                $case->cookies()->delete();
                                 foreach ($cookieData as $cookieDatum) {
-                                    $case->cookies()->attach($case->id, $cookieDatum);
+                                    $case->cookies()->create($cookieDatum);
                                 }
                             }
                         }

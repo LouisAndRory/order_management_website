@@ -20,6 +20,10 @@ class Package extends Model
         'deleted_at'
     ];
 
+    protected $appends = [
+        'shipped'
+    ];
+
     protected $casts = [
         'sent_at' => 'date:Y-m-d',
         'arrived_at' => 'data:Y-m-d'
@@ -42,5 +46,10 @@ class Package extends Model
         if ($value) {
             $this->attributes['arrived_at'] = Carbon::parse($value)->setTimezone(config('app.timezone'))->toDateString();
         }
+    }
+
+    public function getShippedAttribute()
+    {
+        return in_array('sent_at', $this->attributes) && $this->attributes['sent_at'] !== null;
     }
 }
