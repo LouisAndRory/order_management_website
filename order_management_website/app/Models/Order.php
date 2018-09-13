@@ -53,4 +53,9 @@ class Order extends Model
     {
         return $this->hasMany('App\Models\CaseModel', 'order_id');
     }
+
+    public function packages()
+    {
+        return $this->hasMany('App\Models\Package', 'order_id');
+    }
 }

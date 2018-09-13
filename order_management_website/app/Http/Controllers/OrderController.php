@@ -95,13 +95,27 @@ class OrderController extends Controller
                 $q->select([
                     'cases.id', 'cases.order_id', 'case_types.name', 'cases.amount', 'cases.price'
                 ])->join('case_types', 'cases.case_type_id', '=', 'case_types.id')
-                ->with([
-                    'cookies' => function ($q) {
+                    ->with([
+                        'cookies' => function ($q) {
+                            $q->select([
+                                'case_id', 'amount',
+                                'cookies.name AS cookie_name', 'packs.name AS pack_name'
+                            ])->join('packs', 'packs.id', '=', 'case_has_cookies.pack_id')
+                                ->join('cookies', 'cookies.id', '=', 'case_has_cookies.cookie_id');
+                        }
+                    ]);
+            },
+            'packages' => function ($q) {
+                $q->select([
+                    'id', 'order_id', 'name', 'phone', 'address', 'remark',
+                    'sent_at', 'arrived_at', 'checked'
+                ])->with([
+                    'cases' => function ($q) {
                         $q->select([
-                            'case_id', 'amount',
-                            'cookies.name AS cookie_name', 'packs.name AS pack_name'
-                        ])->join('packs', 'packs.id', '=', 'case_has_cookies.pack_id')
-                            ->join('cookies', 'cookies.id', '=', 'case_has_cookies.cookie_id');
+                            'package_has_cases.case_id', 'package_has_cases.amount', 'package_has_cases.package_id',
+                            'case_types.name AS case_type_name'
+                        ])->join('cases', 'cases.id', '=', 'package_has_cases.case_id')
+                            ->join('case_types', 'case_types.id', '=', 'cases.case_type_id');
                     }
                 ]);
             }
