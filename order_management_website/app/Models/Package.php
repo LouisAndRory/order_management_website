@@ -52,4 +52,9 @@ class Package extends Model
     {
         return in_array('sent_at', $this->attributes) && $this->attributes['sent_at'] !== null;
     }
+
+    public function cases()
+    {
+        return $this->hasMany('App\Models\PackageHasCases', 'package_id');
+    }
 }

@@ -21,6 +21,15 @@ class PackageMutator implements MutatorContract
 
             $package = Package::create($data);
 
+            if (array_has($data, 'cases')) {
+                $caseData = array_get($data, 'cases', []);
+                if (!empty($caseData)) {
+                    foreach ($caseData as $caseDatum) {
+                        $package->cases()->create($caseDatum);
+                    }
+                }
+            }
+
             info("Package created", $package->toArray());
 
             DB::commit();
@@ -46,6 +55,16 @@ class PackageMutator implements MutatorContract
 
             $package = Package::findOrFail($id);
             $package->update($data);
+
+            if (array_has($data, 'cases')) {
+                $caseData = array_get($data, 'cases', []);
+                if (!empty($caseData)) {
+                    $package->cases()->delete();
+                    foreach ($caseData as $caseDatum) {
+                        $package->cases()->create($caseDatum);
+                    }
+                }
+            }
 
             info("Package updated", $package->toArray());
 
