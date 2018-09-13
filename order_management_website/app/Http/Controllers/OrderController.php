@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+
+    }
+
     public function create()
     {
         $caseTypes = CaseType::select([
@@ -44,13 +49,6 @@ class OrderController extends Controller
             'cases:id,order_id,case_type_id,price,amount',
             'cases.cookies'
         ])->findOrFail($id);
-
-        //-- change format
-        foreach ($order->cases as $case) {
-            foreach ($case->cookies as $key => $cookie) {
-                $case->cookies[$key] = $cookie->pivot;
-            }
-        }
 
         $caseTypeIds = collect($order->cases)->pluck('case_type_id')->toArray();
         $caseTypes = CaseType::select([
@@ -88,7 +86,30 @@ class OrderController extends Controller
 
     public function show($id)
     {
+        $order = Order::select([
+            'id', 'name', 'name_backup', 'phone', 'phone_backup',
+            'email', 'deposit', 'extra_fee', 'final_paid', 'engaged_date',
+            'married_date', 'remark', 'card_required', 'wood_required'
+        ])->with([
+            'cases' => function ($q) {
+                $q->select([
+                    'cases.id', 'cases.order_id', 'case_types.name', 'cases.amount', 'cases.price'
+                ])->join('case_types', 'cases.case_type_id', '=', 'case_types.id')
+                ->with([
+                    'cookies' => function ($q) {
+                        $q->select([
+                            'case_id', 'amount',
+                            'cookies.name AS cookie_name', 'packs.name AS pack_name'
+                        ])->join('packs', 'packs.id', '=', 'case_has_cookies.pack_id')
+                            ->join('cookies', 'cookies.id', '=', 'case_has_cookies.cookie_id');
+                    }
+                ]);
+            }
+        ])->findOrFail($id);
 
+        return view('', [
+            'order' => $order
+        ]);
     }
 
     public function store(StoreRequest $request)
