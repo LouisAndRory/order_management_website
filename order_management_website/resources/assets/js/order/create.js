@@ -16,7 +16,8 @@ const OrderCreateApp = new Vue({
     data: {
         order: {},
         orderDDL: orderDDL,
-        errors: {}
+        errors: {},
+        showPageUrl: showPageUrl
     },
     components: {
         Datepicker
@@ -95,7 +96,7 @@ const OrderCreateApp = new Vue({
                     showConfirmButton: false,
                     timer: 1000
                 }).then(() => {
-                    console.log('YES, go to show')
+                    window.location.href = `${that.showPageUrl}/${response.id}`
                 })
              })
              .fail(function( xhr) {

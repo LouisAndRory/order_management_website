@@ -129,7 +129,7 @@ class OrderController extends Controller
             ])->whereIn('id', $caseTypeIds)
             ->get();
 
-        return view('', [
+        return view('order.show', [
             'order' => $order,
             'caseTypes' => $caseTypes
         ]);
@@ -141,9 +141,11 @@ class OrderController extends Controller
 
         $orderMutator = new OrderMutator();
         try {
-            $orderMutator->store($request->all());
+            $order = $orderMutator->store($request->all());
 
-            return response()->json_created();
+            return response()->json_created([
+                'id' => $order->id
+            ]);
         } catch (\Exception $e) {
             return response()->json_create_failed();
         }

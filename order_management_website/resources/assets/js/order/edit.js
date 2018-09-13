@@ -16,7 +16,8 @@ const OrderEditApp = new Vue({
     data: {
         order: editOrder,
         orderDDL: orderDDL,
-        errors: {}
+        errors: {},
+        showPageUrl: showPageUrl
     },
     components: {
         Datepicker
@@ -95,7 +96,7 @@ const OrderEditApp = new Vue({
                     showConfirmButton: false,
                     timer: 1000
                 }).then(() => {
-                    console.log('YES, go to show')
+                    window.location.href = that.showPageUrl
                 })
              })
              .fail(function( xhr) {
@@ -113,7 +114,10 @@ const OrderEditApp = new Vue({
     created: function() {
         const tempOrder = localStorage.getItem('orderEdit')
         if(tempOrder){
-            this.order = JSON.parse(tempOrder)
+            const parseTempOrderJSON = JSON.parse(tempOrder)
+            if(parseTempOrderJSON.id == this.order.id) {
+                _.set(this.order, parseTempOrderJSON)
+            }
         }
     }
 })

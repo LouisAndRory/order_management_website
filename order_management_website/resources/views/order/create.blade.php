@@ -199,6 +199,7 @@
 @endsection
 
 @section('custom-js')
+    const showPageUrl = '{{ route('order.show', ['id'=> ''])}}';
     const orderDDL = {
         cases: @json($caseTypes),
         cookies: @json($cookies),

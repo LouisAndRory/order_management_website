@@ -45,5 +45,18 @@ return [
         'married_date' => '請點選結婚日期',
         'remark' => '請輸入備註事項'
     ],
+    'replace_string' => [
+        'required' => [
+            'yes' => '要',
+            'no' => '不要'
+        ],
+        'paid' => [
+            'yes' => '已付',
+            'no' => '未付'
+        ]
+    ],
+    'unit' => [
+        'dollar' => '元'
+    ]
 
 ];
