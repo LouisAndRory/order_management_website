@@ -30,7 +30,8 @@ return [
         'married_date' => '結婚日期',
         'card_required' => '結婚小卡',
         'wood_required' => '準備木盛',
-        'remark' => '備註'
+        'remark' => '備註',
+        'final_paid' => '尾款'
     ],
     'placeholder' => [
         'name' => '請輸入訂購人',

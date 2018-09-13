@@ -35,6 +35,9 @@ return [
     ],
     'created_order' => [
         'title' => '訂單新增成功！',
+    ],
+    'edited_order' => [
+        'title' => '訂單修改成功！',
     ]
 
 ];

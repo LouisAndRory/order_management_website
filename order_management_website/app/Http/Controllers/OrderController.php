@@ -78,7 +78,7 @@ class OrderController extends Controller
             'id', 'name'
         ])->whereIn('id', $packIds)->get();
 
-        return view('order.create', [
+        return view('order.edit', [
             'order' => $order,
             'caseTypes' => $caseTypes,
             'cookies' => $cookies,

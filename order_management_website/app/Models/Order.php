@@ -21,9 +21,6 @@ class Order extends Model
     ];
 
     protected $casts = [
-        'card_required' => 'boolean',
-        'wood_required' => 'boolean',
-        'final_paid' => 'boolean',
         'engaged_date' => 'date:Y-m-d',
         'married_date' => 'data:Y-m-d'
     ];
@@ -38,6 +35,8 @@ class Order extends Model
     {
         if ($value) {
             $this->attributes['engaged_date'] = Carbon::parse($value)->setTimezone(config('app.timezone'))->toDateString();
+        } else {
+            $this->attributes['engaged_date'] = null;
         }
     }
 
@@ -45,6 +44,8 @@ class Order extends Model
     {
         if ($value) {
             $this->attributes['married_date'] = Carbon::parse($value)->setTimezone(config('app.timezone'))->toDateString();
+        } else {
+            $this->attributes['married_date'] = null;
         }
     }
 

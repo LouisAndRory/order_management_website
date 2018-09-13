@@ -1,7 +1,8 @@
 @extends('master')
 
 @section('content')
-<form id="orderCreateApp" v-on:submit.prevent="onSubmit">
+<form id="orderEditApp" v-on:submit.prevent="onSubmit">
+    @{{order}}
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="orderName">{{ __('order.fields.name')}}<span class="text-danger">*</span></label>
@@ -27,9 +28,18 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label for="orderEmail">{{ __('order.fields.email')}}</label>
-        <input type="email" class="form-control" id="orderEmail" placeholder="{{ __('order.placeholder.email')}}" v-model="order.email">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="orderEmail">{{ __('order.fields.email')}}</label>
+            <input type="email" class="form-control" id="orderEmail" placeholder="{{ __('order.placeholder.email')}}" v-model="order.email">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="orderFinalPaid">{{ __('order.fields.final_paid')}}</label>
+            <div class="material-switch mt-2">
+                <input type="checkbox" id="orderFinalPaid" class="d-none" v-model="order.final_paid" :true-value="1" :false-value="0">
+                <label for="orderFinalPaid" class="bg-success"></label>
+            </div>
+        </div>
     </div>
 
     <div class="form-row">
@@ -86,14 +96,14 @@
         <div class="form-group col-md-6">
             <label for="orderCardRequired">{{ __('order.fields.card_required')}}</label>
             <div class="material-switch mt-2">
-                <input type="checkbox" id="orderCardRequired" class="d-none" v-model="order.card_required" true-value="1" false-value="0">
+                <input type="checkbox" id="orderCardRequired" class="d-none" v-model="order.card_required" :true-value="1" :false-value="0">
                 <label for="orderCardRequired" class="bg-success"></label>
             </div>
         </div>
         <div class="form-group col-md-6">
             <label for="orderWoodRequired">{{ __('order.fields.wood_required')}}</label>
             <div class="material-switch mt-2">
-                <input type="checkbox" id="orderWoodRequired" class="d-none" v-model="order.wood_required" true-value="1" false-value="0">
+                <input type="checkbox" id="orderWoodRequired" class="d-none" v-model="order.wood_required" :true-value="1" :false-value="0">
                 <label for="orderWoodRequired" class="bg-success"></label>
             </div>
         </div>
@@ -190,10 +200,10 @@
 @endsection
 
 @section('custom-js')
+    const editOrder = @json($order);
     const orderDDL = {
         cases: @json($caseTypes),
         cookies: @json($cookies),
         packs: @json($packs)
-    }
+    };
 @endsection
-

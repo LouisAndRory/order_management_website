@@ -4,7 +4,17 @@ window.Vue = require('vue');
 window.Vue.use(VueSweetalert2);
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
-require('./order/create');
+
+const orderCreateApp = document.getElementById("orderCreateApp");
+const orderEditApp = document.getElementById("orderEditApp");
+
+if(orderCreateApp){
+	require('./order/create');
+}else if(orderEditApp) {
+	require('./order/edit');
+}
+
+
 
 try {
     window.$ = window.jQuery = require('jquery');
