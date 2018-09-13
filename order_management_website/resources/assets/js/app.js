@@ -4,6 +4,8 @@ window.Vue = require('vue');
 window.Vue.use(VueSweetalert2);
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
+window.moment = require('moment');
+
 
 const orderCreateApp = document.getElementById("orderCreateApp");
 const orderEditApp = document.getElementById("orderEditApp");

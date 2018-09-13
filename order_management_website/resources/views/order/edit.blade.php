@@ -2,7 +2,6 @@
 
 @section('content')
 <form id="orderEditApp" v-on:submit.prevent="onSubmit">
-    @{{order}}
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="orderName">{{ __('order.fields.name')}}<span class="text-danger">*</span></label>
@@ -71,7 +70,7 @@
             <label for="orderEngagedDate">{{ __('order.fields.engaged_date')}}</label>
             <datepicker
                 format="yyyy-MM-dd"
-                v-model="order.engaged_date"
+                v-model="engagedDate"
                 input-class="bg-white"
                 id="orderEngagedDate"
                 calendar-button-icon="fa fa-calendar"
@@ -84,7 +83,7 @@
             <label for="orderMarriedDate">{{ __('order.fields.married_date')}}</label>
             <datepicker
                 format="yyyy-MM-dd"
-                v-model="order.married_date"
+                v-model="marriedDate"
                 input-class="bg-white"
                 id="orderMarriedDate"
                 calendar-button-icon="fa fa-calendar"

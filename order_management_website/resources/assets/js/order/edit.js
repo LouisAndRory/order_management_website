@@ -21,6 +21,30 @@ const OrderEditApp = new Vue({
     components: {
         Datepicker
     },
+    computed: {
+        engagedDate: {
+            get: function () {
+                return _.get(this.order, 'engaged_date', null)
+            },
+            set: function (newValue) {
+                if(newValue){
+                    return _.set(this.order, 'engaged_date', moment(newValue).format('YYYY-MM-DD'))
+                }
+                _.set(this.order, 'engaged_date', null)
+            }
+        },
+        marriedDate: {
+            get: function () {
+                return _.get(this.order, 'married_date', null)
+            },
+            set: function (newValue) {
+                if(newValue){
+                    return _.set(this.order, 'married_date', moment(newValue).format('YYYY-MM-DD'))
+                }
+                _.set(this.order, 'married_date', null)
+            }
+        }
+    },
     methods: {
         addCase: function() {
             if(!this.order.cases) this.$set(this.order, 'cases', [])

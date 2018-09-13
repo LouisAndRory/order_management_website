@@ -61,7 +61,7 @@
             <label for="orderEngagedDate">{{ __('order.fields.engaged_date')}}</label>
             <datepicker
                 format="yyyy-MM-dd"
-                v-model="order.engaged_date"
+                v-model="engagedDate"
                 input-class="bg-white"
                 id="orderEngagedDate"
                 calendar-button-icon="fa fa-calendar"
@@ -74,7 +74,7 @@
             <label for="orderMarriedDate">{{ __('order.fields.married_date')}}</label>
             <datepicker
                 format="yyyy-MM-dd"
-                v-model="order.married_date"
+                v-model="marriedDate"
                 input-class="bg-white"
                 id="orderMarriedDate"
                 calendar-button-icon="fa fa-calendar"
