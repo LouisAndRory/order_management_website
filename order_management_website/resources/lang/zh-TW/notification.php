@@ -20,7 +20,7 @@ return [
     ],
     '422_error' => [
         'title' => 'Oops...',
-        'text' => '必填資料沒填完喔！',
+        'text' => '必填資料沒填，或填寫格式錯誤',
     ],
     'unexpect_error' => [
         'title' => 'Oops...',

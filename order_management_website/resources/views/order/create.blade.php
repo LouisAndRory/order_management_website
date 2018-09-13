@@ -7,7 +7,7 @@
             <label for="orderName">{{ __('order.fields.name')}}<span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="orderName" placeholder="{{ __('order.placeholder.name')}}" v-model="order.name" :class="{'is-invalid': errors.name}" required>
             <div class="invalid-feedback">
-                <div v-for="msg in errors.name">@{{errors.name}}</div>
+                <div v-for="msg in errors.name">@{{msg}}</div>
             </div>
         </div>
         <div class="form-group col-md-6">
@@ -29,7 +29,10 @@
 
     <div class="form-group">
         <label for="orderEmail">{{ __('order.fields.email')}}</label>
-        <input type="email" class="form-control" id="orderEmail" placeholder="{{ __('order.placeholder.email')}}" v-model="order.email">
+        <input type="email" class="form-control" id="orderEmail" placeholder="{{ __('order.placeholder.email')}}" v-model="order.email" :class="{'is-invalid': errors.email}">
+        <div class="invalid-feedback">
+            <div v-for="msg in errors.email">@{{msg}}</div>
+        </div>
     </div>
 
     <div class="form-row">
@@ -143,20 +146,26 @@
                 </div>
                 <div class="form-row py-2" :class="{'bg-light-primary': cookieIndex%2==0 }" v-for="(cookieItem, cookieIndex) in caseItem.cookies">
                     <div class="col-md-6">
-                        <select class="form-control" v-model="cookieItem.cookie_id">
-                            <option value="" hidden>{{ __('cookie.placeholder.cookie_type')}}</option>
+                        <select class="form-control" v-model="cookieItem.cookie_id" :class="{'is-invalid': hasCookieError(caseIndex, cookieIndex, 'cookie_id')}" required>
+                            <option value="" hidden>{{ __('cookie.placeholder.cookie_type')}}*</option>
                             <option v-for="option in orderDDL.cookies" :value="option.id">
                                 @{{ option.name }}
                             </option>
                         </select>
+                        <div class="invalid-feedback">
+                            <div v-for="msg in getCookieError(caseIndex, cookieIndex, 'cookie_id')">@{{msg}}</div>
+                        </div>
                     </div>
                     <div class="col-md-3">
-                        <select class="form-control" v-model="cookieItem.pack_id">
-                            <option value="" hidden>{{ __('cookie.placeholder.pack_type')}}</option>
+                        <select class="form-control" v-model="cookieItem.pack_id" :class="{'is-invalid': hasCookieError(caseIndex, cookieIndex, 'pack_id')}" required>
+                            <option value="" hidden>{{ __('cookie.placeholder.pack_type')}}*</option>
                             <option v-for="option in orderDDL.packs" :value="option.id">
                                 @{{ option.name }}
                             </option>
                         </select>
+                        <div class="invalid-feedback">
+                            <div v-for="msg in getCookieError(caseIndex, cookieIndex, 'pack_id')">@{{msg}}</div>
+                        </div>
                     </div>
                     <div class="col-md-2">
                         <div class="input-group">

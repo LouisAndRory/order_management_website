@@ -48,6 +48,12 @@ const OrderEditApp = new Vue({
         delCookie: function(caseIndex, cookieIndex) {
             this.$delete( this.order.cases[caseIndex].cookies, cookieIndex )
         },
+        hasCookieError: function(caseIndex, cookieIndex, key) {
+            return _.has(this.errors, `cases.${caseIndex}.cookies.${cookieIndex}.${key}`)
+        },
+        getCookieError: function(caseIndex, cookieIndex, key) {
+            return _.get(this.errors, `cases.${caseIndex}.cookies.${cookieIndex}.${key}`, [])
+        },
         onSubmit: function() {
             localStorage.removeItem('orderEdit')
             this.errors = {}
