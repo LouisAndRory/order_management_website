@@ -22,7 +22,7 @@ class Order extends Model
 
     protected $casts = [
         'engaged_date' => 'date:Y-m-d',
-        'married_date' => 'data:Y-m-d'
+        'married_date' => 'date:Y-m-d'
     ];
 
     protected $fillable = [
