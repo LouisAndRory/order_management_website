@@ -42,8 +42,8 @@ class StoreRequest extends FormRequest
             'cases.*.price' => 'nullable|integer',
             'cases.*.amount' => 'nullable|integer',
             'cases.*.cookies' => 'nullable|array',
-            'cases.*.cookies.*.cookie_id' => 'nullable|exists:cookies,id',
-            'cases.*.cookies.*.pack_id' => 'nullable|exists:packs,id',
+            'cases.*.cookies.*.cookie_id' => 'required|exists:cookies,id',
+            'cases.*.cookies.*.pack_id' => 'required|exists:packs,id',
             'cases.*.cookies.*.amount' => 'nullable|integer'
         ];
     }

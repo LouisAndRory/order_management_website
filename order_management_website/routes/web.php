@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'order'], function () {
     Route::get('/', 'OrderController@index');
     Route::get('/create', 'OrderController@create');
-    Route::get('/{id}', 'OrderController@show');
+    Route::get('/{id}', 'OrderController@show')->name('order.show');
     Route::get('/{id}/edit', 'OrderController@edit');
     Route::post('/', 'OrderController@store');
     Route::put('/{id}', 'OrderController@update');

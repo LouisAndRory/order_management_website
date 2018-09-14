@@ -16,10 +16,35 @@ const OrderEditApp = new Vue({
     data: {
         order: editOrder,
         orderDDL: orderDDL,
-        errors: {}
+        errors: {},
+        showPageUrl: showPageUrl
     },
     components: {
         Datepicker
+    },
+    computed: {
+        engagedDate: {
+            get: function () {
+                return _.get(this.order, 'engaged_date', null)
+            },
+            set: function (newValue) {
+                if(newValue){
+                    return _.set(this.order, 'engaged_date', moment(newValue).format('YYYY-MM-DD'))
+                }
+                _.set(this.order, 'engaged_date', null)
+            }
+        },
+        marriedDate: {
+            get: function () {
+                return _.get(this.order, 'married_date', null)
+            },
+            set: function (newValue) {
+                if(newValue){
+                    return _.set(this.order, 'married_date', moment(newValue).format('YYYY-MM-DD'))
+                }
+                _.set(this.order, 'married_date', null)
+            }
+        }
     },
     methods: {
         addCase: function() {
@@ -48,6 +73,12 @@ const OrderEditApp = new Vue({
         delCookie: function(caseIndex, cookieIndex) {
             this.$delete( this.order.cases[caseIndex].cookies, cookieIndex )
         },
+        hasCookieError: function(caseIndex, cookieIndex, key) {
+            return _.has(this.errors, `cases.${caseIndex}.cookies.${cookieIndex}.${key}`)
+        },
+        getCookieError: function(caseIndex, cookieIndex, key) {
+            return _.get(this.errors, `cases.${caseIndex}.cookies.${cookieIndex}.${key}`, [])
+        },
         onSubmit: function() {
             localStorage.removeItem('orderEdit')
             this.errors = {}
@@ -65,7 +96,7 @@ const OrderEditApp = new Vue({
                     showConfirmButton: false,
                     timer: 1000
                 }).then(() => {
-                    console.log('YES, go to show')
+                    window.location.href = that.showPageUrl
                 })
              })
              .fail(function( xhr) {
@@ -83,7 +114,10 @@ const OrderEditApp = new Vue({
     created: function() {
         const tempOrder = localStorage.getItem('orderEdit')
         if(tempOrder){
-            this.order = JSON.parse(tempOrder)
+            const parseTempOrderJSON = JSON.parse(tempOrder)
+            if(parseTempOrderJSON.id == this.order.id) {
+                _.set(this.order, parseTempOrderJSON)
+            }
         }
     }
 })
