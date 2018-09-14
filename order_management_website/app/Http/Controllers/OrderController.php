@@ -8,6 +8,7 @@ use App\Models\CaseType;
 use App\Models\Cookie;
 use App\Models\Order;
 use App\Models\Pack;
+use App\Services\Features\OrderService;
 use App\Services\Mutators\OrderMutator;
 use Illuminate\Http\Request;
 
@@ -128,6 +129,9 @@ class OrderController extends Controller
                 'id', 'name'
             ])->whereIn('id', $caseTypeIds)
             ->get();
+
+        $orderService = new OrderService();
+        $orderService->getTotalFeeAttribute($order);
 
         return view('', [
             'order' => $order,
