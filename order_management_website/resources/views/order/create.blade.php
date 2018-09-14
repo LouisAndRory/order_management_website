@@ -120,12 +120,15 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <select class="form-control" v-model="caseItem.case_type">
-                            <option value="" hidden>{{ __('case.placeholder.case_type')}}</option>
+                        <select class="form-control" v-model="caseItem.case_type_id" :class="{'is-invalid': hasCaseError(caseIndex, 'case_type_id')}">
+                            <option value="" hidden>{{ __('case.placeholder.case_type')}}*</option>
                             <option v-for="option in orderDDL.cases" :value="option.id">
                                 @{{ option.name }}
                             </option>
                         </select>
+                        <div class="invalid-feedback">
+                            <div v-for="msg in getCaseError(caseIndex, 'case_type_id')">@{{msg}}</div>
+                        </div>
                     </div>
                     <div class="form-group col-md-3">
                         <div class="input-group">

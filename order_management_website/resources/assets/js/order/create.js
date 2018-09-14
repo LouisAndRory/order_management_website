@@ -2,7 +2,7 @@ import Datepicker from 'vuejs-datepicker'
 
 
 const defaultCase = {
-    case_type: '',
+    case_type_id: '',
     cookies: []
 };
 const defaultCookie = {
@@ -72,6 +72,12 @@ const OrderCreateApp = new Vue({
         },
         delCookie: function(caseIndex, cookieIndex) {
             this.$delete( this.order.cases[caseIndex].cookies, cookieIndex )
+        },
+        hasCaseError: function(caseIndex, key) {
+            return _.has(this.errors, `cases.${caseIndex}.${key}`)
+        },
+        getCaseError: function(caseIndex, key) {
+            return _.get(this.errors, `cases.${caseIndex}.${key}`, [])
         },
         hasCookieError: function(caseIndex, cookieIndex, key) {
             return _.has(this.errors, `cases.${caseIndex}.cookies.${cookieIndex}.${key}`)

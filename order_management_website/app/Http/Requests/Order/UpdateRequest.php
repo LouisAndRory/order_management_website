@@ -38,7 +38,7 @@ class UpdateRequest extends FormRequest
             'card_required' => 'nullable|boolean',
             'wood_required' => 'nullable|boolean',
             'cases' => 'nullable|array',
-            'cases.*.case_type_id' => 'nullable|exists:case_types,id',
+            'cases.*.case_type_id' => 'sometimes|required|exists:case_types,id',
             'cases.*.price' => 'nullable|integer',
             'cases.*.amount' => 'nullable|integer',
             'cases.*.cookies' => 'nullable|array',
