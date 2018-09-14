@@ -26,7 +26,7 @@ class Package extends Model
 
     protected $casts = [
         'sent_at' => 'date:Y-m-d',
-        'arrived_at' => 'data:Y-m-d'
+        'arrived_at' => 'date:Y-m-d'
     ];
 
     protected $fillable = [

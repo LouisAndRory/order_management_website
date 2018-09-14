@@ -23,6 +23,8 @@ Route::group(['prefix' => 'order'], function () {
     Route::post('/', 'OrderController@store');
     Route::put('/{id}', 'OrderController@update');
     Route::delete('/{id}', 'OrderController@delete');
+
+    Route::get('/{id}/pdf', 'OrderController@pdf');
 });
 
 Route::group(['prefix' => 'package'], function () {

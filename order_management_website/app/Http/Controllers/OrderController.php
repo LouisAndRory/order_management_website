@@ -8,6 +8,7 @@ use App\Models\CaseType;
 use App\Models\Cookie;
 use App\Models\Order;
 use App\Models\Pack;
+use App\Services\Features\OrderPDFGenerator;
 use App\Services\Features\OrderService;
 use App\Services\Mutators\OrderMutator;
 use Illuminate\Http\Request;
@@ -181,5 +182,13 @@ class OrderController extends Controller
         } catch (\Exception $e) {
             return response()->json_deleted_failed();
         }
+    }
+
+    public function pdf($id)
+    {
+        $order = Order::findOrFail($id);
+
+        $generator = new OrderPDFGenerator($order);
+        $generator->create();
     }
 }
