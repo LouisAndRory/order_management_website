@@ -6,23 +6,22 @@ window._ = require('lodash');
 window.Popper = require('popper.js').default;
 window.moment = require('moment');
 
+try {
+    window.$ = window.jQuery = require('jquery');
+    require('bootstrap');
+} catch (e) {}
 
 const orderCreateApp = document.getElementById("orderCreateApp");
 const orderEditApp = document.getElementById("orderEditApp");
+const packageApp = document.getElementById("packageApp");
 
 if(orderCreateApp){
 	require('./order/create');
 }else if(orderEditApp) {
 	require('./order/edit');
+}else if(packageApp) {
+	require('./package');
 }
-
-
-
-try {
-    window.$ = window.jQuery = require('jquery');
-
-    require('bootstrap');
-} catch (e) {}
 
 const token = document.head.querySelector('meta[name="csrf-token"]');
 if (token) {
@@ -33,6 +32,7 @@ if (token) {
 		statusCode: {
 			419: function() {
 				Vue.swal({
+					allowOutsideClick: false,
 					type: 'error',
 					title: _.get(window.notificationLang, '412_error.title'),
 					text: _.get(window.notificationLang, '412_error.text'),
@@ -52,6 +52,8 @@ if (token) {
 			},
 			500: function() {
 				Vue.swal({
+					allowOutsideClick: false,
+					backdrop: false,
 					type: 'error',
 					title: _.get(window.notificationLang, 'unexpect_error.title'),
 					text: _.get(window.notificationLang, 'unexpect_error.text'),

@@ -28,7 +28,7 @@ Route::group(['prefix' => 'order'], function () {
 });
 
 Route::group(['prefix' => 'package'], function () {
-    Route::post('/', 'PackageController@store');
+    Route::post('/', 'PackageController@store')->name('package');
     Route::put('/{id}', 'PackageController@update');
     Route::delete('/{id}', 'PackageController@delete');
 });

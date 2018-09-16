@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="form-group col-md-6">
-            <label for="orderName">{{ __('order.fields.phone')}}</label>
+            <label for="orderPhone">{{ __('order.fields.phone')}}</label>
             <input type="tel" class="form-control" id="orderPhone" placeholder="{{ __('order.placeholder.phone')}}" v-model="order.phone">
         </div>
     </div>

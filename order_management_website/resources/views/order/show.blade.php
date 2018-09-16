@@ -24,13 +24,17 @@
     <dd class="col-md-3">{{ $order->deposit? $order->deposit.' '.__('order.unit.dollar'):'-' }}</dd>
 
     <dt class="col-md-3">{{ __('order.fields.final_paid')}}</dt>
-    <dd class="col-md-3">{{ $order->final_paid? __('order.replace_string.paid.yes'):__('order.replace_string.paid.no') }}</dd>
+    <dd class="col-md-3">
+        {{ $order->total_fee.' '.__('order.unit.dollar') }}
+        <span class="ml-2 fa {{ $order->final_paid? 'fa-check-circle text-success':'fa-exclamation-circle text-danger'}}"></span>
+        <span class="{{ $order->final_paid? 'text-success':'text-danger'}}">{{ $order->final_paid? __('order.replace_string.paid.yes'):__('order.replace_string.paid.no') }}</span>
+    </dd>
 
     <dt class="col-md-3">{{ __('order.fields.engaged_date')}}</dt>
-    <dd class="col-md-3">{{ $order->engaged_date? $order->engaged_date:'-' }}</dd>
+    <dd class="col-md-3">{{ $order->engaged_date? $order->engaged_date->format('Y-m-d'):'-' }}</dd>
 
     <dt class="col-md-3">{{ __('order.fields.married_date')}}</dt>
-    <dd class="col-md-3">{{ $order->married_date? $order->married_date:'-' }}</dd>
+    <dd class="col-md-3">{{ $order->married_date? $order->married_date->format('Y-m-d'):'-' }}</dd>
 
     <dt class="col-md-3">{{ __('order.fields.card_required')}}</dt>
     <dd class="col-md-3">{{ $order->card_required? __('order.replace_string.required.yes'):__('order.replace_string.required.no') }}</dd>
@@ -56,7 +60,7 @@
                     @if(!count($case->cookies))
                         <div class="mt-2 text-center text-secondary mt-auto mb-auto">
                             <span class="fa fa-exclamation-triangle font-size-60"></span>
-                            <div class="card-subtitle">尚未選擇禮盒內容</div>
+                            <div class="card-subtitle">{{ __('order.notification.empty_case') }}</div>
                         </div>
                     @else
                         @foreach($case->cookies as $cookie)
@@ -74,11 +78,40 @@
         </div>
     @endforeach
 </div>
+
+<div class="row" id="packageApp">
+
+    <div class="col-12">
+        <h4>{{ __('order.section.package')}}</h4>
+    </div>
+    <div class="col-12 mb-3">
+        <!-- Button trigger create package modal -->
+        <button type="button" class="btn btn-primary rounded-0" data-toggle="modal" v-on:click="packageModal.show.create=true">
+            <span class="fa fa-truck font-size-50"></span>
+            <div>{{ __('package.functional.add')}}</div>
+        </button>
+        <package-modal
+            modal-id="packageModal"
+            modal-title="{{ __('package.functional.add')}}"
+            :show="packageModal.show.create"
+            :case-list="packageDDL.cases"
+            :langs="langs"
+            :fetch-api="fetchCreateApi"
+            :initial-package="packageModal.data"
+            v-on:open="packageModal.show.create=true"
+            v-on:close="packageModal.show.create=false">
+        </package-modal>
+    </div>
+
+</div>
 @endsection
 
 @section('custom-js')
-    const showOrder = @json($order);
-    const orderDDL = {
+    const packageLangs = @json(__('package'));
+    const packages = @json($order->packages);
+    const packageBaseUrl = '{{ route('package')}}';
+    const orderId = '{{$order->id}}'
+    const packageDDL = {
         cases: @json($caseTypes)
     };
 @endsection

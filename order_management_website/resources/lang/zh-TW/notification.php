@@ -38,6 +38,12 @@ return [
     ],
     'edited_order' => [
         'title' => '訂單修改成功！',
+    ],
+    'created_package' => [
+        'title' => '新增包裹成功！',
+    ],
+    'edited_package' => [
+        'title' => '訂單包裹成功！',
     ]
 
 ];

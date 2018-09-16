@@ -57,6 +57,12 @@ return [
     ],
     'unit' => [
         'dollar' => '元'
-    ]
+    ],
+    'notification' => [
+        'empty_case' => '尚未選擇禮盒內容'
+    ],
+    'section' => [
+        'package' => '包裹資訊',
+    ],
 
 ];
