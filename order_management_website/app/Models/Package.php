@@ -31,13 +31,15 @@ class Package extends Model
 
     protected $fillable = [
         'order_id', 'status_id', 'name', 'phone', 'address',
-        'remark', 'sent_at', 'arrived_at'
+        'remark', 'sent_at', 'arrived_at', 'checked'
     ];
 
     public function setSentAtAttribute($value)
     {
         if ($value) {
             $this->attributes['sent_at'] = Carbon::parse($value)->setTimezone(config('app.timezone'))->toDateString();
+        } else {
+            $this->attributes['sent_at'] = null;
         }
     }
 
@@ -45,6 +47,8 @@ class Package extends Model
     {
         if ($value) {
             $this->attributes['arrived_at'] = Carbon::parse($value)->setTimezone(config('app.timezone'))->toDateString();
+        } else {
+            $this->attributes['arrived_at'] = null;
         }
     }
 

@@ -172,7 +172,7 @@ class OrderController extends Controller
 
     public function delete($id)
     {
-        info("OrderController@delete", $id);
+        info("OrderController@delete: $id");
 
         $orderMutator = new OrderMutator();
         try {

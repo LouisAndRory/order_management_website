@@ -76,7 +76,7 @@ class PackageController extends Controller
 
     public function delete($id)
     {
-        info("PackageController@delete", $id);
+        info("PackageController@delete: $id");
 
         $packageMutator = new PackageMutator();
         try {
