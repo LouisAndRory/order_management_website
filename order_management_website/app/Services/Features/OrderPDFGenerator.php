@@ -19,6 +19,7 @@ class OrderPDFGenerator
         $this->fpdi = new FPDI();
 
         $this->config();
+        $this->loadData();
     }
 
     public function create()
@@ -44,6 +45,39 @@ class OrderPDFGenerator
         $this->fpdi->useTemplate($tplIdx);
     }
 
+    private function loadData()
+    {
+        $this->order->load([
+            'cases' => function ($q) {
+                $q->select([
+                    'cases.id', 'cases.order_id', 'cases.case_type_id',
+                    'case_types.name AS case_type_name', 'price', 'amount'
+                ])->with([
+                    'cookies' => function ($q) {
+                        $q->select([
+                            'case_id', 'amount', 'cookie_id', 'pack_id',
+                            'cookies.name AS cookie_name', 'packs.name AS pack_name'
+                        ])->join('cookies', 'case_has_cookies.cookie_id', '=', 'cookies.id')
+                            ->join('packs', 'case_has_cookies.pack_id', '=', 'packs.id');
+                    }
+                ])->join('case_types', 'case_types.id', '=', 'cases.case_type_id');
+            },
+            'packages' => function ($q) {
+                $q->select([
+                    'id', 'order_id', 'name', 'phone', 'address', 'remark',
+                    'sent_at', 'arrived_at'
+                ])->with([
+                    "cases" => function ($q) {
+                        $q->select([
+                            'package_has_cases.package_id', 'case_types.name AS case_type_name', 'package_has_cases.amount'
+                        ])->join('cases', 'cases.id', '=', 'package_has_cases.case_id')
+                            ->join('case_types', 'case_types.id', '=', 'cases.case_type_id');
+                    }
+                ]);
+            }
+        ]);
+    }
+
     private function setBasic()
     {
         $this->fpdi->SetFontSize(14);
@@ -58,18 +92,17 @@ class OrderPDFGenerator
     {
         $packageData = [];
         foreach ($this->order->packages as $package) {
-            foreach ($package->cases as $content) {
-                $arrivedDate = $package->arrived_at ? $package->arrived_at->format('Y-m-d') : "";
-                $typeName = "";
-                if ($content->case && $content->case->caseType) {
-                    $typeName = $content->case->caseType->name;
-                }
-                $remark = preg_replace("/\r|\n/", " ", $package->remark);
+            $arrivedDate = $package->arrived_at ? $package->arrived_at->format('Y-m-d') : "";
+            $remark = preg_replace("/\r|\n/", " ", $package->remark);
 
-                array_push($packageData, "$arrivedDate $typeName $content->amount");
-                array_push($packageData, "$package->address $package->name $package->phone");
-                array_push($packageData, "$remark");
+            $caseTypes = [];
+            foreach ($package->cases as $content) {
+                array_push($caseTypes, "$content->case_type_name $content->amount 盒");
             }
+
+            array_push($packageData, "$arrivedDate " . implode('/', $caseTypes));
+            array_push($packageData, "$package->address $package->name $package->phone");
+            array_push($packageData, "$remark");
         }
 
         if (count($packageData) > 2) {
@@ -100,7 +133,6 @@ class OrderPDFGenerator
             ->get();
 
         foreach ($cases as $case) {
-            info($case);
             array_push($caseData['type'], $case->case_type_name ?: "");
             array_push($caseData['amount'], $case->amount);
             array_push($caseData['price'], $case->price);
@@ -125,6 +157,8 @@ class OrderPDFGenerator
 
     private function setRemark()
     {
+        $this->fpdi->SetFontSize(10);
+        
         $maxTarget = 55;
         $remark = preg_replace("/\r|\n/", " ", trim($this->order->remark));
         if (strlen($remark) > $maxTarget) {
@@ -145,6 +179,40 @@ class OrderPDFGenerator
 
     private function setCaseContent()
     {
-        
+        $cases = [];
+        foreach ($this->order->cases as $case) {
+            $cases[$case->case_type_name] = [
+                "content" => []
+            ];
+            foreach ($case->cookies as $content) {
+                if (!array_key_exists($content->pack_id, $cases[$case->case_type_name]["content"])) {
+                    $cases[$case->case_type_name]["content"][$content->pack_id] = [
+                        "pack_name" => $content->pack_name,
+                        "cookies" => []
+                    ];
+                }
+                array_push($cases[$case->case_type_name]["content"][$content->pack_id]["cookies"], "$content->cookie_name$content->amount");
+            }
+        }
+
+        $y = 138;
+        foreach ($cases as $caseTypeName => $case) {
+            $this->fpdi->SetFontSize(12);
+            $this->fpdi->Text(33, $y, $caseTypeName);
+            $y += 6;
+
+            foreach ($case as $key => $content) {
+                if (!empty($content)) {
+                    foreach ($content as $item) {
+                        $this->fpdi->SetFontSize(11);
+                        $this->fpdi->Text(33, $y, $item["pack_name"] . "-");
+                        $y += 6;
+
+                        $this->fpdi->Text(33, $y, implode(", ", $item['cookies']));
+                        $y += 7;
+                    }
+                }
+            }
+        }
     }
 }
