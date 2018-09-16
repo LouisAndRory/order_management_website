@@ -44,6 +44,21 @@ return [
     ],
     'edited_package' => [
         'title' => '訂單包裹成功！',
-    ]
+    ],
+    'del_package' => [
+        'title' => '確定嗎？',
+        'text' => '刪掉這筆包裹就無法恢復囉！',
+        'confirm_button' => '確定刪除',
+        'cancel_button' => '不要好了',
+    ],
+    'deleted_package' => [
+        'title' => '包裹刪除成功!',
+    ],
+    'update_package_check_status' => [
+        'title' => '變更包裹的確認狀態完成！',
+    ],
+    'update_package_sent_status' => [
+        'title' => '變更包裹的寄出狀態完成！',
+    ],
 
 ];

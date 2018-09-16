@@ -17,6 +17,7 @@ return [
         'cancel' => '取消儲存',
         'update' => '修改訂單',
         'delete' => '刪除訂單',
+        'pdf' => '訂單PDF'
     ],
     'fields' => [
         'name' => '訂購人',

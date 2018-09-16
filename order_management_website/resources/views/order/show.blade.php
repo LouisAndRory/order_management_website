@@ -1,6 +1,13 @@
 @extends('master')
 
 @section('content')
+<div class="row mb-3">
+    <div class="btn-group" role="group">
+        <a href="{{ route('order.edit', ['id'=> $order->id])}}" class="btn btn-primary" >{{ __('order.functional.update')}}</a>
+        <a href="{{ route('order.pdf', ['id'=> $order->id])}}" class="btn btn-primary" >{{ __('order.functional.pdf')}}</a>
+        <button type="button" class="btn btn-primary">{{ __('order.functional.delete')}}</button>
+    </div>
+</div>
 <dl class="row">
     <dt class="col-md-3">{{ __('order.fields.name')}}</dt>
     <dd class="col-md-3">{{ $order->name  }}</dd>
@@ -86,21 +93,85 @@
     </div>
     <div class="col-12 mb-3">
         <!-- Button trigger create package modal -->
-        <button type="button" class="btn btn-primary rounded-0" data-toggle="modal" v-on:click="packageModal.show.create=true">
+        <button type="button" class="btn btn-primary rounded-0" v-on:click="packageModal.show.create=true">
             <span class="fa fa-truck font-size-50"></span>
             <div>{{ __('package.functional.add')}}</div>
         </button>
         <package-modal
-            modal-id="packageModal"
+            modal-id="packageCreateModal"
             modal-title="{{ __('package.functional.add')}}"
             :show="packageModal.show.create"
             :case-list="packageDDL.cases"
             :langs="langs"
             :fetch-api="fetchCreateApi"
-            :initial-package="packageModal.data"
+            :initial-package="packageModal.data.create"
             v-on:open="packageModal.show.create=true"
             v-on:close="packageModal.show.create=false">
         </package-modal>
+
+        <package-modal
+            modal-id="packagEditeModal"
+            modal-title="{{ __('package.functional.edit')}}"
+            :show="packageModal.show.edit"
+            :case-list="packageDDL.cases"
+            :langs="langs"
+            :fetch-api="fetchUpdateApi"
+            :initial-package="packageModal.data.edit"
+            v-on:open="packageModal.show.edit=true"
+            v-on:close="packageModal.show.edit=false">
+        </package-modal>
+    </div>
+
+    <div class="col-12 col-md-6 mb-3 mb-md-4" v-for="(package, index) in packages" :key="index">
+        <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex flex-column flex-md-row align-items-center">
+                    <h5 class="card-title">@{{ package.arrived_at }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted ml-md-auto">
+                            <span class="fa fa-check-circle" :class="{'text-success': package.checked, 'text-danger': !package.checked}"></span>
+                    </h6>
+                </div>
+
+                <dl class="row">
+                    <dt class="col-md-3">{{ __('package.fields.name')}}</dt>
+                    <dd class="col-md-9">@{{ package.name }}</dd>
+
+                    <dt class="col-md-3">{{ __('package.fields.phone')}}</dt>
+                    <dd class="col-md-9">@{{ package.phone }}</dd>
+
+                    <dt class="col-md-3">{{ __('package.fields.address')}}</dt>
+                    <dd class="col-md-9">@{{ package.address }}</dd>
+
+                    <dt class="col-md-3">{{ __('package.fields.remark')}}</dt>
+                    <dd class="col-md-9">@{{ package.remark }}</dd>
+                </dl>
+                <div class="row mb-3">
+                    <div class="col-12 mt-2 text-center text-secondary mt-auto mb-auto" v-if="!package.cases.length">
+                        <span class="fa fa-exclamation-triangle font-size-60"></span>
+                        <div class="card-subtitle">{{ __('order.notification.empty_case') }}</div>
+                    </div>
+                    <div class="col-12 mt-2" v-for="(caseItem, index) in package.cases">
+                        <span>@{{caseItem.case_type_name}}</span>
+                        <span class="float-right mr-2">X<span>
+                        @{{caseItem.amount}}</span>
+                    </div>
+                </div>
+                <div class="row mt-auto">
+                    <div class="col">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-primary" v-on:click="onClickEditPackage(package)">{{ __('package.functional.edit')}}</button>
+                            <button type="button" class="btn btn-primary" v-on:click="onClickDeletePackage(package.id)">{{ __('package.functional.del')}}</button>
+                            <button type="button" class="btn btn-primary" v-on:click="onClickUpdatePackageStatus(package, 'checked')">
+                                @{{ package.checked? langs.functional.cancel_check:langs.functional.check }}
+                            </button>
+                            <button type="button" class="btn btn-primary" v-on:click="onClickUpdatePackageStatus(package, 'sent_at')">
+                                @{{ package.sent_at? langs.functional.cancel_sent:langs.functional.sent }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -112,6 +183,6 @@
     const packageBaseUrl = '{{ route('package')}}';
     const orderId = '{{$order->id}}'
     const packageDDL = {
-        cases: @json($caseTypes)
+        cases: @json($order->cases)
     };
 @endsection

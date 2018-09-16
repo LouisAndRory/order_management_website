@@ -1,6 +1,6 @@
 <template>
     <!-- Modal -->
-    <div class="modal fade" :ref="modalID" :id="modalID" tabindex="-1" role="dialog">
+    <div class="modal fade" :ref="modalId" :id="modalId" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -19,12 +19,12 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label :for="`${modalID}-name`">{{ langs.fields.name }}<span class="text-danger">*</span></label>
+                            <label :for="`${modalId}-name`">{{ langs.fields.name }}<span class="text-danger">*</span></label>
                             <input
                                 v-model="package.name"
                                 type="text"
                                 class="form-control"
-                                :id="`${modalID}-name`"
+                                :id="`${modalId}-name`"
                                 :placeholder="langs.placeholder.name"
                                 :class="{'is-invalid': errors.name}" required>
                             <div class="invalid-feedback">
@@ -32,12 +32,12 @@
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label :for="`${modalID}-phone`">{{ langs.fields.phone }}</label>
+                            <label :for="`${modalId}-phone`">{{ langs.fields.phone }}</label>
                             <input
                                 v-model="package.phone"
                                 type="tel"
                                 class="form-control"
-                                :id="`${modalID}-phone`"
+                                :id="`${modalId}-phone`"
                                 :placeholder="langs.placeholder.phone"
                                 :class="{'is-invalid': errors.phone}">
                             <div class="invalid-feedback">
@@ -48,12 +48,12 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label :for="`${modalID}-arrived-at`">{{ langs.fields.arrived_at }}<span class="text-danger">*</span></label>
+                            <label :for="`${modalId}-arrived-at`">{{ langs.fields.arrived_at }}<span class="text-danger">*</span></label>
                             <datepicker
                                 format="yyyy-MM-dd"
                                 v-model="arrivedAt"
                                 :input-class="`bg-white ${errors.arrived_at? 'is-invalid':''}`"
-                                :id="`${modalID}-arrived-at`"
+                                :id="`${modalId}-arrived-at`"
                                 calendar-button-icon="fa fa-calendar"
                                 :calendar-button="true"
                                 :clear-button="true"
@@ -64,12 +64,12 @@
                             </div>
                         </div>
                         <div class="form-group col-md-6">
-                            <label :for="`${modalID}-address`">{{ langs.fields.address }}<span class="text-danger">*</span></label>
+                            <label :for="`${modalId}-address`">{{ langs.fields.address }}<span class="text-danger">*</span></label>
                             <input
                                 v-model="package.address"
                                 type="tel"
                                 class="form-control"
-                                :id="`${modalID}-address`"
+                                :id="`${modalId}-address`"
                                 :placeholder="langs.placeholder.address"
                                 :class="{'is-invalid': errors.address}">
                             <div class="invalid-feedback">
@@ -79,8 +79,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label :for="`${modalID}-remark`">{{ langs.fields.remark }}</label>
-                        <textarea :id="`${modalID}-remark`"
+                        <label :for="`${modalId}-remark`">{{ langs.fields.remark }}</label>
+                        <textarea :id="`${modalId}-remark`"
                             class="form-control"
                             rows="3"
                             :placeholder="langs.placeholder.remark"
@@ -98,7 +98,7 @@
                             <select class="form-control" v-model="caseItem.case_id" :class="{'is-invalid': hasCaseError(caseIndex, 'case_id')}" required>
                                 <option value="" hidden>{{langs.placeholder.cases}}*</option>
                                 <option v-for="(option, optionIndex) in caseList" :key="optionIndex" :value="option.id">
-                                    {{ option.name }}
+                                    {{ option.case_type_name }}
                                 </option>
                             </select>
                             <div class="invalid-feedback">
@@ -152,7 +152,7 @@ export default {
             default: false,
             require: true
         },
-        modalID: {
+        modalId: {
             type: String,
             default: 'packageModal'
         },
@@ -186,10 +186,10 @@ export default {
     },
     watch: {
         show: function(newVal, oldVal) {
-            console.log(newVal, oldVal)
             if (newVal === oldVal) {
                 return
             }
+            this.package = JSON.parse(JSON.stringify(this.initialPackage))
             this[newVal ? 'openModal' : 'closeModal']()
         }
     },
@@ -215,7 +215,7 @@ export default {
             this.is_visible = true
             this.$emit('open')
 
-            $(this.$refs[this.modalID]).modal({
+            $(this.$refs[this.modalId]).modal({
                 backdrop: 'static',
                 keyboard: false
             })
@@ -227,7 +227,7 @@ export default {
 
             this.is_visible = false
             this.$emit('close')
-            $(`#${this.modalID}`).modal('hide')
+            $(`#${this.modalId}`).modal('hide')
             localStorage.removeItem('package')
             this.package = {}
             this.errors = {}

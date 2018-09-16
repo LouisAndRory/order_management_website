@@ -15,7 +15,12 @@ return [
     'functional' => [
         'add' => '新增包裹',
         'add_content' => '新增包裹內容',
+        'edit' => '修改包裹',
         'del' => '刪除包裹',
+        'sent' => '包裹寄出',
+        'cancel_sent' => '取消包裹寄出',
+        'check' => '包裹確認',
+        'cancel_check' => '取消包裹確認',
         'del_content' => '刪除',
         'save' => '儲存',
         'cancel' => '取消'

@@ -19,12 +19,12 @@ Route::group(['prefix' => 'order'], function () {
     Route::get('/', 'OrderController@index');
     Route::get('/create', 'OrderController@create');
     Route::get('/{id}', 'OrderController@show')->name('order.show');
-    Route::get('/{id}/edit', 'OrderController@edit');
+    Route::get('/{id}/edit', 'OrderController@edit')->name('order.edit');
     Route::post('/', 'OrderController@store');
     Route::put('/{id}', 'OrderController@update');
     Route::delete('/{id}', 'OrderController@delete');
 
-    Route::get('/{id}/pdf', 'OrderController@pdf');
+    Route::get('/{id}/pdf', 'OrderController@pdf')->name('order.pdf');
 });
 
 Route::group(['prefix' => 'package'], function () {
