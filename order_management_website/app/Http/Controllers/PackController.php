@@ -14,7 +14,7 @@ class PackController extends Controller
     {
         $packs = Pack::all();
 
-        return response()->json([
+        return view('management.packs',[
             'packs' => $packs
         ]);
     }

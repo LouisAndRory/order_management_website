@@ -46,7 +46,7 @@ Route::group(['prefix' => 'case'], function () {
 });
 
 Route::group(['prefix' => 'pack'], function () {
-    Route::get('/', 'PackController@index');
+    Route::get('/', 'PackController@index')->name('pack');
     Route::post('/', 'PackController@store');
     Route::put('/{id}', 'PackController@update');
 });
