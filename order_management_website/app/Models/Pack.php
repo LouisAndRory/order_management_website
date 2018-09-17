@@ -17,7 +17,6 @@ class Pack extends Model
     ];
 
     protected $casts = [
-        'enabled' => 'boolean'
     ];
 
     protected $fillable = [

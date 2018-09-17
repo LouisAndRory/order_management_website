@@ -22,7 +22,6 @@ class Cookie extends Model
     ];
 
     protected $casts = [
-        'enabled' => 'boolean'
     ];
 
     protected $fillable = [

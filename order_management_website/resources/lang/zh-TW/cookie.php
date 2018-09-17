@@ -14,7 +14,13 @@ return [
     */
     'functional' => [
         'add' => '新增餅乾',
-        'del' => '刪除'
+        'del' => '刪除',
+        'edit' => '編輯',
+    ],
+    'fields' => [
+        'name' => '餅乾名稱',
+        'slug' => '餅乾縮寫',
+        'enabled' => '上架中'
     ],
     'placeholder' => [
         'cookie_type' => '請選擇餅乾',

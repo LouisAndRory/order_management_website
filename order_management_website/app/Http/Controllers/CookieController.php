@@ -14,7 +14,7 @@ class CookieController extends Controller
     {
         $cookies = Cookie::all();
 
-        return response()->json([
+        return view('management.cookies',[
             'cookies' => $cookies
         ]);
     }
