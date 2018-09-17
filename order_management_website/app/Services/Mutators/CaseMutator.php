@@ -10,13 +10,14 @@ namespace App\Services\Mutators;
 
 
 use App\Models\CaseModel;
+use App\Models\CaseType;
 use DB;
 
 class CaseMutator implements MutatorContract
 {
     /**
      * @param array $data
-     * @return CaseModel|\Illuminate\Database\Eloquent\Model
+     * @return CaseType|\Illuminate\Database\Eloquent\Model
      * @throws \Exception
      */
     public function store($data = [])
@@ -24,8 +25,8 @@ class CaseMutator implements MutatorContract
         try {
             DB::beginTransaction();
 
-            $case = CaseModel::create($data);
-            info("Case created", $case->toArray());
+            $case = CaseType::create($data);
+            info("CaseType created", $case->toArray());
 
             DB::commit();
 
@@ -41,7 +42,7 @@ class CaseMutator implements MutatorContract
     /**
      * @param $id
      * @param array $data
-     * @return CaseModel|CaseModel[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @return CaseType|CaseType[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      * @throws \Exception
      */
     public function update($id, $data = [])
@@ -49,10 +50,10 @@ class CaseMutator implements MutatorContract
         try {
             DB::beginTransaction();
 
-            $case = CaseModel::findOrFail($id);
+            $case = CaseType::findOrFail($id);
             $case->update($data);
 
-            info("Case updated", $case->toArray());
+            info("CaseType updated", $case->toArray());
 
             DB::commit();
 
@@ -67,6 +68,6 @@ class CaseMutator implements MutatorContract
 
     public function delete($id)
     {
-        CaseModel::findOrFail($id)->delete();
+        CaseType::findOrFail($id)->delete();
     }
 }

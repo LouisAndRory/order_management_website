@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "font-awesome": "^4.7.0",
+        "moment": "^2.22.2",
         "vue-sweetalert2": "^1.5.3",
         "vuejs-datepicker": "^1.5.3"
     }

@@ -56,6 +56,7 @@ class OrderController extends Controller
         $caseTypes = CaseType::select([
             'id', 'name'
         ])->whereIn('id', $caseTypeIds)
+            ->orWhere('enabled', '=', true)
             ->get();
 
         $packIds = collect([]);
@@ -72,11 +73,15 @@ class OrderController extends Controller
 
         $cookies = Cookie::select([
             'id', 'name'
-        ])->whereIn('id', $cookieIds)->get();
+        ])->whereIn('id', $cookieIds)
+            ->orWhere('enabled', '=', true)
+            ->get();
 
         $packs = Pack::select([
             'id', 'name'
-        ])->whereIn('id', $packIds)->get();
+        ])->whereIn('id', $packIds)
+            ->orWhere('enabled', '=', true)
+            ->get();
 
         return view('order.edit', [
             'order' => $order,
@@ -125,10 +130,10 @@ class OrderController extends Controller
         ])->findOrFail($id);
 
         $caseTypeIds = $order->cases->pluck('case_type_id')->toArray();
-        $caseTypes = CaseType::withoutGlobalScopes()
-            ->select([
-                'id', 'name'
-            ])->whereIn('id', $caseTypeIds)
+        $caseTypes = CaseType::select([
+            'id', 'name'
+        ])->whereIn('id', $caseTypeIds)
+            ->orWhere('enabled', '=', true)
             ->get();
 
         $orderService = new OrderService();

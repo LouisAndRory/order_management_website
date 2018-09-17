@@ -158,7 +158,7 @@ class OrderPDFGenerator
     private function setRemark()
     {
         $this->fpdi->SetFontSize(10);
-        
+
         $maxTarget = 55;
         $remark = preg_replace("/\r|\n/", " ", trim($this->order->remark));
         if (strlen($remark) > $maxTarget) {

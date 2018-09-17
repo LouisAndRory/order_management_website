@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CaseModel\StoreRequest;
 use App\Http\Requests\CaseModel\UpdateRequest;
 use App\Models\CaseModel;
+use App\Models\CaseType;
 use App\Services\Mutators\CaseMutator;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,10 @@ class CaseController extends Controller
 {
     public function index()
     {
-        $cases = CaseModel::all();
+        $caseTypes = CaseType::all();
 
         return view('management.cases',[
-            'cases' => $cases
+            'cases' => $caseTypes
         ]);
     }
 
