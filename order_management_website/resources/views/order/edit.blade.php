@@ -212,7 +212,8 @@
 
 @section('custom-js')
     const editOrder = @json($order);
-    const showPageUrl = '{{ route('order.show', ['id'=> $order->id])}}';
+    const orderUpdateUrl = '{{ route('order.update', ['id'=> $order->id])}}';
+    const orderShowUrl = '{{ route('order.show', ['id'=> $order->id])}}';
     const orderDDL = {
         cases: @json($caseTypes),
         cookies: @json($cookies),

@@ -180,8 +180,8 @@
 @section('custom-js')
     const packageLangs = @json(__('package'));
     const packages = @json($order->packages);
-    const packageBaseUrl = '{{ route('package')}}';
-    const orderBaseUrl = '{{ route('order')}}';
+    const packageBaseUrl = '{{ route('package.store')}}';
+    const orderBaseUrl = '{{ route('order.index')}}';
     const orderId = '{{$order->id}}'
     const packageDDL = {
         cases: @json($order->cases)

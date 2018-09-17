@@ -60,7 +60,7 @@
 
 @section('custom-js')
     const list = @json($packs);
-    const baseUrl = '{{ route('pack')}}';
+    const baseUrl = '{{ route('pack.index')}}';
     const langs = @json(__('pack'));
     const category = 'pack';
 @endsection

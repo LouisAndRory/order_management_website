@@ -60,7 +60,7 @@
 
 @section('custom-js')
     const list = @json($cookies);
-    const baseUrl = '{{ route('cookie')}}';
+    const baseUrl = '{{ route('cookie.index')}}';
     const langs = @json(__('cookie'));
     const category = 'cookie';
 @endsection

@@ -60,7 +60,7 @@
 
 @section('custom-js')
     const list = @json($cases);
-    const baseUrl = '{{ route('case')}}';
+    const baseUrl = '{{ route('case.index')}}';
     const langs = @json(__('case'));
     const category = 'case';
 @endsection

@@ -17,7 +17,8 @@ const OrderEditApp = new Vue({
         order: editOrder,
         orderDDL: orderDDL,
         errors: {},
-        showPageUrl: showPageUrl
+        orderShowUrl: orderShowUrl,
+        orderUpdateUrl: orderUpdateUrl
     },
     components: {
         Datepicker
@@ -91,7 +92,7 @@ const OrderEditApp = new Vue({
             const that = this
 
             $.ajax({
-                url: './',
+                url: orderUpdateUrl,
                 data: this.order,
                 type: 'PUT',
                 dataType : 'json',
@@ -102,7 +103,7 @@ const OrderEditApp = new Vue({
                     showConfirmButton: false,
                     timer: 1000
                 }).then(() => {
-                    window.location.href = that.showPageUrl
+                    window.location.href = that.orderShowUrl
                 })
              })
              .fail(function( xhr) {
