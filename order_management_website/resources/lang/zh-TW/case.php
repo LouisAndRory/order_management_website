@@ -14,7 +14,10 @@ return [
     */
     'functional' => [
         'add' => '新增禮盒',
-        'del' => '刪除禮盒'
+        'del' => '刪除禮盒',
+        'edit' => '編輯禮盒',
+        'save' => '儲存',
+        'cancel' => '取消'
     ],
     'section' => [
         'info' => '禮盒資訊',
@@ -23,11 +26,16 @@ return [
     'fields' => [
         'case_type' => '盒型',
         'price' => '單價',
-        'amount' => '盒數'
+        'amount' => '盒數',
+        'name' => '禮盒名稱',
+        'slug' => '禮盒縮寫',
+        'enabled' => '上架中'
     ],
     'placeholder' => [
         'case_type' => '請選擇盒型',
         'price' => '請輸入單價',
         'amount' => '請輸入盒數',
+        'name' => '請輸入禮盒名稱',
+        'slug' => '請輸入禮盒縮寫'
     ]
 ];

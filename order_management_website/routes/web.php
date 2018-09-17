@@ -40,7 +40,7 @@ Route::group(['prefix' => 'cookie'], function () {
 });
 
 Route::group(['prefix' => 'case'], function () {
-    Route::get('/', 'CaseController@index');
+    Route::get('/', 'CaseController@index')->name('case');
     Route::post('/', 'CaseController@store');
     Route::put('/{id}', 'CaseController@update');
 });

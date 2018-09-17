@@ -14,7 +14,7 @@ class CaseController extends Controller
     {
         $cases = CaseModel::all();
 
-        return response()->json([
+        return view('management.cases',[
             'cases' => $cases
         ]);
     }
