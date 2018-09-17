@@ -34,7 +34,7 @@ class StoreRequest extends FormRequest
             'arrived_at' => 'required|date',
             'checked' => 'nullable|boolean',
             'cases' => [
-                'nullable', 'array', new AmountLimit($this)
+                'nullable', 'array', new AmountLimit($this, "create")
             ],
             'cases.*.case_id' => 'required|exists:cases,id',
             'cases.*.amount' => 'nullable|integer'

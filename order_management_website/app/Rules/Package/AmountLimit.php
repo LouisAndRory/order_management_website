@@ -11,14 +11,17 @@ class AmountLimit implements Rule
 {
     private $request;
 
+    private $type;
+
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct($request)
+    public function __construct($request, $type)
     {
         $this->request = $request;
+        $this->type = $type === 'create' ? 'create' : 'edit';
     }
 
     /**
@@ -43,14 +46,30 @@ class AmountLimit implements Rule
             $calculatedCaseAmount[$case['case_id']] += $case['amount'];
         }
 
-        foreach ($calculatedCaseAmount as $caseId => $totalAmount){
-            $totalAmountInDB = PackageHasCases::where('case_id', '=', $caseId)->sum('amount');
+        foreach ($calculatedCaseAmount as $caseId => $totalInputAmount){
+            $totalShippedAmountForCaseInDB = PackageHasCases::where('case_id', '=', $caseId)->sum('amount');
             $case = CaseModel::find($caseId);
-            if ($case) {
-                if (($totalAmount + $totalAmountInDB) > $case->amount) {
-                    return false;
+
+            if ($this->type === 'create') {
+                if ($case) {
+                    if (($totalInputAmount + $totalShippedAmountForCaseInDB) > $case->amount) {
+                        return false;
+                    }
+                }
+            } else {
+                $packageId = $this->request->id;
+                $totalShippedAmountForPackageInDB = PackageHasCases::where(
+                    'case_id', '=', $caseId
+                )->where('package_id', '=', $packageId)
+                    ->sum('amount');
+
+                if ($case) {
+                    if (($totalInputAmount + $totalShippedAmountForCaseInDB - $totalShippedAmountForPackageInDB) > $case->amount) {
+                        return false;
+                    }
                 }
             }
+
         }
 
         return true;

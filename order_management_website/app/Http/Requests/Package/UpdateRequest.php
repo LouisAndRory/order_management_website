@@ -34,7 +34,7 @@ class UpdateRequest extends FormRequest
             'arrived_at' => 'sometimes|required|date',
             'checked' => 'nullable|boolean',
             'cases' => [
-                'nullable', 'array', new AmountLimit($this)
+                'nullable', 'array', new AmountLimit($this, "edit")
             ],
             'cases.*.case_id' => 'required|exists:cases,id',
             'cases.*.amount' => 'nullable|integer'
