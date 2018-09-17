@@ -69,5 +69,14 @@ return [
     'deleted_order' => [
         'title' => '訂單刪除成功!',
     ],
+    'del_item' => [
+        'title' => '確定嗎？',
+        'text' => '刪掉這筆項目就無法恢復囉！',
+        'confirm_button' => '確定刪除',
+        'cancel_button' => '不要好了'
+    ],
+    'deleted_item' => [
+        'title' => '刪除項目成功!',
+    ],
 
 ];
