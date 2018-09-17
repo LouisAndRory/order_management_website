@@ -148,6 +148,10 @@ const PackageApp = new Vue({
                     timer: 1000
                 })
             }).catch((error) => { console.log(error)})
+        },
+        cleanModalData: function(type) {
+            this.$set(this.packageModal.data, type, {})
+            this.$set(this.packageModal.show, type, false)
         }
     },
     components: {
@@ -158,7 +162,7 @@ const PackageApp = new Vue({
         tempPackage = JSON.parse(tempPackage)
 
         if(tempPackage && tempPackage.orderId == this.orderId){
-            if(tempPackage.type=='edit' && !_.find(users, { 'id': tempPackage.data.id })){
+            if(tempPackage.type=='edit' && !_.find(this.packages, { 'id': tempPackage.data.id })){
                 return
             }
             this.$set(this.packageModal.data, tempPackage.type, tempPackage.data)

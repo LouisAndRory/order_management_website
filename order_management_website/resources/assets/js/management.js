@@ -1,20 +1,37 @@
+import ManagementModal from './components/management_modal'
+
 const ManagementApp = new Vue({
     el: '#managementApp',
     data: {
         list: list,
-        baseUrl: baseUrl
+        baseUrl: baseUrl,
+        langs: langs,
+        category: category,
+        managementModal: {
+            data: {
+                create: {},
+                edit: {}
+            },
+            show: {
+                create: false,
+                edit: false
+            }
+        }
+    },
+    components: {
+        'management-modal': ManagementModal
     },
     methods: {
         fetchCreateApi: function(data) {
             const that = this
             return new Promise(function(resolve, reject) {
                 $.ajax({
-                    url: `${that.packageBaseUrl}`,
-                    data: {order_id: that.orderId, ...data},
+                    url: `${that.baseUrl}`,
+                    data: data,
                     type: 'POST',
                     dataType : 'json',
                 }).done(function( response ) {
-                    resolve(_.get(window.notificationLang, 'created_package.title'))
+                    resolve(_.get(window.notificationLang, 'created_item.title'))
                  })
                  .fail(function( errorResponse) {
                     if(errorResponse.hasOwnProperty('status')) {
@@ -22,11 +39,11 @@ const ManagementApp = new Vue({
                             reject(errorResponse.responseJSON.errors)
                         }else{
                             localStorage.setItem(
-                                'package',
+                                'management',
                                 JSON.stringify({
                                     type: 'create',
-                                    orderId: that.orderId,
-                                    data
+                                    data,
+                                    category
                                 })
                             )
                         }
@@ -34,7 +51,7 @@ const ManagementApp = new Vue({
                 })
             })
         },
-        fetchUpdateApi: function(data) {
+        fetchUpdateApi: function(data, needKeep=true) {
             const that = this
             return new Promise(function(resolve, reject) {
                 $.ajax({
@@ -44,24 +61,27 @@ const ManagementApp = new Vue({
                     dataType : 'json',
                 }).done(function( response ) {
                     that.packages = response.packages
-                    resolve(_.get(window.notificationLang, 'edited_package.title'))
+                    resolve(_.get(window.notificationLang, 'edited_item.title'))
                  })
                  .fail(function( errorResponse) {
                     if(errorResponse.hasOwnProperty('status')) {
                         if(errorResponse.status == 422){
                             reject(errorResponse.responseJSON.errors)
-                        }else{
+                        }else if(errorResponse.status == 400){
+                            reject(errorResponse)
+                        }
+                        else{
+                            if(!needKeep) { return }
                             localStorage.setItem(
-                                'package',
+                                'management',
                                 JSON.stringify({
                                     type: 'edit',
-                                    orderId: that.orderId,
-                                    data
+                                    data,
+                                    category
                                 })
                             )
                         }
                     }
-                    reject(errorResponse)
                 })
             })
         },
@@ -81,7 +101,8 @@ const ManagementApp = new Vue({
             })
         },
         onClickEditItem: function(data) {
-
+            this.$set(this.managementModal.data, 'edit', data)
+            this.$set(this.managementModal.show, 'edit', true)
         },
         onClickDeleteItem: function(id) {
             this.$swal({
@@ -111,9 +132,39 @@ const ManagementApp = new Vue({
             })
 
         },
-        onClickAddItem: function() {
+        cleanModalData: function(type) {
+            this.$set(this.managementModal.data, type, {})
+            this.$set(this.managementModal.show, type, false)
+        },
+        itemEnabledHandler: function(item, index) {
+            this.fetchUpdateApi({id: item.id, enabled: item.enabled}, false).then(()=>{
+                Vue.swal({
+                    type: 'success',
+                    title: _.get(window.notificationLang, 'updated_item_status.title'),
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            }).catch((error) => {
+                this.$set(this.list[index], 'enabled',  Number(item.enabled)? 0:1)
+                Vue.swal({
+                    type: 'error',
+					title: _.get(window.notificationLang, 'updat_item_status_error.title'),
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            })
+        }
+    },
+    created: function(){
+        let tempManagement= localStorage.getItem('management')
+        tempManagement= JSON.parse(tempManagement)
 
-
+        if(tempManagement && tempManagement.category == this.category){
+            if(tempManagement.type=='edit' && !_.find(list, { 'id': tempManagement.data.id })){
+                return
+            }
+            this.$set(this.managementModal.data, tempManagement.type, tempManagement.data)
+            this.$set(this.managementModal.show, tempManagement.type, true)
         }
     }
 })

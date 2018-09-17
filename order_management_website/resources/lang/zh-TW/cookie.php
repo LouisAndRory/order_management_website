@@ -14,8 +14,10 @@ return [
     */
     'functional' => [
         'add' => '新增餅乾',
-        'del' => '刪除',
-        'edit' => '編輯',
+        'del' => '刪除餅乾',
+        'edit' => '編輯餅乾',
+        'save' => '儲存',
+        'cancel' => '取消'
     ],
     'fields' => [
         'name' => '餅乾名稱',
@@ -26,5 +28,7 @@ return [
         'cookie_type' => '請選擇餅乾',
         'pack_type' => '請選擇包裝',
         'amount' => '請輸入數量',
+        'name' => '請輸入餅乾名稱',
+        'slug' => '請輸入餅乾縮寫'
     ]
 ];

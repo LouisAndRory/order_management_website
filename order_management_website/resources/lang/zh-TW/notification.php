@@ -78,5 +78,17 @@ return [
     'deleted_item' => [
         'title' => '刪除項目成功!',
     ],
+    'created_item' => [
+        'title' => '新增項目成功!',
+    ],
+    'edited_item' => [
+        'title' => '項目修改成功！',
+    ],
+    'updated_item_status' => [
+        'title' => '項目狀態修改成功！'
+    ],
+    'updat_item_status_error' => [
+        'title' => '項目狀態修改失敗！'
+    ]
 
 ];

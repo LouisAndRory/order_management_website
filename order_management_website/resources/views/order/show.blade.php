@@ -106,7 +106,7 @@
             :fetch-api="fetchCreateApi"
             :initial-package="packageModal.data.create"
             v-on:open="packageModal.show.create=true"
-            v-on:close="packageModal.show.create=false">
+            v-on:close="cleanModalData('create')">
         </package-modal>
 
         <package-modal
@@ -118,7 +118,7 @@
             :fetch-api="fetchUpdateApi"
             :initial-package="packageModal.data.edit"
             v-on:open="packageModal.show.edit=true"
-            v-on:close="packageModal.show.edit=false">
+            v-on:close="cleanModalData('edit')">
         </package-modal>
     </div>
 

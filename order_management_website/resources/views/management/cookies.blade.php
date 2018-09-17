@@ -2,6 +2,27 @@
 
 @section('content')
 <div id="managementApp" class="row">
+    <management-modal
+        modal-id="managementCreateModal"
+        modal-title="{{ __('cookie.functional.add')}}"
+        :show="managementModal.show.create"
+        :langs="langs"
+        :fetch-api="fetchCreateApi"
+        :initial-data="managementModal.data.create"
+        v-on:open="managementModal.show.create=true"
+        v-on:close="cleanModalData('create')">
+    </management-modal>
+
+    <management-modal
+        modal-id="managementEditModal"
+        modal-title="{{ __('cookie.functional.edit')}}"
+        :show="managementModal.show.edit"
+        :langs="langs"
+        :fetch-api="fetchUpdateApi"
+        :initial-data="managementModal.data.edit"
+        v-on:open="managementModal.show.edit=true"
+        v-on:close="cleanModalData('edit')">
+    </management-modal>
     <table class="table">
         <thead>
             <tr>
@@ -9,7 +30,7 @@
                 <th scope="col">{{ __('cookie.fields.slug') }}</th>
                 <th scope="col">{{ __('cookie.fields.enabled') }}</th>
                 <th scope="col">
-                    <button type="button" class="btn btn-primary" v-on:click="onClickEditItem">{{ __('cookie.functional.add')}}</button>
+                    <button type="button" class="btn btn-primary" v-on:click="managementModal.show.create=true">{{ __('cookie.functional.add')}}</button>
                 </th>
             </tr>
         </thead>
@@ -19,13 +40,13 @@
                 <td v-text="cookie.slug"></td>
                 <td>
                     <div class="material-switch mt-2">
-                        <input type="checkbox" id="cookieEnabled" class="d-none" v-model="cookie.enabled" true-value="1" false-value="0">
-                        <label for="cookieEnabled" class="bg-success"></label>
+                        <input type="checkbox" :id="'cookieEnabled_'+index" class="d-none" v-model="cookie.enabled" true-value="1" false-value="0" v-on:change="itemEnabledHandler(cookie, index)">
+                        <label :for="'cookieEnabled_'+index" class="bg-success"></label>
                     </div>
                 </td>
                 <td>
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-primary" v-on:click="onClickEditItem">{{ __('cookie.functional.edit')}}</button>
+                        <button type="button" class="btn btn-primary" v-on:click="onClickEditItem(cookie)">{{ __('cookie.functional.edit')}}</button>
                         <button type="button" class="btn btn-primary" v-on:click="onClickDeleteItem(cookie.id)">{{ __('cookie.functional.del')}}</button>
                     </div>
                 </td>
@@ -40,4 +61,6 @@
 @section('custom-js')
     const list = @json($cookies);
     const baseUrl = '{{ route('cookie')}}';
+    const langs = @json(__('cookie'));
+    const category = 'cookie';
 @endsection
