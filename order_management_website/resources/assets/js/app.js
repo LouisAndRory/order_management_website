@@ -13,14 +13,18 @@ try {
 
 const orderCreateApp = document.getElementById("orderCreateApp");
 const orderEditApp = document.getElementById("orderEditApp");
-const packageApp = document.getElementById("packageApp");
+const orderShowApp = document.getElementById("orderShowApp");
+const managementApp = document.getElementById("managementApp");
 
 if(orderCreateApp){
 	require('./order/create');
 }else if(orderEditApp) {
 	require('./order/edit');
-}else if(packageApp) {
+}else if(orderShowApp) {
+	require('./order/show');
 	require('./package');
+}else if(managementApp) {
+	require('./management.js');
 }
 
 const token = document.head.querySelector('meta[name="csrf-token"]');

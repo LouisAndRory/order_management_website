@@ -1,11 +1,11 @@
 @extends('master')
 
 @section('content')
-<div class="row mb-3">
+<div class="row mb-3" id="orderShowApp">
     <div class="btn-group" role="group">
         <a href="{{ route('order.edit', ['id'=> $order->id])}}" class="btn btn-primary" >{{ __('order.functional.update')}}</a>
         <a href="{{ route('order.pdf', ['id'=> $order->id])}}" class="btn btn-primary" >{{ __('order.functional.pdf')}}</a>
-        <button type="button" class="btn btn-primary">{{ __('order.functional.delete')}}</button>
+        <button type="button" class="btn btn-primary" v-on:click="onClickDeleteOrder">{{ __('order.functional.delete')}}</button>
     </div>
 </div>
 <dl class="row">
@@ -181,6 +181,7 @@
     const packageLangs = @json(__('package'));
     const packages = @json($order->packages);
     const packageBaseUrl = '{{ route('package')}}';
+    const orderBaseUrl = '{{ route('order')}}';
     const orderId = '{{$order->id}}'
     const packageDDL = {
         cases: @json($order->cases)

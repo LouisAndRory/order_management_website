@@ -60,5 +60,14 @@ return [
     'update_package_sent_status' => [
         'title' => '變更包裹的寄出狀態完成！',
     ],
+    'del_order' => [
+        'title' => '確定嗎？',
+        'text' => '刪掉這筆訂單就無法恢復囉！',
+        'confirm_button' => '確定刪除',
+        'cancel_button' => '不要好了'
+    ],
+    'deleted_order' => [
+        'title' => '訂單刪除成功!',
+    ],
 
 ];
