@@ -39,10 +39,10 @@ Route::group(['prefix' => 'cookie'], function () {
     Route::put('/{id}', 'CookieController@update');
 });
 
-Route::group(['prefix' => 'case'], function () {
-    Route::get('/', 'CaseController@index')->name('case.index');
-    Route::post('/', 'CaseController@store');
-    Route::put('/{id}', 'CaseController@update');
+Route::group(['prefix' => 'caseType'], function () {
+    Route::get('/', 'CaseTypeController@index')->name('caseType.index');
+    Route::post('/', 'CaseTypeController@store');
+    Route::put('/{id}', 'CaseTypeController@update');
 });
 
 Route::group(['prefix' => 'pack'], function () {
