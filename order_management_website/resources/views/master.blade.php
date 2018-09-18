@@ -8,62 +8,132 @@
         <title>{{ config('app.name') }}</title>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix('/css/index.css') }}">
     </head>
-    <body>
-            <aside id="left-panel" class="left-panel">
-                <nav class="navbar navbar-expand-sm navbar-default">
-                    <div class="navbar-header">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
-                            <i class="fa fa-bars"></i>
-                        </button>
-
-                        <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
-                        <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+    <body class="app">
+        <div>
+            <!-- #Left Sidebar ==================== -->
+            <div class="sidebar">
+                <div class="sidebar-inner">
+                    <!-- ### $Sidebar Header ### -->
+                    <div class="sidebar-logo">
+                        <div class="peers ai-c fxw-nw">
+                            <div class="peer peer-greed">
+                                <a class="sidebar-link td-n" href="index.html">
+                                <div class="peers ai-c fxw-nw">
+                                    <div class="peer">
+                                        <div class="logo text-center py-2">
+                                            <img src="{{ asset('/images/logo.png') }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="peer peer-greed">
+                                        <h5 class="lh-1 mB-0 logo-text">{{ config('app.name') }}</h5>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                            <div class="peer">
+                                <div class="mobile-toggle sidebar-toggle">
+                                <a href="" class="td-n">
+                                    <i class="ti-arrow-circle-left"></i>
+                                </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div id="main-menu" class="main-menu collapse navbar-collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="menu-item-has-children dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-laptop"></i>{{ __('navigation.order.title')}}</a>
-                                <ul class="sub-menu children dropdown-menu">
-                                    <li><i class="fa fa-paste"></i><a href="ui-buttons.html">{{ __('navigation.order.create')}}</a></li>
-                                    <li><i class="fa fa-search"></i><a href="ui-badges.html">{{ __('navigation.order.search')}}</a></li>
-                                    <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">{{ __('navigation.package.search')}}</a></li>
-                                </ul>
+
+                    <!-- ### $Sidebar Menu ### -->
+                    <ul class="sidebar-menu scrollable pos-r">
+                        <li class="nav-item mT-30 active">
+                            <a class="sidebar-link active" href="{{ route('order.create')}}">
+                                <span class="icon-holder">
+                                <i class="c-blue-500 ti-clipboard"></i>
+                                </span>
+                                <span class="title">{{ __('navigation.order.create')}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown open">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                                <span class="icon-holder">
+                                    <i class="c-brown-500 ti-search"></i>
+                                </span>
+                                <span class="title">{{ __('navigation.order.title')}}</span>
+                                <span class="arrow">
+                                    <i class="ti-angle-right"></i>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                <a href="google-maps.html">{{ __('navigation.order.search')}}</a>
+                                </li>
+                                <li>
+                                <a href="vector-maps.html">{{ __('navigation.package.search')}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown open">
+                            <a class="dropdown-toggle " href="javascript:void(0);">
+                                <span class="icon-holder">
+                                <i class="c-orange-500 ti-panel"></i>
+                                </span>
+                                <span class="title">{{ __('navigation.options.title')}}</span>
+                                <span class="arrow">
+                                <i class="ti-angle-right"></i>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class='sidebar-link' href="{{ route('cookie.index')}}">{{ __('navigation.options.cookie')}}</a>
+                                </li>
+                                <li>
+                                    <a class='sidebar-link' href="{{ route('pack.index')}}">{{ __('navigation.options.pack')}}</a>
+                                </li>
+                                <li>
+                                    <a class='sidebar-link' href="{{ route('caseType.index')}}">{{ __('navigation.options.case')}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- #Main ============================ -->
+            <div class="page-container">
+                <!-- ### $Topbar ### -->
+                <div class="header navbar">
+                    <div class="header-container">
+                        <ul class="nav-left">
+                            <li>
+                                <a id='sidebar-toggle' class="sidebar-toggle" href="javascript:void(0);">
+                                    <i class="ti-menu"></i>
+                                </a>
                             </li>
-                            <li class="menu-item-has-children dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-list-ul"></i>{{ __('navigation.options.title')}}</a>
-                                <ul class="sub-menu children dropdown-menu">
-                                    <li><i class="fa fa-gears"></i><a href="ui-buttons.html">{{ __('navigation.options.cookie')}}</a></li>
-                                    <li><i class="fa fa-gift"></i><a href="ui-badges.html">{{ __('navigation.options.case')}}</a></li>
-                                    <li><i class="fa fa-inbox"></i><a href="ui-badges.html">{{ __('navigation.options.pack')}}</a></li>
-                                </ul>
+                        </ul>
+                        <ul class="nav-right">
+                            <li>
+                                <a href="javascript:void(0);">
+                                    {{ __('navigation.logout')}}
+                                </a>
                             </li>
                         </ul>
                     </div>
-                </nav>
-            </aside><!-- /#left-panel -->
+                </div>
 
-            <!-- Right Panel -->
-
-            <div id="right-panel" class="right-panel">
-
-                <!-- Header-->
-                <header id="header" class="header">
-                    <div class="col">
-                        <a id="menuToggle" class="menutoggle pull-left text-primary"><i class="fa fa-align-left"></i></a>
+                <!-- ### $App Screen Content ### -->
+                <main class='main-content bgc-grey-100'>
+                    <div id='mainContent'>
+                        <div class="row gap-20 masonry pos-r">
+                            @yield('content')
+                        </div>
                     </div>
-                    <div class="col-auto ml-auto float-right">
-                        <a href="#">{{ __('navigation.logout')}}</a>
-                    </div>
+                </main>
 
-                </header><!-- /header -->
-                <!-- Header-->
-
-                <div class="content mt-3 container">
-                    @yield('content')
-                </div> <!-- .content -->
-            </div><!-- /#right-panel -->
+                <!-- ### $App Screen Footer ### -->
+                <footer class="bdT ta-c p-20 lh-0 fsz-sm c-grey-600">
+                    <span>Copyright © 2018 Designed by {{ config('app.name') }}. All rights reserved.</span>
+                </footer>
+            </div>
+        </div>
 
         <script>
             window.notificationLang = @json(__('notification'));

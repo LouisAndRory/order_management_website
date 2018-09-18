@@ -1,102 +1,100 @@
 @extends('master')
 
 @section('content')
-<div class="row mb-3" id="orderShowApp">
-    <div class="btn-group" role="group">
-        <a href="{{ route('order.edit', ['id'=> $order->id])}}" class="btn btn-primary" >{{ __('order.functional.update')}}</a>
-        <a href="{{ route('order.pdf', ['id'=> $order->id])}}" class="btn btn-primary" >{{ __('order.functional.pdf')}}</a>
-        <button type="button" class="btn btn-primary" v-on:click="onClickDeleteOrder">{{ __('order.functional.delete')}}</button>
+<div class="col-12">
+    <div class="row mb-3" id="orderShowApp">
+        <div class="btn-group col-12" role="group">
+            <button type="button" class="btn btn-secondary" v-on:click="onClickDeleteOrder">{{ __('order.functional.delete')}}</button>
+            <a href="{{ route('order.pdf', ['id'=> $order->id])}}" class="btn btn-primary ml-auto" >{{ __('order.functional.pdf')}}</a>
+            <a href="{{ route('order.edit', ['id'=> $order->id])}}" class="btn btn-primary" >{{ __('order.functional.update')}}</a>
+        </div>
     </div>
-</div>
-<dl class="row">
-    <dt class="col-md-3">{{ __('order.fields.name')}}</dt>
-    <dd class="col-md-3">{{ $order->name  }}</dd>
+    <div class="row bgc-white pY-15 bd mB-20 mx-0">
+        <h6 class="c-grey-900 mB-20 col-12">{{ __('order.section.info') }}</h6>
+        <div class="col-12">
+            <dl class="row">
+                <dt class="col-sm-6 col-md-3">{{ __('order.fields.name')}}</dt>
+                <dd class="col-sm-6 col-md-3">{{ $order->name  }}</dd>
 
-    <dt class="col-md-3">{{ __('order.fields.phone')}}</dt>
-    <dd class="col-md-3">{{ $order->phone? $order->phone:'-' }}</dd>
+                <dt class="col-sm-6 col-md-3">{{ __('order.fields.phone')}}</dt>
+                <dd class="col-sm-6 col-md-3">{{ $order->phone? $order->phone:'-' }}</dd>
 
-    <dt class="col-md-3">{{ __('order.fields.name_backup')}}</dt>
-    <dd class="col-md-3">{{ $order->name_backup? $order->name_backup:'-' }}</dd>
+                <dt class="col-sm-6 col-md-3">{{ __('order.fields.name_backup')}}</dt>
+                <dd class="col-sm-6 col-md-3">{{ $order->name_backup? $order->name_backup:'-' }}</dd>
 
-    <dt class="col-md-3">{{ __('order.fields.phone_backup')}}</dt>
-    <dd class="col-md-3">{{ $order->phone_backup? $order->phone_backup:'-' }}</dd>
+                <dt class="col-sm-6 col-md-3">{{ __('order.fields.phone_backup')}}</dt>
+                <dd class="col-sm-6 col-md-3">{{ $order->phone_backup? $order->phone_backup:'-' }}</dd>
 
-    <dt class="col-md-3">{{ __('order.fields.email')}}</dt>
-    <dd class="col-md-3">{{ $order->email? $order->email:'-' }}</dd>
+                <dt class="col-sm-6 col-md-3">{{ __('order.fields.email')}}</dt>
+                <dd class="col-sm-6 col-md-3">{{ $order->email? $order->email:'-' }}</dd>
 
-    <dt class="col-md-3">{{ __('order.fields.extra_fee')}}</dt>
-    <dd class="col-md-3">{{ $order->extra_fee? $order->extra_fee.' '.__('order.unit.dollar'):'-' }}</dd>
+                <dt class="col-sm-6 col-md-3">{{ __('order.fields.extra_fee')}}</dt>
+                <dd class="col-sm-6 col-md-3">{{ $order->extra_fee? $order->extra_fee.' '.__('order.unit.dollar'):'-' }}</dd>
 
-    <dt class="col-md-3">{{ __('order.fields.deposit')}}</dt>
-    <dd class="col-md-3">{{ $order->deposit? $order->deposit.' '.__('order.unit.dollar'):'-' }}</dd>
+                <dt class="col-sm-6 col-md-3">{{ __('order.fields.deposit')}}</dt>
+                <dd class="col-sm-6 col-md-3">{{ $order->deposit? $order->deposit.' '.__('order.unit.dollar'):'-' }}</dd>
 
-    <dt class="col-md-3">{{ __('order.fields.final_paid')}}</dt>
-    <dd class="col-md-3">
-        {{ $order->total_fee.' '.__('order.unit.dollar') }}
-        <span class="ml-2 fa {{ $order->final_paid? 'fa-check-circle text-success':'fa-exclamation-circle text-danger'}}"></span>
-        <span class="{{ $order->final_paid? 'text-success':'text-danger'}}">{{ $order->final_paid? __('order.replace_string.paid.yes'):__('order.replace_string.paid.no') }}</span>
-    </dd>
+                <dt class="col-sm-6 col-md-3">{{ __('order.fields.final_paid')}}</dt>
+                <dd class="col-sm-6 col-md-3">
+                    {{ $order->total_fee.' '.__('order.unit.dollar') }}
+                    <span class="ml-2 fa {{ $order->final_paid? 'fa-check-circle text-success':'fa-exclamation-circle text-danger'}}"></span>
+                    <span class="{{ $order->final_paid? 'text-success':'text-danger'}}">{{ $order->final_paid? __('order.replace_string.paid.yes'):__('order.replace_string.paid.no') }}</span>
+                </dd>
 
-    <dt class="col-md-3">{{ __('order.fields.engaged_date')}}</dt>
-    <dd class="col-md-3">{{ $order->engaged_date? $order->engaged_date->format('Y-m-d'):'-' }}</dd>
+                <dt class="col-sm-6 col-md-3">{{ __('order.fields.engaged_date')}}</dt>
+                <dd class="col-sm-6 col-md-3">{{ $order->engaged_date? $order->engaged_date->format('Y-m-d'):'-' }}</dd>
 
-    <dt class="col-md-3">{{ __('order.fields.married_date')}}</dt>
-    <dd class="col-md-3">{{ $order->married_date? $order->married_date->format('Y-m-d'):'-' }}</dd>
+                <dt class="col-sm-6 col-md-3">{{ __('order.fields.married_date')}}</dt>
+                <dd class="col-sm-6 col-md-3">{{ $order->married_date? $order->married_date->format('Y-m-d'):'-' }}</dd>
 
-    <dt class="col-md-3">{{ __('order.fields.card_required')}}</dt>
-    <dd class="col-md-3">{{ $order->card_required? __('order.replace_string.required.yes'):__('order.replace_string.required.no') }}</dd>
+                <dt class="col-sm-6 col-md-3">{{ __('order.fields.card_required')}}</dt>
+                <dd class="col-sm-6 col-md-3">{{ $order->card_required? __('order.replace_string.required.yes'):__('order.replace_string.required.no') }}</dd>
 
-    <dt class="col-md-3">{{ __('order.fields.wood_required')}}</dt>
-    <dd class="col-md-3">{{ $order->wood_required? __('order.replace_string.required.yes'):__('order.replace_string.required.no') }}</dd>
+                <dt class="col-sm-6 col-md-3">{{ __('order.fields.wood_required')}}</dt>
+                <dd class="col-sm-6 col-md-3">{{ $order->wood_required? __('order.replace_string.required.yes'):__('order.replace_string.required.no') }}</dd>
 
-    <dt class="col-md-3">{{ __('order.fields.remark')}}</dt>
-    <dd class="col-md-9">{{ $order->remark? $order->remark:'-' }}</dd>
-</dl>
-<div class="row">
-    @foreach($order->cases as $case)
-        <div class="col-12 col-md-6 mb-3 mb-md-4">
-            <div class="card h-100">
-                <div class="card-body d-flex flex-column">
-                    <div class="d-flex flex-column flex-md-row align-items-center">
-                        <h5 class="card-title">{{$case->case_type_name}}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted ml-md-auto">
-                                <span class="fa fa-dollar mr-1"></span>{{$case->price? $case->price:0 }}
-                                <span class="fa fa-archive mr-1"></span>{{$case->amount? $case->amount:0}}
-                        </h6>
-                    </div>
-                    @if(!count($case->cookies))
-                        <div class="mt-2 text-center text-secondary mt-auto mb-auto">
-                            <span class="fa fa-exclamation-triangle font-size-60"></span>
-                            <div class="card-subtitle">{{ __('order.notification.empty_case') }}</div>
-                        </div>
-                    @else
-                        @foreach($case->cookies as $cookie)
-                            <div class="mt-2">
-                                <span>{{$cookie->cookie_name}}</span>
-                                <span class="float-right">
-                                {{$cookie->pack_name}}
-                                <span class="mx-2">X</span>
-                                {{$cookie->amount?$cookie->amount:0}}</span>
+                <dt class="col-md-3">{{ __('order.fields.remark')}}</dt>
+                <dd class="col-md-9">{{ $order->remark? $order->remark:'-' }}</dd>
+            </dl>
+            <div class="row">
+                @foreach($order->cases as $case)
+                    <div class="col-12 col-md-6 mB-30">
+                        <div class="h-100 bgc-grey-100 p-15 d-flex flex-column">
+                            <div class="d-flex flex-column flex-md-row align-items-center">
+                                <h5 class="card-title">{{$case->case_type_name}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted ml-md-auto">
+                                        <span class="fa fa-dollar mr-1"></span>{{$case->price? $case->price:0 }}
+                                        <span class="fa fa-archive mr-1"></span>{{$case->amount? $case->amount:0}}
+                                </h6>
                             </div>
-                        @endforeach
-                    @endif
-                </div>
+                            @if(!count($case->cookies))
+                                <div class="mt-2 text-center text-secondary mt-auto mb-auto">
+                                    <span class="font-size-60">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                    </span>
+                                    <div class="card-subtitle">{{ __('order.notification.empty_case') }}</div>
+                                </div>
+                            @else
+                                @foreach($case->cookies as $cookie)
+                                    <div class="py-2 {{ ($loop->index +1)!=count($case->cookies)? 'border-bottom':''}}">
+                                        <span>{{$cookie->cookie_name}}</span>
+                                        <span class="float-right">
+                                        {{$cookie->pack_name}}
+                                        <span class="mx-2">X</span>
+                                        {{$cookie->amount?$cookie->amount:0}}</span>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
-    @endforeach
-</div>
-
-<div class="row" id="packageApp">
-
-    <div class="col-12">
-        <h4>{{ __('order.section.package')}}</h4>
     </div>
-    <div class="col-12 mb-3">
-        <!-- Button trigger create package modal -->
-        <button type="button" class="btn btn-primary rounded-0" v-on:click="packageModal.show.create=true">
-            <span class="fa fa-truck font-size-50"></span>
-            <div>{{ __('package.functional.add')}}</div>
-        </button>
+
+
+
+    <div class="row" id="packageApp">
         <package-modal
             modal-id="packageCreateModal"
             modal-title="{{ __('package.functional.add')}}"
@@ -120,47 +118,51 @@
             v-on:open="packageModal.show.edit=true"
             v-on:close="cleanModalData('edit')">
         </package-modal>
-    </div>
+        <div class="col-12 text-right">
+            <button type="button" class="btn btn-primary rounded-0 ml-auto" v-on:click="packageModal.show.create=true">
+                <span class="ti ti-truck font-size-30"></span>
+                <div>{{ __('package.functional.add')}}</div>
+            </button>
+        </div>
 
-    <div class="col-12 col-md-6 mb-3 mb-md-4" v-for="(package, index) in packages" :key="index">
-        <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-                <div class="d-flex flex-column flex-md-row align-items-center">
-                    <h5 class="card-title">@{{ package.arrived_at }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted ml-md-auto">
-                            <span class="fa fa-check-circle" :class="{'text-success': package.checked, 'text-danger': !package.checked}"></span>
-                    </h6>
-                </div>
-
-                <dl class="row">
-                    <dt class="col-md-3">{{ __('package.fields.name')}}</dt>
-                    <dd class="col-md-9">@{{ package.name }}</dd>
-
-                    <dt class="col-md-3">{{ __('package.fields.phone')}}</dt>
-                    <dd class="col-md-9">@{{ package.phone }}</dd>
-
-                    <dt class="col-md-3">{{ __('package.fields.address')}}</dt>
-                    <dd class="col-md-9">@{{ package.address }}</dd>
-
-                    <dt class="col-md-3">{{ __('package.fields.remark')}}</dt>
-                    <dd class="col-md-9">@{{ package.remark }}</dd>
-                </dl>
-                <div class="row mb-3">
-                    <div class="col-12 mt-2 text-center text-secondary mt-auto mb-auto" v-if="!package.cases.length">
-                        <span class="fa fa-exclamation-triangle font-size-60"></span>
-                        <div class="card-subtitle">{{ __('order.notification.empty_case') }}</div>
+        <div class="col-12 col-md-6 my-3 mb-md-4" v-for="(package, index) in packages" :key="index">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex flex-column flex-md-row align-items-center">
+                        <h5 class="card-title">@{{ package.arrived_at }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted ml-md-auto">
+                                <span class="fa fa-check-circle" :class="{'text-success': package.checked, 'text-danger': !package.checked}"></span>
+                        </h6>
                     </div>
-                    <div class="col-12 mt-2" v-for="(caseItem, index) in package.cases">
-                        <span>@{{caseItem.case_type_name}}</span>
-                        <span class="float-right mr-2">X<span>
-                        @{{caseItem.amount}}</span>
+
+                    <dl class="row">
+                        <dt class="col-md-3">{{ __('package.fields.name')}}</dt>
+                        <dd class="col-md-9">@{{ package.name }}</dd>
+
+                        <dt class="col-md-3">{{ __('package.fields.phone')}}</dt>
+                        <dd class="col-md-9">@{{ package.phone }}</dd>
+
+                        <dt class="col-md-3">{{ __('package.fields.address')}}</dt>
+                        <dd class="col-md-9">@{{ package.address }}</dd>
+
+                        <dt class="col-md-3">{{ __('package.fields.remark')}}</dt>
+                        <dd class="col-md-9">@{{ package.remark }}</dd>
+                    </dl>
+                    <div class="row mb-3">
+                        <div class="col-12 mt-2 text-center text-secondary mt-auto mb-auto" v-if="!package.cases.length">
+                            <span class="fa fa-exclamation-triangle font-size-60"></span>
+                            <div class="card-subtitle">{{ __('order.notification.empty_case') }}</div>
+                        </div>
+                        <div class="col-12 mt-2" v-for="(caseItem, index) in package.cases">
+                            <span>@{{caseItem.case_type_name}}</span>
+                            <span class="float-right mr-2">X<span>
+                            @{{caseItem.amount}}</span>
+                        </div>
                     </div>
-                </div>
-                <div class="row mt-auto">
-                    <div class="col">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-primary" v-on:click="onClickEditPackage(package)">{{ __('package.functional.edit')}}</button>
-                            <button type="button" class="btn btn-primary" v-on:click="onClickDeletePackage(package.id)">{{ __('package.functional.del')}}</button>
+                    <div class="row mt-auto">
+                        <div class="btn-group col-12" role="group">
+                            <button type="button" class="btn btn-secondary" v-on:click="onClickDeletePackage(package.id)">{{ __('package.functional.del')}}</button>
+                            <button type="button" class="btn btn-primary ml-auto" v-on:click="onClickEditPackage(package)">{{ __('package.functional.edit')}}</button>
                             <button type="button" class="btn btn-primary" v-on:click="onClickUpdatePackageStatus(package, 'checked')">
                                 @{{ package.checked? langs.functional.cancel_check:langs.functional.check }}
                             </button>
@@ -172,8 +174,8 @@
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
 </div>
 @endsection
 

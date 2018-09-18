@@ -50,7 +50,7 @@ class CaseMutator implements MutatorContract
             DB::beginTransaction();
 
             $case = CaseModel::findOrFail($id);
-            $case->CaseModel($data);
+            $case->update($data);
 
             info("CaseModel updated", $case->toArray());
 

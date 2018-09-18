@@ -8,7 +8,8 @@ window.moment = require('moment');
 
 try {
     window.$ = window.jQuery = require('jquery');
-    require('bootstrap');
+	require('bootstrap');
+	require('./sidebar');
 } catch (e) {}
 
 const orderCreateApp = document.getElementById("orderCreateApp");
@@ -71,10 +72,3 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
-
-
-jQuery(document).ready(function($) {
-	$('#menuToggle').on('click', function(event) {
-		$('body').toggleClass('open');
-	});
-});

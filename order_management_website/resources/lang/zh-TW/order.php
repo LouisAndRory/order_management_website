@@ -63,6 +63,7 @@ return [
         'empty_case' => '尚未選擇禮盒內容'
     ],
     'section' => [
+        'info' => '基本資料',
         'package' => '包裹資訊',
     ],
 
