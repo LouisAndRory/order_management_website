@@ -40,9 +40,11 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="orderFinalPaid">{{ __('order.fields.final_paid')}}</label>
-                    <div class="material-switch mt-2">
-                        <input type="checkbox" id="orderFinalPaid" class="d-none" v-model="order.final_paid" :true-value="1" :false-value="0">
-                        <label for="orderFinalPaid" class="bg-success"></label>
+                    <div class="checkbox checkbox-circle checkbox-info peers ai-c mB-15">
+                        <input type="checkbox" id="orderFinalPaid" class="peer" v-model="order.final_paid" true-value="1" false-value="0">
+                        <label for="orderFinalPaid" class="peers peer-greed js-sb ai-c">
+                            <span class="peer peer-greed">{{ __('order.replace_string.paid.yes')}}</span>
+                        </label>
                     </div>
                 </div>
             </div>

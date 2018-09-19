@@ -17,6 +17,22 @@ const PackageApp = new Vue({
                 create: false,
                 edit: false
             }
+        },
+        filter: 'unsent'
+    },
+    computed: {
+        filterPackage: function() {
+            const that = this
+            return _.filter(this.packages, (item)=> {
+                let result = true
+                if(that.filter == 'sent'){
+                    result = item.sent_at? true:false
+                }else if(that.filter == 'unsent') {
+                    result = !item.sent_at? true:false
+                }
+
+                if(result) return item
+            })
         }
     },
     methods: {

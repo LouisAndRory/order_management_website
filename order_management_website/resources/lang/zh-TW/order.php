@@ -64,7 +64,8 @@ return [
     ],
     'section' => [
         'info' => '基本資料',
-        'package' => '包裹資訊',
+        'case' => '禮盒資料',
+        'package' => '包裹資料',
     ],
 
 ];

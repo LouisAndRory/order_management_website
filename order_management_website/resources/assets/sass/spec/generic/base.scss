@@ -90,3 +90,22 @@ button, a.btn {
   box-shadow: -1px 2px 6px rgba(0, 0, 0, 0.2)
 }
 
+.package-card{
+  .check-icon {
+    right: 6px;
+    top: 5px;
+    z-index: 10;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 2.5em;
+    border-right-color: inherit;
+    border-top-color: inherit;
+  }
+}
+

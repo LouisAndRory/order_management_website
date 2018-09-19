@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-<div id="managementApp" class="row">
+<div id="managementApp" class="col-12 col-md-8">
     <management-modal
         modal-id="managementCreateModal"
         modal-title="{{ __('pack.functional.add')}}"
@@ -39,15 +39,17 @@
                 <th v-text="pack.name"></th>
                 <td v-text="pack.slug"></td>
                 <td>
-                    <div class="material-switch mt-2">
-                        <input type="checkbox" :id="'packEnabled_'+index" class="d-none" v-model="pack.enabled" true-value="1" false-value="0" v-on:change="itemEnabledHandler(pack, index)">
-                        <label :for="'packEnabled_'+index" class="bg-success"></label>
+                    <div class="checkbox checkbox-circle checkbox-info peers ai-c mB-15">
+                        <input type="checkbox" :id="'packEnabled_'+index" class="peer" v-model="pack.enabled" true-value="1" false-value="0" v-on:change="itemEnabledHandler(pack, index)">
+                        <label :for="'packEnabled_'+index" class="peers peer-greed js-sb ai-c">
+                            <span class="peer peer-greed">{{ __('pack.replace_string.enabled')}}</span>
+                        </label>
                     </div>
                 </td>
                 <td>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-primary" v-on:click="onClickEditItem(pack)">{{ __('pack.functional.edit')}}</button>
-                        <button type="button" class="btn btn-primary" v-on:click="onClickDeleteItem(pack.id)">{{ __('pack.functional.del')}}</button>
+                        <button type="button" class="btn btn-secondary" v-on:click="onClickDeleteItem(pack.id)">{{ __('pack.functional.del')}}</button>
                     </div>
                 </td>
             </tr>
