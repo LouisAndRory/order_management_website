@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'order'], function () {
     Route::get('/', 'OrderController@index')->name('order.index');
+    Route::get('/search', 'OrderController@search')->name('order.search');
     Route::get('/create', 'OrderController@create')->name('order.create');
     Route::get('/{id}', 'OrderController@show')->name('order.show');
     Route::get('/{id}/edit', 'OrderController@edit')->name('order.edit');
@@ -29,6 +30,7 @@ Route::group(['prefix' => 'order'], function () {
 
 Route::group(['prefix' => 'package'], function () {
     Route::post('/', 'PackageController@store')->name('package.store');
+    Route::get('/search', 'PackageController@search')->name('package.search');
     Route::put('/{id}', 'PackageController@update');
     Route::delete('/{id}', 'PackageController@delete');
 });
