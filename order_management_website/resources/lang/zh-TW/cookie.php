@@ -22,7 +22,7 @@ return [
     'fields' => [
         'name' => '餅乾名稱',
         'slug' => '餅乾縮寫',
-        'enabled' => '上架中'
+        'enabled' => '狀態'
     ],
     'placeholder' => [
         'cookie_type' => '請選擇餅乾',
@@ -30,5 +30,8 @@ return [
         'amount' => '請輸入數量',
         'name' => '請輸入餅乾名稱',
         'slug' => '請輸入餅乾縮寫'
+    ],
+    'replace_string' => [
+        'enabled' => '上架中'
     ]
 ];

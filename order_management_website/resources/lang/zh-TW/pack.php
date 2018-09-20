@@ -22,10 +22,14 @@ return [
     'fields' => [
         'name' => '包裝名稱',
         'slug' => '包裝縮寫',
-        'enabled' => '上架中'
+        'enabled' => '狀態'
     ],
     'placeholder' => [
         'name' => '請輸入包裝名稱',
         'slug' => '請輸入包裝縮寫'
+    ],
+    'replace_string' => [
+        'enabled' => '上架中'
     ]
+
 ];

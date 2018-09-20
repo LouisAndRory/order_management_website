@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-<div id="managementApp" class="row">
+<div id="managementApp" class="col-12 col-md-8" v-cloak>
     <management-modal
         modal-id="managementCreateModal"
         modal-title="{{ __('cookie.functional.add')}}"
@@ -39,15 +39,17 @@
                 <th v-text="cookie.name"></th>
                 <td v-text="cookie.slug"></td>
                 <td>
-                    <div class="material-switch mt-2">
-                        <input type="checkbox" :id="'cookieEnabled_'+index" class="d-none" v-model="cookie.enabled" true-value="1" false-value="0" v-on:change="itemEnabledHandler(cookie, index)">
-                        <label :for="'cookieEnabled_'+index" class="bg-success"></label>
+                    <div class="checkbox checkbox-circle checkbox-info peers ai-c mB-15">
+                        <input type="checkbox" :id="'cookieEnabled_'+index" class="peer" v-model="cookie.enabled" true-value="1" false-value="0" v-on:change="itemEnabledHandler(cookie, index)">
+                        <label :for="'cookieEnabled_'+index" class="peers peer-greed js-sb ai-c">
+                            <span class="peer peer-greed">{{ __('cookie.replace_string.enabled')}}</span>
+                        </label>
                     </div>
                 </td>
                 <td>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-primary" v-on:click="onClickEditItem(cookie)">{{ __('cookie.functional.edit')}}</button>
-                        <button type="button" class="btn btn-primary" v-on:click="onClickDeleteItem(cookie.id)">{{ __('cookie.functional.del')}}</button>
+                        <button type="button" class="btn btn-secondary" v-on:click="onClickDeleteItem(cookie.id)">{{ __('cookie.functional.del')}}</button>
                     </div>
                 </td>
             </tr>

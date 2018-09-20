@@ -35,6 +35,7 @@ return [
         'address' => '地址',
         'arrived_at' => '到貨日期',
         'remark' => '備註',
+        'sent_at' => '寄送日期'
     ],
     'placeholder' => [
         'name' => '請輸入收件人',
@@ -43,5 +44,10 @@ return [
         'arrived_at' => '請點選預計到貨日期',
         'remark' => '請輸入備註事項',
         'cases' => '請選擇禮盒',
+    ],
+    'filter' => [
+        'all' => '全部',
+        'sent' => '已出貨',
+        'unsent' => '未出貨'
     ]
 ];

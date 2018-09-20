@@ -29,7 +29,7 @@ return [
         'amount' => '盒數',
         'name' => '禮盒名稱',
         'slug' => '禮盒縮寫',
-        'enabled' => '上架中'
+        'enabled' => '狀態'
     ],
     'placeholder' => [
         'case_type' => '請選擇盒型',
@@ -37,5 +37,8 @@ return [
         'amount' => '請輸入盒數',
         'name' => '請輸入禮盒名稱',
         'slug' => '請輸入禮盒縮寫'
+    ],
+    'replace_string' => [
+        'enabled' => '上架中'
     ]
 ];

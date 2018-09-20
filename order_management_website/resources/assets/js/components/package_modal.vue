@@ -108,11 +108,11 @@
                         <div class="col-md-4">
                             <div class="input-group">
                                 <div class="input-group-prepend cursor-pointer">
-                                    <button class="btn btn-secondary" type="button" v-on:click="caseItem.amount+=1"><span class="fa fa-plus"></span></button>
+                                    <button class="btn btn-primary" type="button" v-on:click="caseItem.amount-=1" :disabled="caseItem.amount==1"><span class="fa fa-minus"></span></button>
                                 </div>
                                 <input type="number" class="form-control text-center" min="0" v-model.number="caseItem.amount" value="1">
                                 <div class="input-group-append cursor-pointer">
-                                    <button class="btn btn-secondary" type="button" v-on:click="caseItem.amount-=1" :disabled="caseItem.amount==1"><span class="fa fa-minus"></span></button>
+                                    <button class="btn btn-primary" type="button" v-on:click="caseItem.amount+=1"><span class="fa fa-plus"></span></button>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                             <button v-on:click="delCase(caseIndex)" type="button" class="col btn btn-secondary">{{ langs.functional.del_content }}</button>
                         </div>
                     </div>
-                    <div class="form-row bg-primary">
+                    <div class="form-row">
                         <div class="col-12">
                             <button v-on:click="addCase()" type="button" class="col btn btn-primary rounded-0">+ {{ langs.functional.add_content }}</button>
                         </div>
@@ -130,7 +130,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" v-on:click="closeModal">{{langs.functional.cancel}}</button>
+                <button type="button" class="btn btn-secondary mr-auto" v-on:click="closeModal">{{langs.functional.cancel}}</button>
                 <button type="button" class="btn btn-primary" v-on:click="onSubmit">{{langs.functional.save}}</button>
             </div>
             </div>
