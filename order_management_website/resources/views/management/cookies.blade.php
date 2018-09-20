@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-<div id="managementApp" class="col-12 col-md-8">
+<div id="managementApp" class="col-12 col-md-8" v-cloak>
     <management-modal
         modal-id="managementCreateModal"
         modal-title="{{ __('cookie.functional.add')}}"

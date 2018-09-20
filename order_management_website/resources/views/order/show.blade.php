@@ -98,7 +98,7 @@
 
 
 
-    <div class="row" id="packageApp">
+    <div class="row" id="packageApp" v-cloak>
         <package-modal
             modal-id="packageCreateModal"
             modal-title="{{ __('package.functional.add')}}"

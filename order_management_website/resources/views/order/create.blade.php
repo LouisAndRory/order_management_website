@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('content')
-<div class="col-12">
-    <form id="orderCreateApp" v-on:submit.prevent="onSubmit">
+<div class="col-12" id="orderCreateApp" v-cloak>
+    <form v-on:submit.prevent="onSubmit">
         <div class="bgc-white p-20 bd mB-20">
             <h6 class="c-grey-900 mB-20">{{ __('order.section.info') }}</h6>
             <div class="form-row">
