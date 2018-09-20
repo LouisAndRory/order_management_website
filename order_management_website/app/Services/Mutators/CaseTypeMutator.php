@@ -28,6 +28,13 @@ class CaseTypeMutator implements MutatorContract
 
     public function delete($id)
     {
+        $caseType = CaseType::findOrFail($id);
+        if ($caseType->deletable) {
+            $caseType->delete();
 
+            info("CaseType $id deleted");
+        } else {
+            throw new \Exception("CaseType $id can't be deleted");
+        }
     }
 }

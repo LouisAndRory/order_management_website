@@ -39,16 +39,19 @@ Route::group(['prefix' => 'cookie'], function () {
     Route::get('/', 'CookieController@index')->name('cookie.index');
     Route::post('/', 'CookieController@store');
     Route::put('/{id}', 'CookieController@update');
+    Route::delete('/{id}', 'CookieController@delete');
 });
 
 Route::group(['prefix' => 'caseType'], function () {
     Route::get('/', 'CaseTypeController@index')->name('caseType.index');
     Route::post('/', 'CaseTypeController@store');
     Route::put('/{id}', 'CaseTypeController@update');
+    Route::delete('/{id}', 'CaseTypeController@delete');
 });
 
 Route::group(['prefix' => 'pack'], function () {
     Route::get('/', 'PackController@index')->name('pack.index');
     Route::post('/', 'PackController@store');
     Route::put('/{id}', 'PackController@update');
+    Route::delete('/{id}', 'PackController@delete');
 });

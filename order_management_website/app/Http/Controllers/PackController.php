@@ -12,7 +12,9 @@ class PackController extends Controller
 {
     public function index()
     {
-        $packs = Pack::all();
+        $packs = Pack::select([
+            'id', 'name', 'slug', 'enabled'
+        ])->get();
 
         return view('management.packs',[
             'packs' => $packs
@@ -33,5 +35,16 @@ class PackController extends Controller
         $packMutator->update($id, $request->all());
 
         return response()->json_updated();
+    }
+
+    public function delete($id)
+    {
+        $packMutator = new PackMutator();
+        try {
+            $packMutator->delete($id);
+            return response()->json_deleted();
+        } catch (\Exception $e) {
+            return response()->json_delete_failed();
+        }
     }
 }

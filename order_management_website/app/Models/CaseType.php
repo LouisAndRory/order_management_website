@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class CaseType extends Model
@@ -21,4 +22,14 @@ class CaseType extends Model
     protected $fillable = [
         'name', 'slug','enabled'
     ];
+
+    protected $appends = [
+        'deletable'
+    ];
+
+    public function getDeletableAttribute()
+    {
+        return !CaseModel::where('case_type_id', '=', $this->id)
+            ->exists();
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Pack extends Model
@@ -21,4 +22,15 @@ class Pack extends Model
     protected $fillable = [
         'name', 'slug', 'enabled'
     ];
+
+    protected $appends = [
+        'deletable'
+    ];
+
+    public function getDeletableAttribute()
+    {
+        return !DB::table('case_has_cookies')
+            ->where('pack_id', '=', $this->id)
+            ->exists();
+    }
 }
