@@ -220,7 +220,7 @@ class OrderController extends Controller
 
             return response()->json_deleted();
         } catch (\Exception $e) {
-            return response()->json_deleted_failed();
+            return response()->json_delete_failed();
         }
     }
 

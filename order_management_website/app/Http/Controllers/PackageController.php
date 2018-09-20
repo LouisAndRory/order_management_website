@@ -17,7 +17,7 @@ class PackageController extends Controller
 
         $packageOrm = Package::select([
             'packages.id', 'orders.id AS order_id', 'packages.name AS package_name', 'packages.phone AS package_phone',
-            'orders.phone AS order_phone', 'arrived_at', 'sent_at', 'orders.married_date'
+            'orders.phone AS order_phone', 'arrived_at', 'sent_at', 'orders.married_date', 'checked'
         ])->join('orders', 'orders.id', '=', 'packages.order_id')
             ->with([
                 'cases' => function ($q) {
@@ -117,7 +117,7 @@ class PackageController extends Controller
 
             return response()->json_deleted();
         } catch (\Exception $e) {
-            return response()->json_deleted_failed();
+            return response()->json_delete_failed();
         }
     }
 }

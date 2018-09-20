@@ -16,8 +16,9 @@ class CreateCookiesTable extends Migration
         Schema::create('cookies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 30);
-            $table->string('slug', 30)->nullable();;
+            $table->string('slug', 30)->nullable();
             $table->boolean('enabled')->default(true);
+            $table->integer('type')->default(0);
             $table->timestamps();
         });
     }

@@ -12,7 +12,9 @@ class CaseTypeController extends Controller
 {
     public function index()
     {
-        $caseTypes = CaseType::all();
+        $caseTypes = CaseType::select([
+            'id', 'name', 'slug', 'enabled'
+        ])->get();
 
         return view('management.cases',[
             'cases' => $caseTypes
@@ -38,6 +40,17 @@ class CaseTypeController extends Controller
             return response()->json_updated();
         } catch (\Exception $e) {
             return response()->json_update_failed();
+        }
+    }
+
+    public function delete($id)
+    {
+        $caseTypeMutator = new CaseTypeMutator();
+        try {
+            $caseTypeMutator->delete($id);
+            return response()->json_deleted();
+        } catch (\Exception $e) {
+            return response()->json_delete_failed();
         }
     }
 }

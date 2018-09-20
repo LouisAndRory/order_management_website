@@ -31,6 +31,13 @@ class PackMutator implements MutatorContract
 
     public function delete($id)
     {
+        $pack = Pack::findOrFail($id);
+        if ($pack->deletable) {
+            $pack->delete();
 
+            info("Pack $id deleted");
+        } else {
+            throw new \Exception("Pack $id can't be deleted");
+        }
     }
 }

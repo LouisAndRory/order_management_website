@@ -80,6 +80,7 @@ class MigrateOldData extends Command
                 'name' => $cookie->name ?: null,
                 'enabled' => $cookie->show ?: false,
                 'slug' => $cookie->shortname ?: null,
+                'type' => $cookie->type,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];

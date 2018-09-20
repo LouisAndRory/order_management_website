@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Cookie extends Model
@@ -26,4 +27,15 @@ class Cookie extends Model
     protected $fillable = [
         'name', 'slug','enabled'
     ];
+
+    protected $appends = [
+        'deletable'
+    ];
+
+    public function getDeletableAttribute()
+    {
+        return !DB::table('case_has_cookies')
+            ->where('cookie_id', '=', $this->id)
+            ->exists();
+    }
 }

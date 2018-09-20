@@ -30,6 +30,13 @@ class CookieMutator implements MutatorContract
 
     public function delete($id)
     {
-        
+        $cookie = Cookie::findOrFail($id);
+        if ($cookie->deletable) {
+            $cookie->delete();
+
+            info("Cookie $id deleted");
+        } else {
+            throw new \Exception("Cookie $id can't be deleted");
+        }
     }
 }
