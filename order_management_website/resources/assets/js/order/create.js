@@ -91,7 +91,7 @@ const OrderCreateApp = new Vue({
             const that = this
 
             $.ajax({
-                url: './',
+                url: that.orderBaseUrl,
                 data: this.order,
                 type: 'POST',
                 dataType : 'json',
