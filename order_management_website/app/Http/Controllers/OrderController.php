@@ -8,16 +8,51 @@ use App\Models\CaseType;
 use App\Models\Cookie;
 use App\Models\Order;
 use App\Models\Pack;
+use App\Models\Package;
 use App\Services\Features\OrderPDFGenerator;
 use App\Services\Features\OrderService;
 use App\Services\Mutators\OrderMutator;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
     public function index()
     {
+        $packages = Package::select([
+            'packages.id AS package_id', 'orders.id AS order_id', 'packages.name AS package_name',
+            'packages.arrived_at', 'packages.sent_at', 'packages.remark', 'orders.final_paid',
 
+        ])->join('orders', 'orders.id', '=', 'packages.order_id')
+            ->where('arrived_at', '>=', Carbon::now()->toDateString())
+            ->where('arrived_at', '<=', Carbon::now()->addDays(14)->toDateString())
+            ->orderBy('arrived_at', 'ASC')
+            ->get();
+
+        return response()->json([
+            'packages' => $packages
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $queries = $request->all();
+
+        $orderOrm = Order::select([
+            'id', 'name', 'phone', 'final_paid', 'remark', 'married_date'
+        ]);
+
+        foreach ($queries as $key => $value) {
+            if (\Schema::hasColumn('orders', $key)) {
+                $orderOrm->where($key, "LIKE", "%$value%");
+            }
+        }
+
+        $orders = $orderOrm->get();
+
+        return response()->json([
+            'orders' => $orders
+        ]);
     }
 
     public function create()
