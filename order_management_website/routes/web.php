@@ -16,6 +16,8 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'order'], function () {
+    Route::get('/{id}/pdf', 'OrderController@pdf')->name('order.pdf');
+
     Route::get('/', 'OrderController@index')->name('order.index');
     Route::get('/search', 'OrderController@search')->name('order.search');
     Route::get('/create', 'OrderController@create')->name('order.create');
@@ -24,11 +26,11 @@ Route::group(['prefix' => 'order'], function () {
     Route::post('/', 'OrderController@store')->name('order.store');
     Route::put('/{id}', 'OrderController@update')->name('order.update');
     Route::delete('/{id}', 'OrderController@delete')->name('order.delete');
-
-    Route::get('/{id}/pdf', 'OrderController@pdf')->name('order.pdf');
 });
 
 Route::group(['prefix' => 'package'], function () {
+    Route::get('/excel', 'PackageController@excel');
+
     Route::post('/', 'PackageController@store')->name('package.store');
     Route::get('/search', 'PackageController@search')->name('package.search');
     Route::put('/{id}', 'PackageController@update');

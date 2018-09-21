@@ -6,6 +6,7 @@ use App\Http\Requests\Package\StoreRequest;
 use App\Http\Requests\Package\UpdateRequest;
 use App\Models\Order;
 use App\Models\Package;
+use App\Services\Features\PackageExport;
 use App\Services\Mutators\PackageMutator;
 use Illuminate\Http\Request;
 
@@ -119,5 +120,18 @@ class PackageController extends Controller
         } catch (\Exception $e) {
             return response()->json_delete_failed();
         }
+    }
+
+    public function excel(Request $request)
+    {
+        $input = $request->all();
+        if (empty($input)) {
+            return response([
+                'message' => 'Empty input'
+            ], 400);
+        }
+
+        $export = new PackageExport($input);
+        return $export->download();
     }
 }
