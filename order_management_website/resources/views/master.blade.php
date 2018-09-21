@@ -64,10 +64,10 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                <a href="google-maps.html">{{ __('navigation.order.search')}}</a>
+                                <a href="{{ route('package.search')}}">{{ __('navigation.order.search')}}</a>
                                 </li>
                                 <li>
-                                <a href="vector-maps.html">{{ __('navigation.package.search')}}</a>
+                                <a href="{{ route('package.search')}}">{{ __('navigation.package.search')}}</a>
                                 </li>
                             </ul>
                         </li>

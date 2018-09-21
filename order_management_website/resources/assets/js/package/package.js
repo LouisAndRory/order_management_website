@@ -1,4 +1,4 @@
-import PackageModal from './components/package_modal'
+import PackageModal from '../components/package_modal'
 
 const PackageApp = new Vue({
     el: '#packageApp',

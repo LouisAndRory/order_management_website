@@ -16,6 +16,7 @@ const orderCreateApp = document.getElementById("orderCreateApp");
 const orderEditApp = document.getElementById("orderEditApp");
 const orderShowApp = document.getElementById("orderShowApp");
 const managementApp = document.getElementById("managementApp");
+const packageSearchApp = document.getElementById("packageSearchApp");
 
 if(orderCreateApp){
 	require('./order/create');
@@ -23,9 +24,11 @@ if(orderCreateApp){
 	require('./order/edit');
 }else if(orderShowApp) {
 	require('./order/show');
-	require('./package');
+	require('./package/package');
 }else if(managementApp) {
 	require('./management.js');
+}else if(packageSearchApp) {
+	require('./package/search');
 }
 
 const token = document.head.querySelector('meta[name="csrf-token"]');

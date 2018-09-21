@@ -23,11 +23,13 @@ return [
         'cancel_check' => '取消包裹確認',
         'del_content' => '刪除',
         'save' => '儲存',
-        'cancel' => '取消'
+        'cancel' => '取消',
+        'search' => '搜尋'
     ],
     'section' => [
         'info' => '包裹資訊',
-        'content' => '包裹內容'
+        'content' => '包裹內容',
+        'sent_status' => '出貨狀態'
     ],
     'fields' => [
         'name' => '收件人',
