@@ -12,7 +12,12 @@ use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
-    public function search(Request $request)
+    public function search()
+    {
+        return view('package.search');
+    }
+
+    public function searchApi(Request $request)
     {
         $queries = $request->all();
 

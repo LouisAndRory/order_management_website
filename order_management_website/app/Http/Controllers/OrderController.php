@@ -29,12 +29,17 @@ class OrderController extends Controller
             ->orderBy('arrived_at', 'ASC')
             ->get();
 
-        return response()->json([
+        return view('order.index', [
             'packages' => $packages
         ]);
     }
 
-    public function search(Request $request)
+    public function search()
+    {
+        return view('order.search');
+    }
+
+    public function searchApi(Request $request)
     {
         $queries = $request->all();
 
