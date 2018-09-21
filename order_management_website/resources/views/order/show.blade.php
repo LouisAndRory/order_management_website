@@ -161,9 +161,14 @@
                         <h5 class="card-title">
                             @{{ package.arrived_at }}
                             <small class="text-muted">{{ __('package.fields.arrived_at')}}</small>
-                            <span v-if="package.sent_at">
+                            <span v-if="package.sent_at" class="text-primary">
+                                <i class="ti ti-truck font-size-20 text-primary"></i>
                                 @{{ package.sent_at }}
-                                <small class="text-muted">{{ __('package.fields.sent_at')}}</small>
+                                <small class="text-primary">{{ __('package.fields.sent_at')}}</small>
+                            </span>
+                            <span v-else>
+                                <i class="ti ti-truck font-size-20"></i>
+                                <small class="text-muted font-weight-bold">{{ __('package.filter.unsent') }}</small>
                             </span>
                             </h5>
                     </div>
@@ -196,7 +201,7 @@
                         <div class="btn-group col-12" role="group">
                             <button type="button" class="btn btn-secondary" v-on:click="onClickDeletePackage(package.id)">{{ __('package.functional.del')}}</button>
                             <button type="button" class="btn btn-primary ml-auto" v-on:click="onClickEditPackage(package)">{{ __('package.functional.edit')}}</button>
-                            <button type="button" class="btn btn-primary" v-on:click="onClickUpdatePackageStatus(package, 'sent_at')">
+                            <button type="button" class="btn" :class="{'btn-primary': !package.sent_at, 'btn-secondary': package.sent_at}" v-on:click="onClickUpdatePackageStatus(package, 'sent_at')">
                                 @{{ package.sent_at? langs.functional.cancel_sent:langs.functional.sent }}
                             </button>
                         </div>

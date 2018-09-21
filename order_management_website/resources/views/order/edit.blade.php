@@ -132,7 +132,7 @@
             <div class="row mx-0">
                 <div class="col-12 mb-4" v-for="(caseItem, caseIndex) in order.cases">
                     <div class="row">
-                        <div class="col-12 bgc-grey-100 pY-15 case-card">
+                        <div class="col-12 bgc-grey-100 pY-15 base-box-shadow">
                             <div class="row mB-15">
                                 <div class="col-12">
                                     <h6 class="c-grey-900 d-inline-block">{{ __('case.section.info') }}</h6>
