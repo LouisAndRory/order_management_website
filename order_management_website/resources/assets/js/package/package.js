@@ -18,7 +18,7 @@ const PackageApp = new Vue({
                 edit: false
             }
         },
-        filter: 'unsent'
+        filter: 'all'
     },
     computed: {
         filterPackage: function() {

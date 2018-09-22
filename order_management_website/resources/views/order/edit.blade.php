@@ -235,6 +235,7 @@
     const editOrder = @json($order);
     const orderUpdateUrl = '{{ route('order.update', ['id'=> $order->id])}}';
     const orderShowUrl = '{{ route('order.show', ['id'=> $order->id])}}';
+    const defaultCookieOption = '{{ env('DEFAULT_COOKIE_OPTION', '') }}'
     const orderDDL = {
         cases: @json($caseTypes),
         cookies: @json($cookies),

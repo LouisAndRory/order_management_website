@@ -49,7 +49,7 @@
                 <td>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-primary" v-on:click="onClickEditItem(cookie)">{{ __('cookie.functional.edit')}}</button>
-                        <button type="button" class="btn btn-secondary" v-on:click="onClickDeleteItem(cookie.id)">{{ __('cookie.functional.del')}}</button>
+                        <button type="button" class="btn btn-secondary" v-on:click="onClickDeleteItem(cookie.id)" v-if="cookie.deletable">{{ __('cookie.functional.del')}}</button>
                     </div>
                 </td>
             </tr>

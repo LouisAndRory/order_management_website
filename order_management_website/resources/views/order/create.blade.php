@@ -222,6 +222,7 @@
 
 @section('custom-js')
     const orderBaseUrl = '{{ route('order.index')}}';
+    const defaultCookieOption = '{{ env('DEFAULT_COOKIE_OPTION', '') }}'
     const orderDDL = {
         cases: @json($caseTypes),
         cookies: @json($cookies),

@@ -44,6 +44,8 @@ return [
         'phone' => '請輸入電話',
         'address' => '請輸入地址',
         'arrived_at' => '請點選預計到貨日期',
+        'arrived_at_start' => '到貨日起',
+        'arrived_at_end' => '到貨日迄',
         'remark' => '請輸入備註事項',
         'cases' => '請選擇禮盒',
     ],

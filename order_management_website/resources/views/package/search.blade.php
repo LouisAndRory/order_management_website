@@ -12,10 +12,28 @@
         <div class="col-4">
             <div class="row">
                 <div class="col-12 col-md-6 pr-md-1">
-                    <input type="phone" class="form-control" placeholder="{{ __('order.placeholder.phone')}}" v-model="filter.phone">
+                    <datepicker
+                        format="yyyy-MM-dd"
+                        v-model="arrivedAtStartDate"
+                        input-class="bg-white"
+                        id="arrivedAtStartDate"
+                        calendar-button-icon="fa fa-calendar"
+                        :calendar-button="true"
+                        :clear-button="true"
+                        :bootstrap-styling="true"
+                        placeholder="{{ __('package.placeholder.arrived_at_start')}}"></datepicker>
                 </div>
                 <div class="col-12 col-md-6 pl-md-1">
-                    <input type="phone" class="form-control" placeholder="{{ __('order.placeholder.phone')}}" v-model="filter.phone">
+                    <datepicker
+                        format="yyyy-MM-dd"
+                        v-model="arrivedAtEndDate"
+                        input-class="bg-white"
+                        id="arrivedAtEndDate"
+                        calendar-button-icon="fa fa-calendar"
+                        :calendar-button="true"
+                        :clear-button="true"
+                        :bootstrap-styling="true"
+                        placeholder="{{ __('package.placeholder.arrived_at_end')}}"></datepicker>
                 </div>
             </div>
         </div>
@@ -34,7 +52,7 @@
             </button>
         </div>
     </div>
-    <div class="row bgc-white p-15 bd mB-20 mx-0">
+    <div class="row bgc-white p-15 bd mB-20 mx-0" v-if="list.length">
         <div class="table-responsive">
             <table id="dataTable" class="table mb-0" cellspacing="0" width="100%">
                 <thead>
@@ -84,6 +102,16 @@
                     </template>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row p-15" v-else-if="loading">
+        <div class="col-auto">
+            <h5>Loading</h5>
+        </div>
+    </div>
+    <div class="row p-15" v-else>
+        <div class="col-auto">
+            <h5>Empty</h5>
         </div>
     </div>
 </div>

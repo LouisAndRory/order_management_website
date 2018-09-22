@@ -61,7 +61,6 @@ if (token) {
 			500: function() {
 				Vue.swal({
 					allowOutsideClick: false,
-					backdrop: false,
 					type: 'error',
 					title: _.get(window.notificationLang, 'unexpect_error.title'),
 					text: _.get(window.notificationLang, 'unexpect_error.text'),

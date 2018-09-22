@@ -6,7 +6,7 @@ const defaultCase = {
     cookies: []
 };
 const defaultCookie = {
-    cookie_id: '',
+    cookie_id: defaultCookieOption,
     pack_id: '',
     amount: 1
 }

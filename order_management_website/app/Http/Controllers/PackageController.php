@@ -37,10 +37,10 @@ class PackageController extends Controller
         foreach ($queries as $key => $value) {
             if ($key === 'shipped' && $value) {
                 $packageOrm->where('packages.sent_at', '!=', null);
-            } else if ($key === 'married_date_max') {
-                $packageOrm->where("orders.married_date", "<=", $value);
-            } else if ($key === 'married_date_min') {
-                $packageOrm->where("orders.married_date", ">=", $value);
+            } else if ($key === 'arrived_at_max') {
+                $packageOrm->where("packages.arrived_at", "<=", $value);
+            } else if ($key === 'arrived_at_min') {
+                $packageOrm->where("packages.arrived_at", ">=", $value);
             } else if (\Schema::hasColumn('packages', $key)) {
                 $packageOrm->where("packages.$key", "LIKE", "%$value%");
             }
