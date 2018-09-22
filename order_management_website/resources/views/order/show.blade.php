@@ -63,12 +63,11 @@
             <div class="row">
                 @foreach($order->cases as $case)
                     <div class="col-12 col-md-6 mB-30">
-                        <div class="h-100 bgc-grey-100 p-15 d-flex flex-column">
+                        <div class="h-100 bgc-grey-300 p-15 d-flex flex-column">
                             <div class="d-flex flex-column flex-md-row align-items-center">
-                                <h5 class="card-title">{{$case->case_type_name}}</h5>
+                                <h5 class="card-title">{{$case->case_type_name}} X <span class="fa fa-archive mr-1"></span>{{$case->amount? $case->amount:0}}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted ml-md-auto">
-                                        <span class="fa fa-dollar mr-1"></span>{{$case->price? $case->price:0 }}
-                                        <span class="fa fa-archive mr-1"></span>{{$case->amount? $case->amount:0}}
+                                    <span class="fa fa-dollar mr-1"></span>{{$case->price? $case->price:0 }}
                                 </h6>
                             </div>
                             @if(!count($case->cookies))
@@ -80,7 +79,7 @@
                                 </div>
                             @else
                                 @foreach($case->cookies as $cookie)
-                                    <div class="py-2 {{ ($loop->index +1)!=count($case->cookies)? 'border-bottom':''}}">
+                                    <div class="py-3 px-3 {{ ($loop->index%2 == 0)?'bgc-grey-200': ''}} {{ ($loop->index +1)!=count($case->cookies)? 'border-bottom':''}}">
                                         <span>{{$cookie->cookie_name}}</span>
                                         <span class="float-right">
                                         {{$cookie->pack_name}}
