@@ -93,6 +93,9 @@
                         </div>
                     </div>
 
+                    <div class="invalid-feedback" :class="{'d-block': errors.cases}">
+                        <div v-for="(msg, index) in errors.cases" :key="index">{{msg}}</div>
+                    </div>
                     <div class="form-row py-2" :class="{'bg-light-primary': caseIndex%2==0 }" v-for="(caseItem, caseIndex) in package.cases" :key="caseIndex">
                         <div class="col-md-6">
                             <select class="form-control" v-model="caseItem.case_id" :class="{'is-invalid': hasCaseError(caseIndex, 'case_id')}" required>

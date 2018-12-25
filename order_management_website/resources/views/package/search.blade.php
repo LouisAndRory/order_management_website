@@ -63,6 +63,7 @@
                         <th class="bdwT-0 bdwB-1 pt-0 pb-2 text-center">{{ __('order.fields.married_date') }}</th>
                         <th class="bdwT-0 bdwB-1 pt-0 pb-2 text-center">{{ __('package.fields.arrived_at') }}</th>
                         <th class="bdwT-0 bdwB-1 pt-0 pb-2">{{ __('package.section.content') }}</th>
+                        <th class="bdwT-0 bdwB-1 pt-0 pb-2"></th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -73,6 +74,7 @@
                         <th class="pt-1 pb-0 text-center">{{ __('order.fields.married_date') }}</th>
                         <th class="pt-1 pb-0 text-center">{{ __('package.fields.arrived_at') }}</th>
                         <th class="pt-1 pb-0">{{ __('package.section.content') }}</th>
+                        <th class="pt-1 pb-0"></th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -98,6 +100,9 @@
                         </tr>
                         <tr :class="{'bgc-green-50': package.checked}" v-for="(caseItem, caseIndex) in package.cases" :key="`package-${packageIndex}-case-${caseIndex}`">
                             <td class="bdwB-0 va-m" :class="{'bdwT-0': packageIndex==0 || caseIndex>0}" v-text="caseItem.name"></td>
+                            <td class="bdwB-0 va-m" :class="{'bdwT-0': packageIndex==0 || caseIndex>0}">
+                                <input type="checkbox" name="vehicle1" value="Bike">
+                            </td>
                         </tr>
                     </template>
                 </tbody>
