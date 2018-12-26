@@ -110,7 +110,7 @@
                         </ul>
                         <ul class="nav-right">
                             <li>
-                                <a href="javascript:void(0);">
+                                <a href="{{ route('logout') }}">
                                     {{ __('navigation.logout')}}
                                 </a>
                             </li>
