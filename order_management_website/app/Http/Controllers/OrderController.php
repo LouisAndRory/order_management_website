@@ -234,6 +234,6 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
 
         $generator = new OrderPDFGenerator($order);
-        $generator->create();
+        return $generator->create();
     }
 }

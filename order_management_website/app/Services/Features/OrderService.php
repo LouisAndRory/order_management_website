@@ -17,6 +17,6 @@ class OrderService
         }
         $totalFee += ($order->extra_fee - $order->deposit);
 
-        $order->setAttribute('total_fee', $totalFee);
+        $order->setAttribute('total_fee', abs($totalFee));
     }
 }
