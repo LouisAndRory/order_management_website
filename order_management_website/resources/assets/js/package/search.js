@@ -71,16 +71,9 @@ const PackageApp = new Vue({
 			}
 		},
 		handleExportReport() {
-			let selectedArray = []
-			const that = this
-			Object.keys(this.selected).forEach(function(pakage_id) {
-				that.selected[pakage_id]
-				selectedArray.push(that.selected[pakage_id])
-			})
-
 			$.ajax({
 				url: `${this.packageExcelApiUrl}`,
-				data: { data: selectedArray },
+				data: this.selected,
 				type: 'POST',
 				xhrFields: {
 					responseType: 'blob'
@@ -89,7 +82,7 @@ const PackageApp = new Vue({
 				const url = window.URL.createObjectURL(new Blob([ response ]))
 				const link = document.createElement('a')
 				link.href = url
-				link.setAttribute('download', 'report.xlsx')
+				link.setAttribute('download', 'report.xls')
 				document.body.appendChild(link)
 				link.click()
 			})
