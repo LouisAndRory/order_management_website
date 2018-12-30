@@ -80,8 +80,8 @@ const PackageApp = new Vue({
 
 			$.ajax({
 				url: `${this.packageExcelApiUrl}`,
-				data: selectedArray,
-				type: 'GET',
+				data: { data: selectedArray },
+				type: 'POST',
 				dataType: 'json'
 			}).done(function(response) {})
 		}

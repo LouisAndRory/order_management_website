@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'package'], function () {
-        Route::get('/excel', 'PackageController@excel')->name('package.excel');
+        Route::post('/excel', 'PackageController@excel')->name('package.excel');
 
         Route::post('/', 'PackageController@store')->name('package.store');
         Route::get('/search', 'PackageController@search')->name('package.search');
