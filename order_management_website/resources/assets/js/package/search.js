@@ -83,7 +83,14 @@ const PackageApp = new Vue({
 				data: { data: selectedArray },
 				type: 'POST',
 				dataType: 'json'
-			}).done(function(response) {})
+			}).done(function(response) {
+				const url = window.URL.createObjectURL(new Blob([ response ]))
+				const link = document.createElement('a')
+				link.href = url
+				link.setAttribute('download', 'report.xls')
+				document.body.appendChild(link)
+				link.click()
+			})
 		}
 	}
 })
