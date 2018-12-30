@@ -82,12 +82,14 @@ const PackageApp = new Vue({
 				url: `${this.packageExcelApiUrl}`,
 				data: { data: selectedArray },
 				type: 'POST',
-				dataType: 'json'
+				xhrFields: {
+					responseType: 'blob'
+				}
 			}).done(function(response) {
 				const url = window.URL.createObjectURL(new Blob([ response ]))
 				const link = document.createElement('a')
 				link.href = url
-				link.setAttribute('download', 'report.xls')
+				link.setAttribute('download', 'report.xlsx')
 				document.body.appendChild(link)
 				link.click()
 			})
