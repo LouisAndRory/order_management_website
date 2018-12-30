@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-<div class="col-12" id="packageSearchApp" v-cloak>
+<div class="col-12" id="packageSearchApp" style="min-height: 100vh" v-cloak>
     <div class="row bgc-white p-15 mB-20 mx-0 base-box-shadow align-items-center">
         <div class="col-3 pl-md-0">
             <input type="text" class="form-control" placeholder="{{ __('order.placeholder.name')}}" v-model="filter.name">
@@ -57,24 +57,32 @@
             <table id="dataTable" class="table mb-0" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 text-center">{{ __('package.section.sent_status') }}</th>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2">{{ __('order.fields.name') }}</th>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2">{{ __('order.fields.phone') }}</th>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 text-center">{{ __('order.fields.married_date') }}</th>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 text-center">{{ __('package.fields.arrived_at') }}</th>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2">{{ __('package.section.content') }}</th>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2"></th>
+                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-nowrap text-center">{{ __('package.section.sent_status') }}</th>
+                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle">{{ __('order.fields.name') }}</th>
+                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle">{{ __('order.fields.phone') }}</th>
+                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-center">{{ __('order.fields.married_date') }}</th>
+                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-center">{{ __('package.fields.arrived_at') }}</th>
+                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-nowrap">{{ __('package.section.content') }}</th>
+                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-center">
+                            <button type="button" class="btn btn-sm btn-primary" v-on:click="handleExportReport">
+                                {{ __('package.functional.export') }}
+                            </button>
+                        </th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th class="pt-1 pb-0 text-center">{{ __('package.section.sent_status') }}</th>
-                        <th class="pt-1 pb-0">{{ __('order.fields.name') }}</th>
-                        <th class="pt-1 pb-0">{{ __('order.fields.phone') }}</th>
-                        <th class="pt-1 pb-0 text-center">{{ __('order.fields.married_date') }}</th>
-                        <th class="pt-1 pb-0 text-center">{{ __('package.fields.arrived_at') }}</th>
-                        <th class="pt-1 pb-0">{{ __('package.section.content') }}</th>
-                        <th class="pt-1 pb-0"></th>
+                        <th class="pt-1 pb-0 align-middle text-center">{{ __('package.section.sent_status') }}</th>
+                        <th class="pt-1 pb-0 align-middle">{{ __('order.fields.name') }}</th>
+                        <th class="pt-1 pb-0 align-middle">{{ __('order.fields.phone') }}</th>
+                        <th class="pt-1 pb-0 align-middle text-center">{{ __('order.fields.married_date') }}</th>
+                        <th class="pt-1 pb-0 align-middle text-center">{{ __('package.fields.arrived_at') }}</th>
+                        <th class="pt-1 pb-0 align-middle">{{ __('package.section.content') }}</th>
+                        <th class="pt-1 pb-0 align-middle text-center">
+                            <button type="button" class="btn btn-sm btn-primary" v-on:click="handleExportReport">
+                                {{ __('package.functional.export') }}
+                            </button>
+                        </th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -92,7 +100,9 @@
                                     <i class="ti ti-truck text-white pos-a tl-50p centerXY"></i>
                                 </div>
                             </td>
-                            <td class="text-nowrap va-m" :rowspan="package.cases.length+1" v-text="package.package_name"></td>
+                            <td class="text-nowrap va-m" :rowspan="package.cases.length+1">
+                            <a :href="`${orderBaseUrl}/${package.order_id}`">@{{package.package_name}}</a>
+                            </td>
                             <td class="text-nowrap va-m" :rowspan="package.cases.length+1" v-text="package.package_phone"></td>
                             <td class="text-nowrap va-m text-center" :rowspan="package.cases.length+1" v-text="package.married_date"></td>
                             <td class="text-nowrap va-m text-center" :rowspan="package.cases.length+1" v-text="package.arrived_at"></td>
@@ -100,8 +110,12 @@
                         </tr>
                         <tr :class="{'bgc-green-50': package.checked}" v-for="(caseItem, caseIndex) in package.cases" :key="`package-${packageIndex}-case-${caseIndex}`">
                             <td class="bdwB-0 va-m" :class="{'bdwT-0': packageIndex==0 || caseIndex>0}" v-text="caseItem.name"></td>
-                            <td class="bdwB-0 va-m" :class="{'bdwT-0': packageIndex==0 || caseIndex>0}">
-                                <input type="checkbox" name="vehicle1" value="Bike">
+                            <td class="bdwB-0 va-m text-center" :class="{'bdwT-0': packageIndex==0 || caseIndex>0}">
+                                <Checkbox
+                                    :id="`${packageIndex}_${caseIndex}`"
+                                    :is-checked="selected[package.id] && selected[package.id].includes(caseItem.case_id)"
+                                    :params="{pakage_id: package.id, case_id: caseItem.case_id}"
+                                    v-on:checked="handleCheckCase" />
                             </td>
                         </tr>
                     </template>
@@ -124,4 +138,6 @@
 
 @section('custom-js')
     const packageSearchApiUrl = '{{ route('package.search.api')}}';
+    const packageExcelApiUrl = '{{ route('package.excel')}}';
+    const orderBaseUrl = '{{ route('order.index')}}';
 @endsection

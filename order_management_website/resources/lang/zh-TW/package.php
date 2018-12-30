@@ -24,7 +24,8 @@ return [
         'del_content' => '刪除',
         'save' => '儲存',
         'cancel' => '取消',
-        'search' => '搜尋'
+        'search' => '搜尋',
+        'export' => '匯出報表'
     ],
     'section' => [
         'info' => '包裹資訊',
