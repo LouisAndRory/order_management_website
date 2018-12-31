@@ -3,10 +3,12 @@
 @section('content')
 <div class="col-12">
     <div class="row mb-3" id="orderShowApp">
-        <div class="btn-group col-12" role="group">
-            <button type="button" class="btn btn-secondary" v-on:click="onClickDeleteOrder">{{ __('order.functional.delete')}}</button>
-            <a href="{{ route('order.pdf', ['id'=> $order->id])}}" class="btn btn-primary ml-auto" >{{ __('order.functional.pdf')}}</a>
-            <a href="{{ route('order.edit', ['id'=> $order->id])}}" class="btn btn-primary" >{{ __('order.functional.update')}}</a>
+        <div class="col-12 d-flex">
+                <button type="button" class="btn btn-secondary" v-on:click="onClickDeleteOrder">{{ __('order.functional.delete')}}</button>
+            <div class="btn-group ml-auto" role="group">
+                <a href="{{ route('order.pdf', ['id'=> $order->id])}}" class="btn btn-primary ml-auto" >{{ __('order.functional.pdf')}}</a>
+                <a href="{{ route('order.edit', ['id'=> $order->id])}}" class="btn btn-primary" >{{ __('order.functional.update')}}</a>
+            </div>
         </div>
     </div>
     <div class="row bgc-white pY-15 bd mB-20 mx-0">
@@ -197,12 +199,14 @@
                         </div>
                     </div>
                     <div class="row mt-auto">
-                        <div class="btn-group col-12" role="group">
+                        <div class="col-12 d-flex">
                             <button type="button" class="btn btn-secondary" v-on:click="onClickDeletePackage(package.id)">{{ __('package.functional.del')}}</button>
-                            <button type="button" class="btn btn-primary ml-auto" v-on:click="onClickEditPackage(package)">{{ __('package.functional.edit')}}</button>
-                            <button type="button" class="btn" :class="{'btn-primary': !package.sent_at, 'btn-secondary': package.sent_at}" v-on:click="onClickUpdatePackageStatus(package, 'sent_at')">
-                                @{{ package.sent_at? langs.functional.cancel_sent:langs.functional.sent }}
-                            </button>
+                            <div class="btn-group ml-auto" role="group">
+                                <button type="button" class="btn btn-primary ml-auto" v-on:click="onClickEditPackage(package)">{{ __('package.functional.edit')}}</button>
+                                <button type="button" class="btn" :class="{'btn-primary': !package.sent_at, 'btn-secondary': package.sent_at}" v-on:click="onClickUpdatePackageStatus(package, 'sent_at')">
+                                    @{{ package.sent_at? langs.functional.cancel_sent:langs.functional.sent }}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

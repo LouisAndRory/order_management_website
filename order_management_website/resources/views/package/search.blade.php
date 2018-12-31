@@ -65,7 +65,7 @@
                         <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-center">{{ __('package.fields.arrived_at') }}</th>
                         <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-nowrap">{{ __('package.section.content') }}</th>
                         <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-center">
-                            <button type="button" class="btn btn-sm btn-primary" v-on:click="handleExportReport">
+                            <button type="button" class="btn btn-sm btn-primary text-nowrap" v-on:click="handleExportReport">
                                 {{ __('package.functional.export') }}
                             </button>
                         </th>

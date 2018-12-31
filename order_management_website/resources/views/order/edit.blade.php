@@ -206,7 +206,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-1">
-                                    <button v-on:click="delCookie(caseIndex, cookieIndex)" type="button" class="col btn btn-secondary">{{ __('cookie.functional.del') }}</button>
+                                    <button v-on:click="delCookie(caseIndex, cookieIndex)" type="button" class="col btn btn-secondary text-nowrap">{{ __('cookie.functional.del') }}</button>
                                 </div>
                             </div>
 
