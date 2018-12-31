@@ -24,16 +24,24 @@ class OrderPDFGenerator
 
     public function create()
     {
+        $headerHtml = view()->make('order.pdf.header')->render();
+        $footerHtml = view()->make('order.pdf.footer')->render();
         $dompdf = app('snappy.pdf.wrapper');
-        $dompdf->loadView('order.pdf', [
+        $dompdf->loadView('order.pdf.index', [
             'order' => $this->order,
             'cases' => $this->cases,
             'packages' => $this->packages
         ])->setPaper('a4')
+            ->setOption('margin-left', 0)
+            ->setOption('margin-bottom', 6.3)
+            ->setOption('margin-top', 30)
+            ->setOption('margin-right', 0)
+            ->setOption('header-html', $headerHtml)
+            ->setOption('footer-html', $footerHtml)
             ->setWarnings(false);
 
         return $dompdf->download('order_' . $this->order->id . '.pdf');
-        return view('order.pdf', [
+        return view('order.pdf.index', [
             'order' => $this->order,
             'cases' => $this->cases,
             'packages' => $this->packages
