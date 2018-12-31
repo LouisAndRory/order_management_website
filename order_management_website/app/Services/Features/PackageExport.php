@@ -28,12 +28,12 @@ class PackageExport
         }
 
         $packageResult = Package::leftJoin('package_has_cases as pc', 'packages.id', '=', 'pc.package_id')
-            ->leftjoin('cases as c', 'pc.case_id', '=', 'c.id')
-            ->leftjoin('case_has_cookies as cc', 'pc.case_id', '=', 'cc.case_id')
-            ->leftjoin('case_types as ct', 'c.case_type_id', '=', 'ct.id')
-            ->leftjoin('packs', 'packs.id', '=', 'cc.pack_id')
-            ->leftjoin('cookies', 'cookies.id', '=', 'cc.cookie_id')
-            ->leftjoin('orders as o', 'o.id', '=', 'packages.order_id')
+            ->leftJoin('cases as c', 'pc.case_id', '=', 'c.id')
+            ->leftJoin('case_has_cookies as cc', 'pc.case_id', '=', 'cc.case_id')
+            ->leftJoin('case_types as ct', 'c.case_type_id', '=', 'ct.id')
+            ->leftJoin('packs', 'packs.id', '=', 'cc.pack_id')
+            ->leftJoin('cookies', 'cookies.id', '=', 'cc.cookie_id')
+            ->leftJoin('orders as o', 'o.id', '=', 'packages.order_id')
             ->groupBy('packages.order_id', 'pc.case_id', 'cc.cookie_id', 'cc.pack_id')
             ->whereNotNull('cookies.id')
             ->where(function ($q) use ($whereInColumns, $whereInValues) {
@@ -88,11 +88,12 @@ class PackageExport
             $oldCaseId = 0;
             $oldOrderId = 0;
             $oldCookieId = 0;
+
             foreach ($packageResult as $package) {
                 $change_col = false;
-                if ($oldCaseId != $package->case_id || $oldOrderId != $package->order_id) {
-                    $col += 1;
-                    $col = ($col % 7 == 0) ? $col + 2 : $col;
+                if ($oldCaseId !== $package->case_id || $oldOrderId !== $package->order_id) {
+                    $col++;
+                    $col = ($col % 7 === 0) ? $col + 2 : $col;
                     $colOrderItem = \PHPExcel_Cell::stringFromColumnIndex($col);
                     $sheet->setCellValue($colOrderItem . '1', $package->order_name);
                     $sheet->setCellValue($colOrderItem . '2', $package->order_phone);
@@ -102,7 +103,7 @@ class PackageExport
                     $sheet->setCellValue($colOrderItem . '4', $package->case_name);
                     $oldCaseId = $package->case_id;
                     $oldOrderId = $package->order_id;
-                    if ($col % 7 == 2) {
+                    if ($col % 7 === 2) {
                         $colTitle = \PHPExcel_Cell::stringFromColumnIndex($col - 1);
                         foreach ($cookiesItem as $index => $cookie) {
                             $sheet->setCellValue($colTitle . ($index + 8), $cookie->name);
@@ -126,11 +127,11 @@ class PackageExport
                 $colCookieItem = \PHPExcel_Cell::stringFromColumnIndex($col);
                 $cookieID = $package->cookie_id;
                 $needOldValue = true;
-                if ($package->cookie_type != 0) {
+                if ($package->cookie_type !== 0) {
                     $row = $cookiesDic['type' . $package->cookie_type];
                 } else {
                     $row = $cookiesDic[$cookieID];
-                    if ($cookieID == $oldCookieId && !$change_col) {
+                    if ($cookieID === $oldCookieId && !$change_col) {
 
                         $needOldValue = true;
                     } else {
@@ -139,18 +140,47 @@ class PackageExport
 
                 }
                 $oldCookieId = $cookieID;
-                $value = ($package->total) . ($package->pack_name) . ($package->cookie_slug);
+                $value = $package->total . $package->pack_name . $package->cookie_slug;
                 $this->__arrangeCookieName($sheet, $colCookieItem, $row, $value, $needOldValue, $package->cookie_type);
-
             }
 
+            //-- arrange summary
+            $summarySheet = $doc->getSheetByName('summary');
+            $cookieSummary = [];
+            foreach ($cookiesItem as $cookie) {
+                array_push($cookieSummary, [
+                    'id' => $cookie->id,
+                    'name' => $cookie->name,
+                    'ingredients' => []
+                ]);
+            }
+            array_push($cookieSummary, ['id' => 'type1', 'name' => '磅蛋糕', 'ingredients' => []]);
+            array_push($cookieSummary, ['id' => 'type2', 'name' => '瑪德蓮', 'ingredients' => []]);
+            array_push($cookieSummary, ['id' => 'type3', 'name' => '糖果', 'ingredients' => []]);
+            array_push($cookieSummary, ['id' => 'type4', 'name' => '其他', 'ingredients' => []]);
+
+            foreach ($packageResult as $packageItem) {
+                foreach ($cookieSummary as $index => &$cookieItem) {
+                    if ($cookieItem['id'] === $packageItem->cookie_id ||
+                        $cookieItem['id'] === 'type'.$packageItem->cookie_type
+                    ) {
+                        array_push($cookieItem['ingredients'], $packageItem->total . $packageItem->pack_name);
+                        break;
+                    }
+                }
+            }
+
+            $startIndex = 2;
+            foreach ($cookieSummary as $index => $cookieItem) {
+                $summarySheet->setCellValue('B' . ($index + $startIndex), $cookieItem['name']);
+                $summarySheet->setCellValue('C' . ($index + $startIndex), implode(',', $cookieItem['ingredients']));
+            }
 
         })->download('xls');
     }
 
     public function __arrangeCookieName($sheet, $colString, $row, $value, $needOldValue, $cookieType)
     {
-
         if ($needOldValue) {
             $prevValue = trim($sheet->getCell($colString . $row)->getValue());
             $value = $prevValue . PHP_EOL . $value;
@@ -161,7 +191,5 @@ class PackageExport
         }
 
         $sheet->setCellValue($colString . $row, $value);
-
-
     }
 }

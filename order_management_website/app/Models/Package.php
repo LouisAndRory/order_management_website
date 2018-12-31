@@ -54,7 +54,7 @@ class Package extends Model
 
     public function getShippedAttribute()
     {
-        return in_array('sent_at', $this->attributes) && $this->attributes['sent_at'] !== null;
+        return array_get($this->attributes, 'sent_at', null) !== null;
     }
 
     public function cases()
