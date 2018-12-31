@@ -17,7 +17,8 @@ return [
         'cancel' => '取消儲存',
         'update' => '修改訂單',
         'delete' => '刪除訂單',
-        'pdf' => '訂單PDF'
+        'pdf' => '訂單PDF',
+        'search' => '搜尋'
     ],
     'fields' => [
         'name' => '訂購人',
@@ -66,6 +67,7 @@ return [
         'info' => '基本資料',
         'case' => '禮盒資料',
         'package' => '包裹資料',
+        'final_paid' => '尾款狀態'
     ],
 
 ];

@@ -63,7 +63,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                <a href="{{ route('package.search')}}">{{ __('navigation.order.search')}}</a>
+                                <a href="{{ route('order.search')}}">{{ __('navigation.order.search')}}</a>
                                 </li>
                                 <li>
                                 <a href="{{ route('package.search')}}">{{ __('navigation.package.search')}}</a>

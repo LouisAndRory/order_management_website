@@ -12,7 +12,11 @@ return [
     | you want to customize your views to better match your application.
     |
     */
-
+    '401_error' => [
+        'title' => 'Oops...',
+        'text' => '驗證過期! 必須重新登入',
+        'confirm_button' => '好吧'
+    ],
     '412_error' => [
         'title' => 'Oops...',
         'text' => '你這頁停留太久了! 必須重新載入頁面',

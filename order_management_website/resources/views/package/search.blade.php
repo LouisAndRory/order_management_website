@@ -52,6 +52,7 @@
             </button>
         </div>
     </div>
+    <h4 class="mb-0">{{ __('navigation.package.search') }}</h4>
     <div class="row bgc-white p-15 bd mB-20 mx-0" v-if="list.length">
         <div class="table-responsive">
             <table id="dataTable" class="table mb-0" cellspacing="0" width="100%">
