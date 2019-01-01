@@ -5,6 +5,15 @@ namespace App\Models;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\CaseType
+ *
+ * @property-read mixed $deletable
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseType newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseType newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseType query()
+ * @mixin \Eloquent
+ */
 class CaseType extends Model
 {
     protected $table = 'case_types';

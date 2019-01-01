@@ -4,6 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\CaseHasCookies
+ *
+ * @property-read \App\Models\Cookie $cookie
+ * @property-read \App\Models\Pack $pack
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseHasCookies newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseHasCookies newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CaseHasCookies query()
+ * @mixin \Eloquent
+ */
 class CaseHasCookies extends Model
 {
     protected $table = 'case_has_cookies';

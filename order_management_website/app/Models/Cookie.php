@@ -5,6 +5,15 @@ namespace App\Models;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Cookie
+ *
+ * @property-read mixed $deletable
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Cookie newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Cookie newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Cookie query()
+ * @mixin \Eloquent
+ */
 class Cookie extends Model
 {
     protected $table = 'cookies';
