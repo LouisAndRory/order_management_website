@@ -52,6 +52,7 @@ class PackageExport
                 DB::raw('SUM(cc.amount * pc.amount) as total'),
                 DB::raw('MIN(packages.arrived_at) as order_arrived_at'),
                 'packs.slug as pack_name',
+                'packs.id as pack_id',
                 'ct.slug as case_name',
                 'ct.id as case_id',
                 'packages.order_id as order_id',
@@ -67,20 +68,23 @@ class PackageExport
 
         $cookiesItem = Cookie::select(['id', 'name'])
             ->where('type', '=', 0)
+            ->where('enabled', '=', true)
             ->get();
 
-
         Excel::load(storage_path('app/excel/report.xlsx'), function ($doc) use ($packageResult, $cookiesItem) {
+            $allUsedCookieIds = $packageResult->pluck('cookie_id')->unique()->values()->toArray();
+            $cookiesItem = $cookiesItem->whereIn('id', $allUsedCookieIds)->values();
+
             $cookiesTotal = count($cookiesItem);
             // type1->磅蛋糕， type2->瑪德蓮，type3->糖果(牛扎糖，法式巧克力，喜字)，type4->其他（養生薄餅，古早味乾麵，黑芝麻燕麥）
-            $cookiesDic = array('type1' => $cookiesTotal + 8,
-                'type2' => $cookiesTotal + 9,
-                'type3' => $cookiesTotal + 10,
-                'type4' => $cookiesTotal + 11,
+            $cookiesDic = array('type1' => $cookiesTotal + 6,
+                'type2' => $cookiesTotal + 7,
+                'type3' => $cookiesTotal + 8,
+                'type4' => $cookiesTotal + 9,
             );
             foreach ($cookiesItem as $index => $cookie) {
                 $id = $cookie->id;
-                $cookiesDic[$id] = $index + 8;
+                $cookiesDic[$id] = $index + 6;
             }
 
             $sheet = $doc->getSheetByName('sheet1'); // sheet with name data, but you can also use sheet indexes.
@@ -97,7 +101,6 @@ class PackageExport
                     $colOrderItem = \PHPExcel_Cell::stringFromColumnIndex($col);
                     $sheet->setCellValue($colOrderItem . '1', $package->order_name);
                     $sheet->setCellValue($colOrderItem . '2', $package->order_phone);
-                    $sheet->setCellValue($colOrderItem . '5', $package->order_card_required ? '要' : '不要');
                     $sheet->setCellValue($colOrderItem . '3', $package->order_arrived_at);
                     $sheet->getStyle($colOrderItem . '3')->getFont()->setSize(17);
                     $sheet->setCellValue($colOrderItem . '4', $package->case_name);
@@ -106,20 +109,20 @@ class PackageExport
                     if ($col % 7 === 2) {
                         $colTitle = \PHPExcel_Cell::stringFromColumnIndex($col - 1);
                         foreach ($cookiesItem as $index => $cookie) {
-                            $sheet->setCellValue($colTitle . ($index + 8), $cookie->name);
+                            $sheet->setCellValue($colTitle . ($index + 6), $cookie->name);
                         }
-                        $sheet->setCellValue($colTitle . ($cookiesTotal + 8), '磅蛋糕');
+                        $sheet->setCellValue($colTitle . ($cookiesTotal + 6), '磅蛋糕');
+                        $sheet->getRowDimension($cookiesTotal + 6)->setRowHeight(-1);
+                        $sheet->getStyle($colTitle . ($cookiesTotal + 6))->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);
+                        $sheet->setCellValue($colTitle . ($cookiesTotal + 7), '瑪德蓮');
+                        $sheet->getRowDimension($cookiesTotal + 7)->setRowHeight(-1);
+                        $sheet->getStyle($colTitle . ($cookiesTotal + 7))->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);
+                        $sheet->setCellValue($colTitle . ($cookiesTotal + 8), '糖果');
                         $sheet->getRowDimension($cookiesTotal + 8)->setRowHeight(-1);
                         $sheet->getStyle($colTitle . ($cookiesTotal + 8))->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);
-                        $sheet->setCellValue($colTitle . ($cookiesTotal + 9), '瑪德蓮');
+                        $sheet->setCellValue($colTitle . ($cookiesTotal + 9), '其他');
                         $sheet->getRowDimension($cookiesTotal + 9)->setRowHeight(-1);
                         $sheet->getStyle($colTitle . ($cookiesTotal + 9))->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);
-                        $sheet->setCellValue($colTitle . ($cookiesTotal + 10), '糖果');
-                        $sheet->getRowDimension($cookiesTotal + 10)->setRowHeight(-1);
-                        $sheet->getStyle($colTitle . ($cookiesTotal + 10))->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);
-                        $sheet->setCellValue($colTitle . ($cookiesTotal + 11), '其他');
-                        $sheet->getRowDimension($cookiesTotal + 11)->setRowHeight(-1);
-                        $sheet->getStyle($colTitle . ($cookiesTotal + 11))->getAlignment()->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);
                     }
                     $change_col = true;
                 }
@@ -132,12 +135,10 @@ class PackageExport
                 } else {
                     $row = $cookiesDic[$cookieID];
                     if ($cookieID === $oldCookieId && !$change_col) {
-
                         $needOldValue = true;
                     } else {
                         $needOldValue = false;
                     }
-
                 }
                 $oldCookieId = $cookieID;
                 $value = $package->total . $package->pack_name . $package->cookie_slug;
@@ -159,21 +160,56 @@ class PackageExport
             array_push($cookieSummary, ['id' => 'type3', 'name' => '糖果', 'ingredients' => []]);
             array_push($cookieSummary, ['id' => 'type4', 'name' => '其他', 'ingredients' => []]);
 
-            foreach ($packageResult as $packageItem) {
+            $allPacks = [];
+            foreach ($packageResult as $packageIndex => $packageItem) {
+                $allPacks[$packageItem->pack_id] = [
+                    'name' => $packageItem->pack_name,
+                ];
                 foreach ($cookieSummary as $index => &$cookieItem) {
                     if ($cookieItem['id'] === $packageItem->cookie_id ||
-                        $cookieItem['id'] === 'type'.$packageItem->cookie_type
+                        $cookieItem['id'] === 'type' . $packageItem->cookie_type
                     ) {
-                        array_push($cookieItem['ingredients'], $packageItem->total . $packageItem->pack_name);
+                        if (str_contains($cookieItem['id'], ['type'])) {
+                            if (!array_key_exists($packageItem->pack_id, $cookieItem['ingredients'])) {
+                                $cookieItem['ingredients'][$packageItem->pack_id] = [];
+                            }
+
+                            array_push($cookieItem['ingredients'][$packageItem->pack_id], $packageItem->total . $packageItem->cookie_slug);
+                        } else {
+                            if (!array_key_exists($packageItem->pack_id, $cookieItem['ingredients'])) {
+                                $cookieItem['ingredients'][$packageItem->pack_id] = 0;
+                            }
+
+                            $cookieItem['ingredients'][$packageItem->pack_id] += $packageItem->total;
+                        }
+
                         break;
                     }
                 }
             }
 
+            //-- arrange packs
+            $packStartIndex = 0;
+            $packOffsetIndex = 2;
+            $packRowOffsetIndex = 1;
+            foreach ($allPacks as &$pack) {
+                $columnIndex = \PHPExcel_Cell::stringFromColumnIndex($packStartIndex + $packOffsetIndex);
+                $pack['columnIndex'] = $columnIndex;
+                $summarySheet->setCellValue($columnIndex . $packRowOffsetIndex, $pack['name']);
+
+                $packStartIndex++;
+            }
+
             $startIndex = 2;
             foreach ($cookieSummary as $index => $cookieItem) {
                 $summarySheet->setCellValue('B' . ($index + $startIndex), $cookieItem['name']);
-                $summarySheet->setCellValue('C' . ($index + $startIndex), implode(',', $cookieItem['ingredients']));
+                foreach ($cookieItem['ingredients'] as $packId => $amount) {
+                    if (str_contains($cookieItem['id'], ['type'])) {
+                        $summarySheet->setCellValue($allPacks[$packId]['columnIndex'] . ($index + $startIndex), implode(',', $amount));
+                    } else {
+                        $summarySheet->setCellValue($allPacks[$packId]['columnIndex'] . ($index + $startIndex), $amount);
+                    }
+                }
             }
 
         })->download('xls');

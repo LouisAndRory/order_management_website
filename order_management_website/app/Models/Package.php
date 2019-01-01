@@ -6,6 +6,23 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Models\Package
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PackageHasCases[] $cases
+ * @property-read mixed $shipped
+ * @property-write mixed $arrived_at
+ * @property-write mixed $sent_at
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Package newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Package newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Package onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Package query()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Package withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Package withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Package extends Model
 {
     use SoftDeletes;

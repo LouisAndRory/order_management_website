@@ -46,7 +46,7 @@ class PackageController extends Controller
             }
         }
 
-        $packages = $packageOrm->get();
+        $packages = $packageOrm->orderBy('id', 'DESC')->get();
 
         return response()->json([
             'packages' => $packages

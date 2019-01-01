@@ -6,6 +6,23 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Models\Order
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\CaseModel[] $cases
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Package[] $packages
+ * @property-write mixed $engaged_date
+ * @property-write mixed $married_date
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Order onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order query()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Order withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Order withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Order extends Model
 {
     use SoftDeletes;
