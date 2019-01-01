@@ -12,7 +12,6 @@ use App\Models\Package;
 use App\Services\Features\OrderPDFGenerator;
 use App\Services\Features\OrderService;
 use App\Services\Mutators\OrderMutator;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -24,8 +23,7 @@ class OrderController extends Controller
             'packages.arrived_at', 'packages.sent_at', 'packages.remark', 'orders.final_paid',
 
         ])->join('orders', 'orders.id', '=', 'packages.order_id')
-            ->where('arrived_at', '>=', Carbon::now()->toDateString())
-            ->where('arrived_at', '<=', Carbon::now()->addDays(14)->toDateString())
+            ->whereDate('arrived_at', now()->addDay()->toDateString())
             ->orderBy('arrived_at', 'ASC')
             ->get();
 
