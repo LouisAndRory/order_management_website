@@ -119,6 +119,9 @@
                         @foreach($case['content'] as $content)
                             <div>{{ $content }}</div>
                         @endforeach
+                        @if($loop->last)
+                            <div class="mb-5"></div>
+                        @endif
                     </td>
                 </tr>
                 @endif
