@@ -174,7 +174,10 @@ class PackageExport
                                 $cookieItem['ingredients'][$packageItem->pack_id] = [];
                             }
 
-                            array_push($cookieItem['ingredients'][$packageItem->pack_id], $packageItem->total . $packageItem->cookie_slug);
+                            array_push($cookieItem['ingredients'][$packageItem->pack_id], [
+                                'amount' => $packageItem->total,
+                                'cookie_slug' => $packageItem->cookie_slug
+                            ]);
                         } else {
                             if (!array_key_exists($packageItem->pack_id, $cookieItem['ingredients'])) {
                                 $cookieItem['ingredients'][$packageItem->pack_id] = 0;
@@ -205,7 +208,19 @@ class PackageExport
                 $summarySheet->setCellValue('B' . ($index + $startIndex), $cookieItem['name']);
                 foreach ($cookieItem['ingredients'] as $packId => $amount) {
                     if (str_contains($cookieItem['id'], ['type'])) {
-                        $summarySheet->setCellValue($allPacks[$packId]['columnIndex'] . ($index + $startIndex), implode(',', $amount));
+                        $arrangedData = [];
+                        foreach ($amount as $value) {
+                            if (!array_key_exists($value['cookie_slug'], $arrangedData)) {
+                                $arrangedData[$value['cookie_slug']] = 0;
+                            }
+
+                            $arrangedData[$value['cookie_slug']] += $value['amount'];
+                        }
+                        $data = [];
+                        foreach ($arrangedData as $slug => $count) {
+                            array_push($data, $count . $slug);
+                        }
+                        $summarySheet->setCellValue($allPacks[$packId]['columnIndex'] . ($index + $startIndex), implode(',', $data));
                     } else {
                         $summarySheet->setCellValue($allPacks[$packId]['columnIndex'] . ($index + $startIndex), $amount);
                     }
