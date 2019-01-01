@@ -22,7 +22,7 @@ class PackageController extends Controller
         $queries = $request->all();
 
         $packageOrm = Package::select([
-            'packages.id', 'orders.id AS order_id', 'packages.name AS package_name', 'packages.phone AS package_phone',
+            'packages.id', 'orders.id AS order_id', 'orders.name AS order_name', 'packages.phone AS package_phone',
             'orders.phone AS order_phone', 'arrived_at', 'sent_at', 'orders.married_date', 'checked'
         ])->join('orders', 'orders.id', '=', 'packages.order_id')
             ->with([

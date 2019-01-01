@@ -104,7 +104,7 @@
                                 </div>
                             </td>
                             <td class="text-nowrap va-m" :rowspan="package.cases.length+1">
-                            <a :href="`${orderBaseUrl}/${package.order_id}`">@{{package.package_name}}</a>
+                            <a :href="`${orderBaseUrl}/${package.order_id}`">@{{package.order_name}}</a>
                             </td>
                             <td class="text-nowrap va-m" :rowspan="package.cases.length+1" v-text="package.package_phone"></td>
                             <td class="text-nowrap va-m text-center" :rowspan="package.cases.length+1" v-text="package.married_date"></td>
