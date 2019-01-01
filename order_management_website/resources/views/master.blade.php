@@ -18,7 +18,7 @@
                     <div class="sidebar-logo">
                         <div class="peers ai-c fxw-nw">
                             <div class="peer peer-greed">
-                                <a class="sidebar-link td-n" href="index.html">
+                                <a class="sidebar-link td-n" href="{{ route('order.index') }}">
                                 <div class="peers ai-c fxw-nw">
                                     <div class="peer">
                                         <div class="logo text-center py-2">
