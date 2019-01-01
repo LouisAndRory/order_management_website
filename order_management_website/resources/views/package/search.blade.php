@@ -64,6 +64,7 @@
                         <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-center">{{ __('order.fields.married_date') }}</th>
                         <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-center">{{ __('package.fields.arrived_at') }}</th>
                         <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-nowrap">{{ __('package.section.content') }}</th>
+                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-nowrap">{{ __('package.section.amount') }}</th>
                         <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-center">
                             <button type="button" class="btn btn-sm btn-primary text-nowrap" v-on:click="handleExportReport">
                                 {{ __('package.functional.export') }}
@@ -79,6 +80,7 @@
                         <th class="pt-1 pb-0 align-middle text-center">{{ __('order.fields.married_date') }}</th>
                         <th class="pt-1 pb-0 align-middle text-center">{{ __('package.fields.arrived_at') }}</th>
                         <th class="pt-1 pb-0 align-middle">{{ __('package.section.content') }}</th>
+                        <th class="pt-1 pb-0 align-middle">{{ __('package.section.amount') }}</th>
                         <th class="pt-1 pb-0 align-middle text-center">
                             <button type="button" class="btn btn-sm btn-primary" v-on:click="handleExportReport">
                                 {{ __('package.functional.export') }}
@@ -111,6 +113,7 @@
                         </tr>
                         <tr :class="{'bgc-green-50': package.checked}" v-for="(caseItem, caseIndex) in package.cases" :key="`package-${packageIndex}-case-${caseIndex}`">
                             <td class="bdwB-0 va-m" :class="{'bdwT-0': packageIndex==0 || caseIndex>0}" v-text="caseItem.name"></td>
+                            <td class="bdwB-0 va-m text-center" :class="{'bdwT-0': packageIndex==0 || caseIndex>0}" v-text="caseItem.amount"></td>
                             <td class="bdwB-0 va-m text-center" :class="{'bdwT-0': packageIndex==0 || caseIndex>0}">
                                 <Checkbox
                                     :id="`${packageIndex}_${caseIndex}`"
@@ -124,9 +127,9 @@
             </table>
         </div>
     </div>
-    <div class="row p-15" v-else-if="loading">
-        <div class="col-auto">
-            <h5>Loading</h5>
+    <div class="row p-15 justify-content-center" v-else-if="loading">
+        <div class="col-auto text-center text-secondary font-size-80 py-3">
+            <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
         </div>
     </div>
     <div class="row p-15" v-else>

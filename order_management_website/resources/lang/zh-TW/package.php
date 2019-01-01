@@ -30,6 +30,7 @@ return [
     'section' => [
         'info' => '包裹資訊',
         'content' => '包裹內容',
+        'amount' => '包裹數量',
         'sent_status' => '出貨狀態'
     ],
     'fields' => [
