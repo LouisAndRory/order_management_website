@@ -14,12 +14,12 @@ class PackageController extends Controller
 {
     public function search()
     {
-        return view('package.search');
-    }
+        $queries = request()->all();
+        if (empty($queries)) {
+            return view('package.search');
+        }
 
-    public function searchApi(Request $request)
-    {
-        $queries = $request->all();
+        info($queries);
 
         $packageOrm = Package::select([
             'packages.id', 'orders.id AS order_id', 'orders.name AS order_name', 'packages.phone AS package_phone',
@@ -35,20 +35,26 @@ class PackageController extends Controller
             ]);
 
         foreach ($queries as $key => $value) {
-            if ($key === 'shipped' && $value) {
-                $packageOrm->where('packages.sent_at', '!=', null);
-            } else if ($key === 'arrived_at_max') {
-                $packageOrm->where("packages.arrived_at", "<=", $value);
-            } else if ($key === 'arrived_at_min') {
-                $packageOrm->where("packages.arrived_at", ">=", $value);
-            } else if (\Schema::hasColumn('packages', $key)) {
-                $packageOrm->where("packages.$key", "LIKE", "%$value%");
+            if ($value) {
+                if ($key === 'shipped') {
+                    $packageOrm->where('packages.sent_at', '!=', null);
+                } else if ($key === 'arrived_at_max') {
+                    $packageOrm->where('packages.arrived_at', '<=', $value);
+                } else if ($key === 'arrived_at_min') {
+                    $packageOrm->where('packages.arrived_at', '>=', $value);
+                } else if ($key === 'order_name') {
+                    $packageOrm->where('orders.name', 'LIKE',  "%$value%");
+                } else if ($key === 'order_phone') {
+                    $packageOrm->where('orders.phone', 'LIKE',  "%$value%");
+                } else if (\Schema::hasColumn('packages', $key)) {
+                    $packageOrm->where("packages.$key", 'LIKE', "%$value%");
+                }
             }
         }
 
         $packages = $packageOrm->orderBy('id', 'DESC')->get();
 
-        return response()->json([
+        return view('package.search', [
             'packages' => $packages
         ]);
     }

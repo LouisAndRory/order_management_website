@@ -6,7 +6,6 @@ const PackageApp = new Vue({
 	data: {
 		list: {},
 		filter: {},
-		packageSearchApiUrl: packageSearchApiUrl,
 		packageExcelApiUrl: packageExcelApiUrl,
 		orderBaseUrl: orderBaseUrl,
 		loading: false,
@@ -41,21 +40,6 @@ const PackageApp = new Vue({
 		Checkbox
 	},
 	methods: {
-		fetchSearchApi: function() {
-			this.list = []
-			this.loading = true
-			const that = this
-			this.selected = {}
-			$.ajax({
-				url: `${that.packageSearchApiUrl}`,
-				data: this.filter,
-				type: 'GET',
-				dataType: 'json'
-			}).done(function(response) {
-				that.list = response.packages
-				that.loading = false
-			})
-		},
 		handleCheckCase(isChecked, params) {
 			if (isChecked) {
 				this.selected[params.pakage_id] = this.selected[params.pakage_id]
