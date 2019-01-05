@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-atuo">
+                <div class="col-auto">
                     <div class="checkbox checkbox-circle checkbox-info peers ai-c">
                         <input type="checkbox" id="filterShipped" class="peer" v-model="filter.shipped" true-value="1"
                                false-value="0" name="shipped">

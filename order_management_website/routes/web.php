@@ -24,7 +24,6 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/', 'OrderController@index')->name('order.index');
         Route::get('/search', 'OrderController@search')->name('order.search');
-        Route::get('/search/api', 'OrderController@searchApi')->name('order.search.api');
         Route::get('/create', 'OrderController@create')->name('order.create');
         Route::get('/{id}', 'OrderController@show')->name('order.show');
         Route::get('/{id}/edit', 'OrderController@edit')->name('order.edit');

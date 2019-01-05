@@ -5,9 +5,6 @@ const OrderApp = new Vue({
 	data: {
 		list: {},
 		filter: {},
-		orderSearchApiUrl: orderSearchApiUrl,
-		orderBaseUrl: orderBaseUrl,
-		loading: false
 	},
 	computed: {
 		marriedDate: {
@@ -26,21 +23,7 @@ const OrderApp = new Vue({
 		Datepicker
 	},
 	methods: {
-		fetchSearchApi: function() {
-			this.list = []
-			this.loading = true
-			const that = this
-			this.selected = {}
-			$.ajax({
-				url: `${that.orderSearchApiUrl}`,
-				data: this.filter,
-				type: 'GET',
-				dataType: 'json'
-			}).done(function(response) {
-				that.list = response.orders
-				that.loading = false
-			})
-		}
+
 	}
 })
 

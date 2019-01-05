@@ -34,26 +34,36 @@ class OrderController extends Controller
 
     public function search()
     {
-        return view('order.search');
-    }
+        $queries = request()->all();
+        if (empty($queries)) {
+            return view('order.search');
+        }
 
-    public function searchApi(Request $request)
-    {
-        $queries = $request->all();
+        $isAllInputEmpty = collect($queries)->every(function ($value, $key) {
+            return $value === null;
+        });
+
+        if ($isAllInputEmpty) {
+            return back();
+        }
 
         $orderOrm = Order::select([
             'id', 'name', 'phone', 'final_paid', 'remark', 'married_date'
         ]);
 
         foreach ($queries as $key => $value) {
-            if (\Schema::hasColumn('orders', $key)) {
-                $orderOrm->where($key, "LIKE", "%$value%");
+            if ($value) {
+                if ($key === 'final_paid') {
+                    $orderOrm->where($key, true);
+                } else if (\Schema::hasColumn('orders', $key)) {
+                    $orderOrm->where($key, 'LIKE', "%$value%");
+                }
             }
         }
 
         $orders = $orderOrm->get();
 
-        return response()->json([
+        return view('order.search', [
             'orders' => $orders
         ]);
     }
