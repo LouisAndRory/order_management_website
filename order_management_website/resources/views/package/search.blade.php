@@ -5,11 +5,11 @@
         <form action="{{ route('package.search') }}" method="get" role="form">
             <div class="row bgc-white p-15 mB-20 mx-0 base-box-shadow align-items-center">
                 <div class="col-3 pl-md-0">
-                    <input type="text" name="order_name" value="{{ old('order_name') }}" class="form-control"
+                    <input type="text" name="order_name" class="form-control"
                            placeholder="{{ __('order.placeholder.name')}}">
                 </div>
                 <div class="col-3">
-                    <input type="phone" name="order_phone" value="{{ old('order_phone') }}" class="form-control"
+                    <input type="phone" name="order_phone" class="form-control"
                            placeholder="{{ __('order.placeholder.phone')}}">
                 </div>
                 <div class="col-4">
@@ -116,7 +116,7 @@
                                             <Checkbox
                                                 :id="`${{{$index}}}_${{{$caseIndex}}}`"
                                                 :is-checked="selected[{{ $package->id }}] && selected[{{ $package->id }}].includes({{ $case->case_id }})"
-                                                :params="{pakage_id: {{ $package->id }}, case_id: {{ $case->case_id }}}"
+                                                :params="{package_id: {{ $package->id }}, case_id: {{ $case->case_id }}}"
                                             v-on:checked="handleCheckCase"/>
                                         </td>
                                     </tr>

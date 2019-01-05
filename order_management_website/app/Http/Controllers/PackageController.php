@@ -19,7 +19,13 @@ class PackageController extends Controller
             return view('package.search');
         }
 
-        info($queries);
+        $isAllInputEmpty = collect($queries)->every(function ($value, $key) {
+           return $value === null;
+        });
+
+        if ($isAllInputEmpty) {
+            return back();
+        }
 
         $packageOrm = Package::select([
             'packages.id', 'orders.id AS order_id', 'orders.name AS order_name', 'packages.phone AS package_phone',

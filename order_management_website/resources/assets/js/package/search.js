@@ -42,15 +42,15 @@ const PackageApp = new Vue({
 	methods: {
 		handleCheckCase(isChecked, params) {
 			if (isChecked) {
-				this.selected[params.pakage_id] = this.selected[params.pakage_id]
-					? [ ...this.selected[params.pakage_id], params.case_id ]
+				this.selected[params.package_id] = this.selected[params.package_id]
+					? [ ...this.selected[params.package_id], params.case_id ]
 					: [ params.case_id ]
 			} else {
-				if (this.selected[params.pakage_id].length > 1) {
-					const targertIndex = this.selected[params.pakage_id].indexOf(params.case_id)
-					this.selected[params.pakage_id].splice(targertIndex, 1)
+				if (this.selected[params.package_id].length > 1) {
+					const targetIndex = this.selected[params.package_id].indexOf(params.case_id)
+					this.selected[params.package_id].splice(targetIndex, 1)
 				} else {
-					delete this.selected[params.pakage_id]
+					delete this.selected[params.package_id]
 				}
 			}
 		},
