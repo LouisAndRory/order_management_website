@@ -204,10 +204,10 @@ class PackageExport
             }
 
             $startIndex = 2;
-            foreach ($cookieSummary as $index => $cookieItem) {
-                $summarySheet->setCellValue('B' . ($index + $startIndex), $cookieItem['name']);
-                foreach ($cookieItem['ingredients'] as $packId => $amount) {
-                    if (str_contains($cookieItem['id'], ['type'])) {
+            for ($i = 0, $iMax = count($cookieSummary); $i < $iMax; $i++) {
+                $summarySheet->setCellValue('B' . ($i + $startIndex), $cookieSummary[$i]['name']);
+                foreach ($cookieSummary[$i]['ingredients'] as $packId => $amount) {
+                    if (str_contains($cookieSummary[$i]['id'], ['type'])) {
                         $arrangedData = [];
                         foreach ($amount as $value) {
                             if (!array_key_exists($value['cookie_slug'], $arrangedData)) {
@@ -220,13 +220,12 @@ class PackageExport
                         foreach ($arrangedData as $slug => $count) {
                             array_push($data, $count . $slug);
                         }
-                        $summarySheet->setCellValue($allPacks[$packId]['columnIndex'] . ($index + $startIndex), implode(',', $data));
+                        $summarySheet->setCellValue($allPacks[$packId]['columnIndex'] . ($i + $startIndex), implode(',', $data));
                     } else {
-                        $summarySheet->setCellValue($allPacks[$packId]['columnIndex'] . ($index + $startIndex), $amount);
+                        $summarySheet->setCellValue($allPacks[$packId]['columnIndex'] . ($i + $startIndex), $amount);
                     }
                 }
             }
-
         })->download('xls');
     }
 
