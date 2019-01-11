@@ -1,5 +1,7 @@
-@import 'spec/settings/index';
 @import 'spec/tools/index';
+@import 'spec/settings/index';
+@import 'spec/components/index';
+@import 'spec/generic/index.scss';
+@import 'spec/utils/index.scss';
 @import "~bootstrap/scss/bootstrap";
-@import 'spec/index';
 @import 'vendor/index';

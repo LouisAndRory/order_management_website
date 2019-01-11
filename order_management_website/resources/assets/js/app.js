@@ -9,7 +9,7 @@ window.moment = require('moment')
 try {
 	window.$ = window.jQuery = require('jquery')
 	require('bootstrap')
-	require('./sidebar')
+	// require('./sidebar')
 } catch (e) {}
 
 const orderCreateApp = document.getElementById('orderCreateApp')

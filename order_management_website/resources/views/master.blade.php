@@ -9,133 +9,70 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     </head>
-    <body class="app">
-        <div>
-            <!-- #Left Sidebar ==================== -->
-            <div class="sidebar">
-                <div class="sidebar-inner">
-                    <!-- ### $Sidebar Header ### -->
-                    <div class="sidebar-logo">
-                        <div class="peers ai-c fxw-nw">
-                            <div class="peer peer-greed">
-                                <a class="sidebar-link td-n" href="{{ route('order.index') }}">
-                                <div class="peers ai-c fxw-nw">
-                                    <div class="peer">
-                                        <div class="logo text-center py-2">
-                                            <img src="{{ asset('/images/logo.png') }}" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="peer peer-greed">
-                                        <h5 class="lh-1 mB-0 logo-text">{{ config('app.name') }}</h5>
-                                    </div>
-                                </div>
-                                </a>
-                            </div>
-                            <div class="peer">
-                                <div class="mobile-toggle sidebar-toggle">
-                                <a href="" class="td-n">
-                                    <i class="ti-arrow-circle-left"></i>
-                                </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ### $Sidebar Menu ### -->
-                    <ul class="sidebar-menu scrollable pos-r">
-                        <li class="nav-item mT-30 active">
-                            <a class="sidebar-link active" href="{{ route('order.create')}}">
-                                <span class="icon-holder">
-                                <i class="c-blue-500 ti-clipboard"></i>
-                                </span>
-                                <span class="title">{{ __('navigation.order.create')}}</span>
+    <body class="bgc-grey-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="logo col-12 text-center py-1 d-lg-none">
+                    <a href="{{route('order.index')}}">
+                        <img class="logo__img" src="{{ asset('/images/logo.png') }}" alt="">
+                    </a>
+                </div>
+                <div class="navigation col-12 px-0">
+                    <nav class="navigation__nav d-flex justify-content-end">
+                        <li class="navigation__nav__item d-none d-lg-flex mr-auto logo ml-3">
+                            <a class="mt-auto mb-auto" href="{{route('order.index')}}">
+                                <img class="logo__img w-100 h-auto" src="{{ asset('/images/logo_lg.png') }}" alt="">
                             </a>
                         </li>
-                        <li class="nav-item dropdown open">
-                            <a class="dropdown-toggle" href="javascript:void(0);">
-                                <span class="icon-holder">
-                                    <i class="c-brown-500 ti-search"></i>
-                                </span>
-                                <span class="title">{{ __('navigation.order.title')}}</span>
-                                <span class="arrow">
-                                    <i class="ti-angle-right"></i>
-                                </span>
+                        <li id="dateStr" class="d-none d-lg-flex m-auto date-str font-size-25"><li>
+                        <li class="navigation__nav__item {{ request()->is('order/create')? 'navigation__nav__item--active':''}}"
+                        >
+                            <a href="{{ route('order.create')}}">
+                                <i class="navigation__nav__item__icon ti-clipboard"></i>
+                                <div class="navigation__nav__item__text">新增訂單</div>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                <a href="{{ route('order.search')}}">{{ __('navigation.order.search')}}</a>
-                                </li>
-                                <li>
-                                <a href="{{ route('package.search')}}">{{ __('navigation.package.search')}}</a>
-                                </li>
-                            </ul>
                         </li>
-                        <li class="nav-item dropdown open">
-                            <a class="dropdown-toggle " href="javascript:void(0);">
-                                <span class="icon-holder">
-                                <i class="c-orange-500 ti-panel"></i>
-                                </span>
-                                <span class="title">{{ __('navigation.options.title')}}</span>
-                                <span class="arrow">
-                                <i class="ti-angle-right"></i>
-                                </span>
+                        <li class="navigation__nav__item {{ request()->is('order/search')? 'navigation__nav__item--active':''}}"
+                        >
+                            <a href="{{ route('order.search')}}">
+                                <i class="navigation__nav__item__icon ti-search"></i>
+                                <div class="navigation__nav__item__text">訂單查詢</div>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class='sidebar-link' href="{{ route('cookie.index')}}">{{ __('navigation.options.cookie')}}</a>
-                                </li>
-                                <li>
-                                    <a class='sidebar-link' href="{{ route('pack.index')}}">{{ __('navigation.options.pack')}}</a>
-                                </li>
-                                <li>
-                                    <a class='sidebar-link' href="{{ route('caseType.index')}}">{{ __('navigation.options.case')}}</a>
-                                </li>
-                            </ul>
                         </li>
-                    </ul>
+                        <li class="navigation__nav__item {{ request()->is('package/search')? 'navigation__nav__item--active':''}}"
+                        >
+                            <a href="{{ route('package.search')}}">
+                                <i class="navigation__nav__item__icon ti-truck"></i>
+                                <div class="navigation__nav__item__text">包裹查詢</div>
+                            </a>
+                        </li>
+                        <li class="navigation__nav__item {{ request()->is('items')? 'navigation__nav__item--active':''}}"
+                        >
+                            <a href="">
+                                <i class="navigation__nav__item__icon ti-panel"></i>
+                                <div class="navigation__nav__item__text">選項管理</div>
+                            </a>
+                        </li>
+                        <li class="navigation__nav__item">
+                            <a href="{{ route('logout')}}">
+                                <i class="navigation__nav__item__icon ti-power-off"></i>
+                                <div class="navigation__nav__item__text">登出系統</div>
+                            </a>
+                        </li>
+                    </nav>
+                </div>
+                <div class="main-content col-12 mt-4">
+                    @yield('content')
                 </div>
             </div>
 
-            <!-- #Main ============================ -->
-            <div class="page-container">
-                <!-- ### $Topbar ### -->
-                <div class="header navbar">
-                    <div class="header-container">
-                        <ul class="nav-left">
-                            <li>
-                                <a id='sidebar-toggle' class="sidebar-toggle" href="javascript:void(0);">
-                                    <i class="ti-menu"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav-right">
-                            <li>
-                                <a href="{{ route('logout') }}">
-                                    {{ __('navigation.logout')}}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- ### $App Screen Content ### -->
-                <main class='main-content bgc-grey-100'>
-                    <div id='mainContent'>
-                        <div class="row gap-20 masonry pos-r">
-                            @yield('content')
-                        </div>
-                    </div>
-                </main>
-
-                <!-- ### $App Screen Footer ### -->
-                <footer class="bdT ta-c p-20 lh-0 fsz-sm c-grey-600">
-                    <span>Copyright © 2018 Designed by {{ config('app.name') }}. All rights reserved.</span>
-                </footer>
-            </div>
         </div>
 
         <script>
             window.notificationLang = @json(__('notification'));
+            const today = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('dateStr').innerText = today.toLocaleDateString('zh-TW', options);
             @yield('custom-js')
         </script>
         <script src="{{ mix('/js/app.js') }}"></script>

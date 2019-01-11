@@ -11,8 +11,13 @@
             </div>
         </div>
     </div>
-    <div class="row bgc-white pY-15 bd mB-20 mx-0">
-        <h6 class="c-grey-900 mB-20 col-12">{{ __('order.section.info') }}</h6>
+    <div class="row bgc-white py-3 border mb-3 mx-0">
+        <div class="col-12 mb-3">
+            <div class="position-relative tag">
+                <img src="{{ asset('/images/tag.png') }}" alt="">
+                <span>{{ __('order.section.info') }}</span>
+            </div>
+        </div>
         <div class="col-12">
             <dl class="row">
                 <dt class="col-sm-4 col-md-2">{{ __('order.fields.name')}}</dt>
@@ -60,12 +65,17 @@
             </dl>
         </div>
 
-        <h6 class="c-grey-900 mB-20 col-12">{{ __('order.section.case') }}</h6>
+        <div class="col-12 mb-3">
+            <div class="position-relative tag">
+                <img src="{{ asset('/images/tag.png') }}" alt="">
+                <span>{{ __('order.section.case') }}</span>
+            </div>
+        </div>
         <div class="col-12">
             <div class="row">
                 @foreach($order->cases as $case)
                     <div class="col-12 col-md-6 mB-30">
-                        <div class="bgc-grey-300 p-15 d-flex flex-column">
+                        <div class="bgc-grey-300 p-3 d-flex flex-column">
                             <div class="d-flex flex-column flex-md-row align-items-center">
                                 <h4 class="card-title">{{$case->case_type_name}} X <span class="fa fa-archive mr-1"></span>{{$case->amount? $case->amount:0}}</h4>
                                 <h5 class="card-subtitle mb-2 text-muted ml-md-auto">
@@ -124,8 +134,13 @@
             v-on:close="cleanModalData('edit')">
         </package-modal>
 
+        <div class="col-12 mb-3">
+            <div class="position-relative tag">
+                <img src="{{ asset('/images/tag.png') }}" alt="">
+                <span>{{ __('order.section.package') }}</span>
+            </div>
+        </div>
         <div class="col-12 col-md-9">
-            <h5 class="c-grey-900">{{ __('order.section.package') }}</h5>
             <div class="peers ai-c">
                 <i class="ti ti-filter text-primary font-size-20 mr-2"></i>
                 <div class="peer mr-2 cur-p" v-on:click="filter='all'">

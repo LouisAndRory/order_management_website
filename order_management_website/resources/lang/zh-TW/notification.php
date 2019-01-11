@@ -12,6 +12,7 @@ return [
     | you want to customize your views to better match your application.
     |
     */
+    'empty' => '目前沒有資料',
     '401_error' => [
         'title' => 'Oops...',
         'text' => '驗證過期! 必須重新登入',

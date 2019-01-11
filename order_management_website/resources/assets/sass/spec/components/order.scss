@@ -1,0 +1,23 @@
+.tag {
+	img {
+		width: 250px;
+	}
+	span {
+		position: absolute;
+		color: white;
+		left: 120px;
+		font-size: 22px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	&::after {
+		position: absolute;
+		content: "";
+		left: 250px;
+		right: 0px;
+		height: 1px;
+		background: black;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}

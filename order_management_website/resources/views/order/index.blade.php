@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="col-12">
-    <h4 class="mb-0">{{ __('index.title') }}</h4>
+    <h5 class="mb-3 text-center text-md-left">{{ __('index.title') }}</h5>
+    @if(count($packages))
     <div class="row bgc-white p-15 bd mB-20 mx-0">
         <div class="table-responsive">
             <table id="dataTable" class="table mb-0" cellspacing="0" width="100%">
@@ -60,5 +61,8 @@
             </table>
         </div>
     </div>
+    @else
+        @include('layouts.empty')
+    @endif
 </div>
 @endsection

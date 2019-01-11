@@ -1,10 +1,10 @@
 @extends('master')
 
 @section('content')
-<div class="col-12" id="orderEditApp" v-cloak>
-    <form v-on:submit.prevent="onSubmit">
-        <div class="bgc-white p-20 bd mB-20">
-            <h6 class="c-grey-900 mB-20">{{ __('order.section.info') }}</h6>
+<div class="row" id="orderEditApp" v-cloak>
+    <form class="px-2 col-12 px-md-3" v-on:submit.prevent="onSubmit">
+        <div class="bgc-white p-3 border mb-4">
+            <h6 class="c-grey-900 mb-3  font-weight-bold">{{ __('order.section.info') }}</h6>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="orderName">{{ __('order.fields.name')}}<span class="text-danger">*</span></label>
@@ -132,10 +132,10 @@
             <div class="row mx-0">
                 <div class="col-12 mb-4" v-for="(caseItem, caseIndex) in order.cases">
                     <div class="row">
-                        <div class="col-12 bgc-grey-100 pY-15 base-box-shadow">
+                        <div class="col-12 bgc-grey-100 py-3 base-box-shadow">
                             <div class="row mB-15">
                                 <div class="col-12">
-                                    <h6 class="c-grey-900 d-inline-block">{{ __('case.section.info') }}</h6>
+                                    <h6 class="c-grey-900 d-inline-block font-weight-bold">{{ __('case.section.info') }}</h6>
                                     <button type="button" class="close ml-auto" v-on:click="delCase(caseIndex)">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -169,10 +169,10 @@
                             </div>
 
                             <div class="row mB-15">
-                                <h6 class="c-grey-900 mT-15 col-12">{{ __('case.section.content') }}</h6>
+                                <h6 class="c-grey-900 mT-15 col-12 font-weight-bold">{{ __('case.section.content') }}</h6>
                             </div>
-                            <div class="form-row" :class="{'bg-light-primary': cookieIndex%2==0 }" v-for="(cookieItem, cookieIndex) in caseItem.cookies">
-                                <div class="form-group col-md-6">
+                            <div class="form-row mb-3 mb-md-0" :class="{'bg-light-primary': cookieIndex%2==0 }" v-for="(cookieItem, cookieIndex) in caseItem.cookies">
+                                <div class="form-group col-md-4 col-lg-5 col-xl-6">
                                     <select class="form-control" v-model="cookieItem.cookie_id" :class="{'is-invalid': hasCookieError(caseIndex, cookieIndex, 'cookie_id')}" required>
                                         <option value="" hidden>{{ __('cookie.placeholder.cookie_type')}}*</option>
                                         <option v-for="option in orderDDL.cookies" :value="option.id">
@@ -194,7 +194,7 @@
                                         <div v-for="msg in getCookieError(caseIndex, cookieIndex, 'pack_id')">@{{msg}}</div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-3 col-lg-2">
                                     <div class="input-group">
                                         <div class="input-group-prepend cursor-pointer">
                                             <button class="btn btn-primary" type="button" v-on:click="cookieItem.amount-=1" :disabled="cookieItem.amount==1"><span class="fa fa-minus"></span></button>
@@ -205,7 +205,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-2 col-xl-1">
                                     <button v-on:click="delCookie(caseIndex, cookieIndex)" type="button" class="col btn btn-secondary text-nowrap">{{ __('cookie.functional.del') }}</button>
                                 </div>
                             </div>

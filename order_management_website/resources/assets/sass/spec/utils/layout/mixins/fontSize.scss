@@ -1,8 +1,10 @@
 /* Custom Font Size */
 @mixin font-size-list($MIN_COUSTOM_FONT, $MAX_COUSTOM_FONT) {
-  @for $i from $MIN_COUSTOM_FONT through $MAX_COUSTOM_FONT {
-    .font-size-#{$i} {
-      font-size: #{$i}px;
-    }
-  }
+	@for $i from $MIN_COUSTOM_FONT through $MAX_COUSTOM_FONT {
+		.font-size-#{$i} {
+			font-size: #{$i}px;
+		}
+	}
 }
+
+@include font-size-list(20, 80);

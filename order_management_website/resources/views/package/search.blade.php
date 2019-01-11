@@ -3,7 +3,7 @@
 @section('content')
     <div class="col-12" id="packageSearchApp" style="min-height: 100vh">
         <form action="{{ route('package.search') }}" method="get" role="form">
-            <div class="row bgc-white p-15 mB-20 mx-0 base-box-shadow align-items-center">
+            <div class="row bgc-white p-3 mb-3 mx-0 base-box-shadow align-items-center">
                 <div class="col-3 pl-md-0">
                     <input type="text" name="order_name" class="form-control"
                            placeholder="{{ __('order.placeholder.name')}}">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-auto">
                     <div class="checkbox checkbox-circle checkbox-info peers ai-c">
-                        <input type="checkbox" id="filterShipped" class="peer" v-model="filter.shipped" true-value="1"
+                        <input type="checkbox" id="filterShipped" class="peer d-none" v-model="filter.shipped" true-value="1"
                                false-value="0" name="shipped">
                         <label for="filterShipped" class="peers peer-greed js-sb ai-c cur-p">
                             <span class="peer peer-greed">{{ __('package.filter.sent')}}</span>
@@ -59,7 +59,8 @@
                 </div>
             </div>
             <h4 class="mb-0">{{ __('navigation.package.search') }}</h4>
-            <div class="row bgc-white p-15 bd mB-20 mx-0">
+            @if(isset($packages) && count($packages))
+            <div class="row bgc-white p-3 bd mb-4 mx-0">
                 <div class="table-responsive">
                     <table id="dataTable" class="table mb-0" cellspacing="0" width="100%">
                         <thead>
@@ -80,7 +81,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(isset($packages))
                             @foreach($packages as $index => $package)
                                 <tr :key="{{ $index }}">
                                     <td class="text-nowrap va-m" rowspan="{{ count($package->cases) + 1 }}">
@@ -122,11 +122,13 @@
                                     </tr>
                                 @endforeach
                             @endforeach
-                        @endif
                         </tbody>
                     </table>
                 </div>
             </div>
+            @else
+                @include('layouts.empty')
+            @endif
         </form>
     </div>
 @endsection

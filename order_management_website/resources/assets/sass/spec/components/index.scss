@@ -1,6 +1,8 @@
-@import 'sidebar';
-@import 'topbar';
-@import 'pageContainer';
 @import 'forms';
 @import 'loader';
-@import 'footer';
+@import 'header';
+@import 'order';
+
+.bgc-white {
+	background-color: white;
+}
