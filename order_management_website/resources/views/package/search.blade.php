@@ -82,7 +82,7 @@
                         </thead>
                         <tbody>
                             @foreach($packages as $index => $package)
-                                <tr :key="{{ $index }}">
+                                <tr :key="{{ $index }}" class="{{ $package->checked ? 'bgc-green' : '' }}">
                                     <td class="text-nowrap align-middle" rowspan="{{ count($package->cases) + 1 }}">
                                         <div class="rounded-circle
                                                     position-relative
@@ -108,7 +108,7 @@
                                     <td class="p-0 border-top-0 border-bottom-0"></td>
                                 </tr>
                                 @foreach($package->cases as $caseIndex => $case)
-                                    <tr :key="`package-{{ $index }}-case-{{ $caseIndex }}`">
+                                    <tr :key="`package-{{ $index }}-case-{{ $caseIndex }}`" class="{{ $package->checked ? 'bgc-green' : '' }}">
                                         <td class="border-bottom-0 align-middle text-nowrap {{ ($index === 0 || $caseIndex > 0) ? 'bdwT-0' : '' }}">{{ $case->name }}</td>
                                         <td class="border-bottom-0 align-middle text-center {{ ($index === 0 || $caseIndex > 0) ? 'bdwT-0' : '' }}">{{ $case->amount }}</td>
                                         <td class="border-bottom-0 align-middle text-center {{ ($index === 0 || $caseIndex > 0) ? 'bdwT-0' : '' }}">
