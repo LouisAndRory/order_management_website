@@ -74,7 +74,7 @@
         <div class="col-12">
             <div class="row">
                 @foreach($order->cases as $case)
-                    <div class="col-12 col-md-6 mB-30">
+                    <div class="col-12 col-md-6">
                         <div class="bgc-grey-300 p-3 d-flex flex-column">
                             <div class="d-flex flex-column flex-md-row align-items-center">
                                 <h4 class="card-title">{{$case->case_type_name}} X <span class="fa fa-archive mr-1"></span>{{$case->amount? $case->amount:0}}</h4>
@@ -140,88 +140,124 @@
                 <span>{{ __('order.section.package') }}</span>
             </div>
         </div>
-        <div class="col-12 col-md-9">
-            <div class="peers ai-c">
-                <i class="ti ti-filter text-primary font-size-20 mr-2"></i>
-                <div class="peer mr-2 cur-p" v-on:click="filter='all'">
-                    <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15" :class="{'bgc-blue-50 c-blue-500': filter=='all', 'bgc-blue-grey-50 c-blue-grey-500':filter!='all'}">
-                        {{ __('package.filter.all') }}
-                    </span>
-                </div>
-                <div class="peer mr-2 cur-p" v-on:click="filter='unsent'">
-                    <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15" :class="{'bgc-blue-50 c-blue-500': filter=='unsent', 'bgc-blue-grey-50 c-blue-grey-500':filter!='unsent'}">
-                        {{ __('package.filter.unsent') }}
-                    </span>
-                </div>
-                <div class="peer cur-p" v-on:click="filter='sent'">
-                    <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15" :class="{'bgc-blue-50 c-blue-500': filter=='sent', 'bgc-blue-grey-50 c-blue-grey-500':filter!='sent'}">
-                        {{ __('package.filter.sent') }}
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-3 text-right">
-            <button type="button" class="btn btn-primary rounded-0 ml-auto" v-on:click="packageModal.show.create=true">
-                <span class="ti ti-truck font-size-30"></span>
-                <div>{{ __('package.functional.add')}}</div>
-            </button>
+
+        <div class="col-12 mb-3 text-right">
+            <button class="btn py-1 font-size-12" v-on:click="filter='unsent'">{{ __('package.filter.unsent') }}</button>
+            <button class="btn py-1 font-size-12" v-on:click="filter='sent'">{{ __('package.filter.sent') }}</button>
+            <button class="btn py-1 font-size-12" v-on:click="packageModal.show.create=true">{{ __('package.functional.add') }}</button>
         </div>
 
-        <div class="col-12 col-md-6 my-3 mb-md-4" v-for="(package, index) in filterPackage" :key="index">
-            <div class="card h-100 package-card rounded-0 border-0 base-box-shadow-with-hover" :class="{'border-success': package.checked, 'border-secondary': !package.checked }">
-                <span class="check-icon position-absolute font-size-25 text-white cur-p"v-on:click="onClickUpdatePackageStatus(package, 'checked')" >
-                    <i class="ti" :class="{'ti-face-smile': package.checked, 'ti-face-sad': !package.checked}"></i>
-                </span>
+        <div class="col-12 my-3 mb-md-4" v-for="(package, index) in filterPackage" :key="index">
+            <div class="card h-100 package-card rounded-0">
+                <div class="card-header d-flex flex-column flex-md-row text-center" :class="{'bgc-grey-300': !package.checked, 'success': package.checked}">
+                @{{ convertDateStr(package.arrived_at) }} {{__('package.unit.arrived')}}
+                    <div class="ml-md-auto d-flex flex-column flex-lg-row mt-2 mt-md-0">
+                        <button class="btn
+                            btn-outline-light
+                            bg-white
+                            text-dark
+                            py-0
+                            d-flex
+                            align-items-center
+                            radius
+                            mr-auto
+                            ml-auto
+                            mr-lg-2
+                            mb-2
+                            mb-lg-0"
+                            v-if="package.checked"
+                            v-on:click="onClickUpdatePackageStatus(package, 'checked')">
+                            <i class="fa fa-times"></i>
+                            <span class="ml-2">{{ __('package.functional.cancel_check')}}</span>
+                        </button>
+
+                        <button class="btn
+                            btn-outline-light
+                            bg-white
+                            text-dark
+                            py-0
+                            d-flex
+                            align-items-center
+                            radius
+                            mr-auto
+                            ml-auto
+                            mr-lg-2
+                            mb-2
+                            mb-lg-0"
+                            v-if="!package.checked"
+                            v-on:click="onClickUpdatePackageStatus(package, 'checked')">
+                            <i class="fa fa-check"></i>
+                            <span class="ml-2">{{ __('package.functional.check')}}</span>
+                        </button>
+
+                        <button class="btn
+                            btn-outline-light
+                            bg-white
+                            text-dark
+                            py-0
+                            d-flex
+                            align-items-center
+                            radius
+                            mr-auto
+                            ml-auto
+                            mr-lg-2
+                            mb-2
+                            mb-lg-0"
+
+                            v-on:click="onClickDeletePackage(package.id)">
+                            <i class="fa fa-trash-o"></i>
+                            <span class="ml-2">{{ __('package.functional.del')}}</span>
+                        </button>
+
+                        <button v-on:click="onClickEditPackage(package)"
+                            class="btn btn-outline-light bg-white text-dark py-0 d-flex align-items-center radius m-auto">
+                            <i class="fa fa-pencil"></i>
+                            <span class="ml-2">{{ __('package.functional.edit')}}</span>
+                        </button>
+
+                    </div>
+                </div>
                 <div class="card-body d-flex flex-column">
-                    <div class="d-flex flex-column flex-md-row align-items-center">
-                        <h5 class="card-title">
-                            @{{ package.arrived_at }}
-                            <small class="text-muted">{{ __('package.fields.arrived_at')}}</small>
+                    <dl class="row">
+                        <dt class="col-md-2">{{ __('package.fields.name')}}：</dt>
+                        <dd class="col-md-4">@{{ package.name }}</dd>
+
+                        <dt class="col-md-2">{{ __('package.fields.phone')}}：</dt>
+                        <dd class="col-md-4">@{{ package.phone }}</dd>
+
+                        <dt class="col-md-2">{{ __('package.fields.arrived_at')}}：</dt>
+                        <dd class="col-md-4">@{{ package.arrived_at }}</dd>
+
+                        <dt class="col-md-2">{{ __('package.fields.sent_at')}}：</dt>
+                        <dd class="col-md-4">
                             <span v-if="package.sent_at" class="text-primary">
-                                <i class="ti ti-truck font-size-20 text-primary"></i>
-                                @{{ package.sent_at }}
-                                <small class="text-primary">{{ __('package.fields.sent_at')}}</small>
+                                <button type="button" class="btn btn-secondary py-0" v-on:click="onClickUpdatePackageStatus(package, 'sent_at')">
+                                    @{{ package.sent_at }}
+                                </button>
                             </span>
                             <span v-else>
-                                <i class="ti ti-truck font-size-20"></i>
-                                <small class="text-muted font-weight-bold">{{ __('package.filter.unsent') }}</small>
+                                <button type="button" class="btn btn-primary py-0" v-on:click="onClickUpdatePackageStatus(package, 'sent_at')">
+                                    @{{ langs.functional.sent }}
+                                </button>
                             </span>
-                            </h5>
-                    </div>
+                        </dd>
 
-                    <dl class="row">
-                        <dt class="col-md-3">{{ __('package.fields.name')}}</dt>
-                        <dd class="col-md-9">@{{ package.name }}</dd>
+                        <dt class="col-md-2">{{ __('package.fields.address')}}：</dt>
+                        <dd class="col-md-10">@{{ package.address }}</dd>
 
-                        <dt class="col-md-3">{{ __('package.fields.phone')}}</dt>
-                        <dd class="col-md-9">@{{ package.phone }}</dd>
-
-                        <dt class="col-md-3">{{ __('package.fields.address')}}</dt>
-                        <dd class="col-md-9">@{{ package.address }}</dd>
-
-                        <dt class="col-md-3">{{ __('package.fields.remark')}}</dt>
-                        <dd class="col-md-9 whs-p">@{{ package.remark }}</dd>
+                        <dt class="col-md-2">{{ __('package.fields.remark')}}：</dt>
+                        <dd class="col-md-10 whs-p">@{{ package.remark }}</dd>
                     </dl>
-                    <div class="row border-top bdc-grey-400 mb-3">
+                    <div class="row border-top bdc-grey-400">
                         <div class="col-12 mt-2 text-center text-secondary mt-auto mb-auto" v-if="!package.cases.length">
                             <span class="fa fa-exclamation-triangle font-size-60"></span>
                             <div class="card-subtitle">{{ __('order.notification.empty_case') }}</div>
                         </div>
                         <div :class="`col-12 py-1 font-size-20 font-weigh-bold ${ (index%2 == 0)?'bgc-grey-200': ''}`" v-for="(caseItem, index) in package.cases">
                             <span>@{{caseItem.case_type_name}}</span>
-                            <span class="float-right mr-2">X<span>
-                            @{{caseItem.amount}}</span>
-                        </div>
-                    </div>
-                    <div class="row mt-auto">
-                        <div class="col-12 d-flex">
-                            <button type="button" class="btn btn-secondary" v-on:click="onClickDeletePackage(package.id)">{{ __('package.functional.del')}}</button>
-                            <div class="btn-group ml-auto" role="group">
-                                <button type="button" class="btn btn-primary ml-auto" v-on:click="onClickEditPackage(package)">{{ __('package.functional.edit')}}</button>
-                                <button type="button" class="btn" :class="{'btn-primary': !package.sent_at, 'btn-secondary': package.sent_at}" v-on:click="onClickUpdatePackageStatus(package, 'sent_at')">
-                                    @{{ package.sent_at? langs.functional.cancel_sent:langs.functional.sent }}
-                                </button>
-                            </div>
+                            <span class="float-right mr-2"><span>
+                            @{{caseItem.amount}}
+                            <span class="ml-2">{{__('case.unit')}}<span></span>
                         </div>
                     </div>
                 </div>

@@ -89,6 +89,9 @@ a.btn {
 	&:focus {
 		box-shadow: none !important;
 	}
+	&.radius {
+		border-radius: 30px !important;
+	}
 }
 
 .base-box-shadow {
@@ -104,21 +107,8 @@ a.btn {
 }
 
 .package-card {
-	.check-icon {
-		right: 6px;
-		top: 5px;
-		z-index: 10;
-	}
-	&::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		right: 0;
-		border-color: transparent;
-		border-style: solid;
-		border-width: 2.5em;
-		border-right-color: inherit;
-		border-top-color: inherit;
+	.card-header.success {
+		background: #8bc34a8a;
 	}
 }
 

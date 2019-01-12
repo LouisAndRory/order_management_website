@@ -5,6 +5,7 @@ window.Vue.use(VueSweetalert2)
 window._ = require('lodash')
 window.Popper = require('popper.js').default
 window.moment = require('moment')
+window.moment.locale('zh-tw')
 
 try {
 	window.$ = window.jQuery = require('jquery')

@@ -40,5 +40,6 @@ return [
     ],
     'replace_string' => [
         'enabled' => '上架中'
-    ]
+    ],
+    'unit' => '盒'
 ];

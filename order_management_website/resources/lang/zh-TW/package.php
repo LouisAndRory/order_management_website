@@ -19,8 +19,8 @@ return [
         'del' => '刪除包裹',
         'sent' => '包裹寄出',
         'cancel_sent' => '取消包裹寄出',
-        'check' => '包裹確認',
-        'cancel_check' => '取消包裹確認',
+        'check' => '訂單確認',
+        'cancel_check' => '取消確認',
         'del_content' => '刪除',
         'save' => '儲存',
         'cancel' => '取消',
@@ -55,5 +55,8 @@ return [
         'all' => '全部',
         'sent' => '已出貨',
         'unsent' => '未出貨'
+    ],
+    'unit' => [
+        'arrived' => '到貨'
     ]
 ];
