@@ -83,36 +83,35 @@
                         <tbody>
                             @foreach($packages as $index => $package)
                                 <tr :key="{{ $index }}">
-                                    <td class="text-nowrap va-m" rowspan="{{ count($package->cases) + 1 }}">
+                                    <td class="text-nowrap align-middle" rowspan="{{ count($package->cases) + 1 }}">
                                         <div class="rounded-circle
-                                                    pos-r
-                                                    h-2r
-                                                    w-2r
-                                                    font-size-20
+                                                    position-relative
+                                                    font-size-25
                                                     mr-auto
                                                     ml-auto
-                                             {{ $package->sent_at ? 'bg-primary' : 'bg-secondary' }}">
-                                            <i class="ti ti-truck text-white pos-a tl-50p centerXY"></i>
+                                             {{ $package->sent_at ? 'bg-primary' : 'bg-secondary' }}"
+                                             style="height: 40px; width: 40px">
+                                            <i class="ti ti-truck text-white position-absolute centerXY"></i>
                                         </div>
                                     </td>
-                                    <td class="text-nowrap va-m" rowspan="{{ count($package->cases) + 1 }}">
+                                    <td class="text-nowrap align-middle" rowspan="{{ count($package->cases) + 1 }}">
                                         <a href="{{ route('order.show', [
                                         'id' => $package->order_id
                                         ])}}">{{ $package->order_name }}</a>
                                     </td>
-                                    <td class="text-nowrap va-m"
+                                    <td class="text-nowrap align-middle"
                                         rowspan="{{ count($package->cases) + 1 }}">{{ $package->package_phone ?: '-'     }}</td>
-                                    <td class="text-nowrap va-m text-center"
+                                    <td class="text-nowrap align-middle text-center"
                                         rowspan="{{ count($package->cases) + 1 }}">{{ $package->married_date ?: '-' }}</td>
-                                    <td class="text-nowrap va-m text-center"
+                                    <td class="text-nowrap align-middle text-center"
                                         rowspan="{{ count($package->cases) + 1 }}">{{ $package->arrived_at ? $package->arrived_at->toDateString() : '-' }}</td>
-                                    <td class="p-0 bdwT-0 bdwB-0"></td>
+                                    <td class="p-0 border-top-0 border-bottom-0"></td>
                                 </tr>
                                 @foreach($package->cases as $caseIndex => $case)
                                     <tr :key="`package-{{ $index }}-case-{{ $caseIndex }}`">
-                                        <td class="bdwB-0 va-m {{ ($index === 0 || $caseIndex > 0) ? 'bdwT-0' : '' }}">{{ $case->name }}</td>
-                                        <td class="bdwB-0 va-m text-center {{ ($index === 0 || $caseIndex > 0) ? 'bdwT-0' : '' }}">{{ $case->amount }}</td>
-                                        <td class="bdwB-0 va-m text-center {{ ($index === 0 || $caseIndex > 0) ? 'bdwT-0' : '' }}">
+                                        <td class="border-bottom-0 align-middle text-nowrap {{ ($index === 0 || $caseIndex > 0) ? 'bdwT-0' : '' }}">{{ $case->name }}</td>
+                                        <td class="border-bottom-0 align-middle text-center {{ ($index === 0 || $caseIndex > 0) ? 'bdwT-0' : '' }}">{{ $case->amount }}</td>
+                                        <td class="border-bottom-0 align-middle text-center {{ ($index === 0 || $caseIndex > 0) ? 'bdwT-0' : '' }}">
                                             <Checkbox
                                                 :id="`${{{$index}}}_${{{$caseIndex}}}`"
                                                 :is-checked="selected[{{ $package->id }}] && selected[{{ $package->id }}].includes({{ $case->case_id }})"
