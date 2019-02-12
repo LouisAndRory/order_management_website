@@ -31,7 +31,7 @@
 </head>
 <body>
     <div class="d-flex justify-content-center align-items-center header">
-        <img src="{{ public_path('/images/pdf_header.jpg') }}" height="130px" alt="">
+        <img src="{{ public_path('/images/pdf_header.png') }}" height="130px" alt="">
         <div class="ml-3 note">
             <div>務必仔細確認訂單上每個細節</div>
             <div>出貨時會依據此份訂購單出貨</div>

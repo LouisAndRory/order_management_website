@@ -50,6 +50,12 @@
         .table td.label.top {
             vertical-align: top;
         }
+
+        @media print {
+            body {
+                background-image: none;
+            }
+        }
     </style>
 </head>
 
