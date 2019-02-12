@@ -17,7 +17,7 @@ return [
         'cancel' => '取消儲存',
         'update' => '修改訂單',
         'delete' => '刪除訂單',
-        'pdf' => '訂單PDF',
+        'pdf' => '產生PDF',
         'search' => '搜尋'
     ],
     'fields' => [
@@ -61,7 +61,8 @@ return [
         'dollar' => '元'
     ],
     'notification' => [
-        'empty_case' => '尚未選擇禮盒內容'
+        'empty_case' => '尚未選擇禮盒內容',
+        'empty_filter_package' => '尚未有該類別包裹'
     ],
     'section' => [
         'info' => '基本資料',

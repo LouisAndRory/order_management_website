@@ -21,3 +21,77 @@
 		transform: translateY(-50%);
 	}
 }
+
+.custom-btn {
+	padding: 0px;
+	background: #4aceb5;
+	color: white!important;
+	border-radius: 6px!important;
+	box-shadow: -1px 2px 1px 0 rgba(0, 0, 0, 0.2)!important;
+	width: 160px;
+	height: 45px;
+	overflow: hidden;
+	letter-spacing: 2px;
+	border: none!important;
+	cursor: pointer;
+	i {
+		color: inherit;
+		background: #59d8bf;
+		height: 45px;
+		position: relative;
+		width: 50px;
+		margin-right: 0.8rem;
+		font-size: 1.5rem;
+		&::before {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			padding-left: 5px;
+			transform: translate(-50%, -50%);
+		}
+	}
+	&:hover, &:focus, &:visited, &:active {
+		color: white!important;
+		background: #44bba4;
+		outline: none!important;
+		i {
+			color: inherit;
+		}
+
+	}
+	&.green {
+		background: #4aceb5;
+		i {
+			background: #59d8bf;
+		}
+		&:hover, &:focus, &:visited, &:active {
+			background: #44bba4;
+		}
+	}
+
+	&.pink {
+		background: #db6383;
+		i {
+			background: #e2748c;
+		}
+		&:hover, &:focus, &:visited, &:active {
+			background: #c6607f;
+		}
+	}
+
+	&.blue {
+		background: #5f81e0;
+		i {
+			background: #6a91ea;
+		}
+		&:hover, &:focus, &:visited, &:active {
+			background: #587ccc;
+		}
+	}
+}
+
+.svg-btn {
+	width: 160px;
+	height: auto;
+	cursor: pointer;
+}

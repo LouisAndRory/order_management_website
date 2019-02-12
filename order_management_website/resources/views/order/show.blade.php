@@ -3,12 +3,17 @@
 @section('content')
 <div class="col-12">
     <div class="row mb-3" id="orderShowApp">
-        <div class="col-12 d-flex">
-                <button type="button" class="btn btn-secondary" v-on:click="onClickDeleteOrder">{{ __('order.functional.delete')}}</button>
-            <div class="btn-group ml-auto" role="group">
-                <a href="{{ route('order.pdf', ['id'=> $order->id])}}" class="btn btn-primary ml-auto" >{{ __('order.functional.pdf')}}</a>
-                <a href="{{ route('order.edit', ['id'=> $order->id])}}" class="btn btn-primary" >{{ __('order.functional.update')}}</a>
-            </div>
+        <div class="col-12 text-right">
+            <a href="{{ route('order.pdf', ['id'=> $order->id])}}" class="custom-btn d-inline-flex align-items-center mx-md-2 green" >
+                <i class="fa fa-download"></i>
+                {{ __('order.functional.pdf')}}
+            </a>
+            <button type="button" class="custom-btn d-inline-flex align-items-center mx-md-2 pink" v-on:click="onClickDeleteOrder" >
+                <i class="fa fa-times"></i>
+                {{ __('order.functional.delete')}}</button>
+            <a href="{{ route('order.edit', ['id'=> $order->id])}}" class="custom-btn d-inline-flex align-items-center ml-md-2 blue" >
+                <i class="fa fa-pencil"></i>
+                {{ __('order.functional.update')}}</a>
         </div>
     </div>
     <div class="row bgc-white py-3 border mb-3 mx-0">
@@ -142,11 +147,15 @@
         </div>
 
         <div class="col-12 mb-3 text-right">
-            <button class="btn py-1 font-size-12" v-on:click="filter='unsent'">{{ __('package.filter.unsent') }}</button>
-            <button class="btn py-1 font-size-12" v-on:click="filter='sent'">{{ __('package.filter.sent') }}</button>
-            <button class="btn py-1 font-size-12" v-on:click="packageModal.show.create=true">{{ __('package.functional.add') }}</button>
+            <img src="{{ asset('/images/unset_btn.svg') }}" v-on:click="filter='unsent'" class="svg-btn mx-md-2">
+            <img src="{{ asset('/images/sent_btn.svg') }}" v-on:click="filter='sent'" class="svg-btn mx-md-2">
+            <img src="{{ asset('/images/add_btn.svg') }}" v-on:click="packageModal.show.create=true" class="svg-btn ml-md-2">
         </div>
 
+        <div class="col-12 my-3 mb-md-4 text-center text-secondary" v-if="!filterPackage.length">
+            <span class="fa fa-exclamation-triangle font-size-60"></span>
+            <div class="card-subtitle">{{ __('order.notification.empty_filter_package') }}</div>
+        </div>
         <div class="col-12 my-3 mb-md-4" v-for="(package, index) in filterPackage" :key="index">
             <div class="card h-100 package-card rounded-0">
                 <div class="card-header d-flex flex-column flex-md-row text-center" :class="{'bgc-grey-300': !package.checked, 'success': package.checked}">
@@ -156,7 +165,7 @@
                             btn-outline-light
                             bg-white
                             text-dark
-                            py-0
+                            py-1
                             d-flex
                             align-items-center
                             radius
@@ -175,7 +184,7 @@
                             btn-outline-light
                             bg-white
                             text-dark
-                            py-0
+                            py-1
                             d-flex
                             align-items-center
                             radius
@@ -194,7 +203,7 @@
                             btn-outline-light
                             bg-white
                             text-dark
-                            py-0
+                            py-1
                             d-flex
                             align-items-center
                             radius
@@ -210,7 +219,7 @@
                         </button>
 
                         <button v-on:click="onClickEditPackage(package)"
-                            class="btn btn-outline-light bg-white text-dark py-0 d-flex align-items-center radius m-auto">
+                            class="btn btn-outline-light bg-white text-dark py-1 d-flex align-items-center radius m-auto">
                             <i class="fa fa-pencil"></i>
                             <span class="ml-2">{{ __('package.functional.edit')}}</span>
                         </button>
@@ -253,11 +262,17 @@
                             <span class="fa fa-exclamation-triangle font-size-60"></span>
                             <div class="card-subtitle">{{ __('order.notification.empty_case') }}</div>
                         </div>
-                        <div :class="`col-12 py-1 font-size-20 font-weigh-bold ${ (index%2 == 0)?'bgc-grey-200': ''}`" v-for="(caseItem, index) in package.cases">
-                            <span>@{{caseItem.case_type_name}}</span>
-                            <span class="float-right mr-2"><span>
-                            @{{caseItem.amount}}
-                            <span class="ml-2">{{__('case.unit')}}<span></span>
+                        <div class="col-12 py-1 font-size-20 font-weigh-bold mb-2 bgc-grey-200" v-for="(caseItem, index) in package.cases">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <span class="mr-2">{{ __('case.fields.case_type') }}：</span>
+                                    @{{caseItem.case_type_name}}</div>
+                                <div class="col-12 col-md-6">
+                                    <span class="mr-2">{{ __('case.fields.amount') }}：</span>
+                                    @{{caseItem.amount}}
+                                    <span class="ml-2">{{__('case.unit')}}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
