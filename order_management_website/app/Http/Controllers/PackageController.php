@@ -58,7 +58,7 @@ class PackageController extends Controller
             }
         }
 
-        $packages = $packageOrm->orderBy('id', 'DESC')->get();
+        $packages = $packageOrm->orderBy('packages.arrived_at', 'ASC')->get();
 
         return view('package.search', [
             'packages' => $packages
