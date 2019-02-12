@@ -17,13 +17,17 @@
             font-family: 'MicrosoftJhengHei';
         }
 
-        .header img {
+        .header {
             height: 130px;
+        }
+
+        .header img {
+            height: 125px;
             width: auto;
         }
 
         .header .note {
-            margin-top: 40px;
+            margin-top: 50px;
             font-size: 16px;
             line-height: 28px;
         }

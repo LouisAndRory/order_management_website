@@ -25,17 +25,6 @@
             background-size: 300px;
         }
 
-        .header img {
-            height: 130px;
-            width: auto;
-        }
-
-        .header .note {
-            margin-top: 40px;
-            font-size: 16px;
-            line-height: 28px;
-        }
-
         .table td {
             border: 1px solid black;
         }

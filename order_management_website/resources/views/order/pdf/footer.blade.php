@@ -22,6 +22,11 @@
             width: 100%;
             font-size: 15px;
         }
+        @media print {
+            div.footer {
+                background-image: none;
+            }
+        }
     </style>
 </head>
 <body>
