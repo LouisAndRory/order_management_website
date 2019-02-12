@@ -9,11 +9,11 @@
             <table id="dataTable" class="table mb-0" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle">{{ __('package.fields.name') }}</th>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle">{{ __('package.fields.arrived_at') }}</th>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle">{{ __('order.fields.remark') }}</th>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-center" style="width: 20px">{{ __('package.section.sent_status') }}</th>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-nowrap text-center" style="width: 20px">{{ __('order.section.final_paid') }}</th>
+                        <th class="border-top-0 pt-2 pb-2 align-middle">{{ __('package.fields.name') }}</th>
+                        <th class="border-top-0 pt-2 pb-2 align-middle">{{ __('package.fields.arrived_at') }}</th>
+                        <th class="border-top-0 pt-2 pb-2 align-middle">{{ __('order.fields.remark') }}</th>
+                        <th class="border-top-0 pt-2 pb-2 align-middle text-center" style="width: 20px">{{ __('package.section.sent_status') }}</th>
+                        <th class="border-top-0 pt-2 pb-2 align-middle text-nowrap text-center" style="width: 20px">{{ __('order.section.final_paid') }}</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -35,14 +35,15 @@
                             <td class="text-nowrap va-m">{{$item->remark}}</td>
                             <td>
                                 <div class="rounded-circle
-                                pos-r
+                                position-relative
                                 h-2r
                                 w-2r
                                 font-size-20
                                 mr-auto
                                 ml-auto
-                                {{$item->sent_at? 'bg-primary' : 'bg-secondary'}}">
-                                    <i class="ti ti-truck text-white pos-a tl-50p centerXY"></i>
+                                {{$item->sent_at? 'bg-primary' : 'bg-secondary'}}"
+                                style="height: 40px; width: 40px;">
+                                    <i class="ti ti-truck text-white position-absolute tl-50p centerXY"></i>
                                 </div>
                             </td>
                             <td class="text-nowrap va-m {{ $item->final_paid ? 'text-success':'text-danger'}}">

@@ -62,6 +62,7 @@ return [
     ],
     'notification' => [
         'empty_case' => '尚未選擇禮盒內容',
+        'empty_package' => '尚未選擇包裹內容',
         'empty_filter_package' => '尚未有該類別包裹'
     ],
     'section' => [

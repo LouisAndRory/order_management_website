@@ -94,4 +94,8 @@
 	width: 160px;
 	height: auto;
 	cursor: pointer;
+	filter: invert(10%);
+	&.active {
+		filter: unset;
+	}
 }

@@ -49,15 +49,15 @@
         </div>
         <h4 class="mb-0">{{ __('navigation.order.search') }}</h4>
         @if(isset($orders) && count($orders))
-        <div class="row bg-white p-3 border mb-5 mx-0">
+        <div class="row bg-white p-3 mt-3 border mb-5 mx-0">
             <div class="table-responsive">
                 <table id="dataTable" class="table mb-0" cellspacing="0" width="100%">
                     <thead>
                     <tr>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-nowrap text-center" style="width: 20px">{{ __('order.section.final_paid') }}</th>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-nowrap">{{ __('order.fields.name') }}</th>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-nowrap">{{ __('order.fields.phone') }}</th>
-                        <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-nowrap text-center">{{ __('order.fields.married_date') }}</th>
+                        <th class="border-top-0 pt-0 pb-2 align-middle text-nowrap text-center" style="width: 20px">{{ __('order.section.final_paid') }}</th>
+                        <th class="border-top-0 pt-0 pb-2 align-middle text-nowrap">{{ __('order.fields.name') }}</th>
+                        <th class="border-top-0 pt-0 pb-2 align-middle text-nowrap">{{ __('order.fields.phone') }}</th>
+                        <th class="border-top-0 pt-0 pb-2 align-middle text-nowrap text-center">{{ __('order.fields.married_date') }}</th>
                     </tr>
                     </thead>
                     <tfoot>

@@ -79,7 +79,7 @@
         <div class="col-12">
             <div class="row">
                 @foreach($order->cases as $case)
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6 mb-3">
                         <div class="bgc-grey-300 p-3 d-flex flex-column">
                             <div class="d-flex flex-column flex-md-row align-items-center">
                                 <h4 class="card-title">{{$case->case_type_name}} X <span class="fa fa-archive mr-1"></span>{{$case->amount? $case->amount:0}}</h4>
@@ -89,10 +89,10 @@
                             </div>
                             @if(!count($case->cookies))
                                 <div class="mt-2 text-center text-secondary mt-auto mb-auto">
-                                    <span class="font-size-60">
+                                    <h5 class="card-subtitle font-weight-light py-3">
                                         <i class="fa fa-exclamation-triangle"></i>
-                                    </span>
-                                    <div class="card-subtitle">{{ __('order.notification.empty_case') }}</div>
+                                        {{ __('order.notification.empty_case') }}
+                                    </h5>
                                 </div>
                             @else
                                 @foreach($case->cookies as $cookie)
@@ -147,14 +147,16 @@
         </div>
 
         <div class="col-12 mb-3 text-right">
-            <img src="{{ asset('/images/unset_btn.svg') }}" v-on:click="filter='unsent'" class="svg-btn mx-md-2">
-            <img src="{{ asset('/images/sent_btn.svg') }}" v-on:click="filter='sent'" class="svg-btn mx-md-2">
-            <img src="{{ asset('/images/add_btn.svg') }}" v-on:click="packageModal.show.create=true" class="svg-btn ml-md-2">
+            <img src="{{ asset('/images/unsent_btn.svg') }}" v-on:click="filter='unsent'" class="svg-btn" :class="`svg-btn mx-md-2 ${filter=='unsent'? 'active': ''}`">
+            <img src="{{ asset('/images/sent_btn.svg') }}" v-on:click="filter='sent'" class="svg-btn mx-md-2" :class="`svg-btn mx-md-2 ${filter=='sent'? 'active': ''}`">
+            <img src="{{ asset('/images/add_btn.svg') }}" v-on:click="packageModal.show.create=true" class="svg-btn ml-md-2 active">
         </div>
 
         <div class="col-12 my-3 mb-md-4 text-center text-secondary" v-if="!filterPackage.length">
-            <span class="fa fa-exclamation-triangle font-size-60"></span>
-            <div class="card-subtitle">{{ __('order.notification.empty_filter_package') }}</div>
+            <h5 class="card-subtitle font-weight-light py-3">
+                <span class="fa fa-exclamation-triangle"></span>
+                {{ __('order.notification.empty_filter_package') }}
+            </h5>
         </div>
         <div class="col-12 my-3 mb-md-4" v-for="(package, index) in filterPackage" :key="index">
             <div class="card h-100 package-card rounded-0">
@@ -259,8 +261,10 @@
                     </dl>
                     <div class="row border-top bdc-grey-400">
                         <div class="col-12 mt-2 text-center text-secondary mt-auto mb-auto" v-if="!package.cases.length">
-                            <span class="fa fa-exclamation-triangle font-size-60"></span>
-                            <div class="card-subtitle">{{ __('order.notification.empty_case') }}</div>
+                            <h5 class="mb-0 font-weight-light py-3">
+                                <span class="fa fa-exclamation-triangle"></span>
+                                {{ __('order.notification.empty_package') }}
+                            </h5>
                         </div>
                         <div class="col-12 py-1 font-size-20 font-weigh-bold mb-2 bgc-grey-200" v-for="(caseItem, index) in package.cases">
                             <div class="row">

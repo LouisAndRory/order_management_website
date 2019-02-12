@@ -60,19 +60,19 @@
             </div>
             <h4 class="mb-0">{{ __('navigation.package.search') }}</h4>
             @if(isset($packages) && count($packages))
-            <div class="row bgc-white p-3 bd mb-4 mx-0">
+            <div class="row border bgc-white p-3 mt-3 mb-4 mx-0">
                 <div class="table-responsive">
                     <table id="dataTable" class="table mb-0" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                            <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-nowrap text-center">{{ __('package.section.sent_status') }}</th>
-                            <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle">{{ __('order.fields.name') }}</th>
-                            <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle">{{ __('order.fields.phone') }}</th>
-                            <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-center">{{ __('order.fields.married_date') }}</th>
-                            <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-center">{{ __('package.fields.arrived_at') }}</th>
-                            <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-nowrap">{{ __('package.section.content') }}</th>
-                            <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-nowrap">{{ __('package.section.amount') }}</th>
-                            <th class="bdwT-0 bdwB-1 pt-0 pb-2 align-middle text-center">
+                            <th class="border-top-0 pt-0 pb-2 align-middle text-nowrap text-center">{{ __('package.section.sent_status') }}</th>
+                            <th class="border-top-0 pt-0 pb-2 align-middle">{{ __('order.fields.name') }}</th>
+                            <th class="border-top-0 pt-0 pb-2 align-middle">{{ __('order.fields.phone') }}</th>
+                            <th class="border-top-0 pt-0 pb-2 align-middle text-center">{{ __('order.fields.married_date') }}</th>
+                            <th class="border-top-0 pt-0 pb-2 align-middle text-center">{{ __('package.fields.arrived_at') }}</th>
+                            <th class="border-top-0 pt-0 pb-2 align-middle text-nowrap">{{ __('package.section.content') }}</th>
+                            <th class="border-top-0 pt-0 pb-2 align-middle text-nowrap">{{ __('package.section.amount') }}</th>
+                            <th class="border-top-0 pt-0 pb-2 align-middle text-center">
                                 <button type="button" class="btn btn-sm btn-primary text-nowrap"
                                         v-on:click="handleExportReport">
                                     {{ __('package.functional.export') }}
@@ -105,7 +105,14 @@
                                         rowspan="{{ count($package->cases) + 1 }}">{{ $package->married_date ?: '-' }}</td>
                                     <td class="text-nowrap align-middle text-center"
                                         rowspan="{{ count($package->cases) + 1 }}">{{ $package->arrived_at ? $package->arrived_at->toDateString() : '-' }}</td>
-                                    <td class="p-0 border-top-0 border-bottom-0"></td>
+
+                                    @if(count($package->cases) == 0)
+                                        <td class="align-middle text-secondary"> - </td>
+                                        <td class="align-middle text-center text-secondary"> - </td>
+                                        <td class="align-middle text-center text-secondary"> - </td>
+                                    @else
+                                        <td class="p-0 border-top-0 border-bottom-0"></td>
+                                    @endif
                                 </tr>
                                 @foreach($package->cases as $caseIndex => $case)
                                     <tr :key="`package-{{ $index }}-case-{{ $caseIndex }}`" class="{{ $package->checked ? 'bgc-green' : '' }}">
@@ -120,6 +127,8 @@
                                         </td>
                                     </tr>
                                 @endforeach
+
+
                             @endforeach
                         </tbody>
                     </table>
