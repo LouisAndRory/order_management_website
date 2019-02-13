@@ -31,6 +31,7 @@ class PackageController extends Controller
             'packages.id', 'orders.id AS order_id', 'orders.name AS order_name', 'packages.phone AS package_phone',
             'orders.phone AS order_phone', 'arrived_at', 'sent_at', 'orders.married_date', 'checked'
         ])->join('orders', 'orders.id', '=', 'packages.order_id')
+            ->whereNull('orders.deleted_at')
             ->with([
                 'cases' => function ($q) {
                     $q->select([
