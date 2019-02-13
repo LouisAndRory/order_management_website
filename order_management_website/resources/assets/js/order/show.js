@@ -20,7 +20,8 @@ const OrderShowApp = new Vue({
                 })
             })
         },
-        onClickDeleteOrder: function() {
+        onClickDeleteOrder: function () {
+            const that = this
             this.$swal({
                 title: _.get(window.notificationLang, 'del_order.title'),
                 text: _.get(window.notificationLang, 'del_order.text'),
@@ -39,7 +40,7 @@ const OrderShowApp = new Vue({
                             showConfirmButton: false,
                             timer: 1000
                         }).then(() => {
-                            //location.reload();
+                            location.href=that.orderBaseUrl
                         })
                     })
                 }
