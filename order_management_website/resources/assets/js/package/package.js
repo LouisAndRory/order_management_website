@@ -182,6 +182,12 @@ const PackageApp = new Vue({
 
 			const targetDate = moment(date, dateFormate)
 			return targetDate.format(`${dateFormate} (dddd)`)
+		},
+		showSentBtn: function (data) {
+			const target = moment(data)
+			const today = moment()
+			console.log(data, target, today, today.diff(target, 'day'));
+			return today.diff(target, 'day') >= 0
 		}
 	},
 	components: {

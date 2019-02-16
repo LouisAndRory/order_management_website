@@ -246,7 +246,7 @@
                                     @{{ package.sent_at }}
                                 </button>
                             </span>
-                            <span v-else>
+                            <span v-else-if="showSentBtn(package.arrived_at)">
                                 <button type="button" class="btn btn-primary py-0" v-on:click="onClickUpdatePackageStatus(package, 'sent_at')">
                                     @{{ langs.functional.sent }}
                                 </button>
