@@ -225,8 +225,8 @@
                 <button v-on:click="addCase" type="button" class="mb-3 btn btn-primary rounded-0 "><span class="font-size-30"><i class="ti ti-gift"></i></span><div>{{ __('case.functional.add') }}</div></button>
             </div>
         </div>
-        <a href="{{ route('order.show', ['id'=> $order->id])}}" class="btn btn-secondary ">{{ __('order.functional.cancel') }}</a>
-        <button type="submit" class="btn btn-primary float-right">{{ __('order.functional.save') }}</button>
+        <button type="submit" class="btn btn-primary mb-3">{{ __('order.functional.save') }}</button>
+        <a href="{{ route('order.show', ['id'=> $order->id])}}" class="btn btn-secondary float-right mb-3">{{ __('order.functional.cancel') }}</a>
     </form>
 </div>
 @endsection
