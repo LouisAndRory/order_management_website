@@ -69,40 +69,38 @@ class OrderMutator implements MutatorContract
 
             if (array_has($data, 'cases')) {
                 $caseData = array_get($data, 'cases', []);
-                if (!empty($caseData)) {
-                    $caseMutator = new CaseMutator();
 
-                    $allCaseIds = $order->cases()->pluck('id')->toArray();
-                    foreach ($caseData as $caseDatum) {
-                        $caseId = array_get($caseDatum, 'id', null);
-                        if ($caseId) {
-                            $case = $caseMutator->update($caseId, $caseDatum);
-                        } else {
-                            $case = $caseMutator->store($caseDatum);
-                            $order->cases()->save($case);
-                        }
+                $caseMutator = new CaseMutator();
 
-                        if (in_array($caseId, $allCaseIds)) {
-                            $key = array_search($caseId, $allCaseIds);
-                            unset($allCaseIds[$key]);
-                        }
-
-                        if (array_has($caseDatum, 'cookies')) {
-                            $cookieData = array_get($caseDatum, 'cookies');
-                            if (!empty($cookieData)) {
-                                $case->cookies()->delete();
-                                foreach ($cookieData as $cookieDatum) {
-                                    $case->cookies()->create($cookieDatum);
-                                }
-                            }
-                        }
+                $allCaseIds = $order->cases()->pluck('id')->toArray();
+                foreach ($caseData as $caseDatum) {
+                    $caseId = array_get($caseDatum, 'id', null);
+                    if ($caseId) {
+                        $case = $caseMutator->update($caseId, $caseDatum);
+                    } else {
+                        $case = $caseMutator->store($caseDatum);
+                        $order->cases()->save($case);
                     }
 
-                    //-- remove case which doesn't exist in input ids
-                    foreach ($allCaseIds as $id) {
-                        $caseMutator->delete($id);
+                    if (in_array($caseId, $allCaseIds)) {
+                        $key = array_search($caseId, $allCaseIds);
+                        unset($allCaseIds[$key]);
+                    }
+
+                    if (array_has($caseDatum, 'cookies')) {
+                        $cookieData = array_get($caseDatum, 'cookies');
+                        $case->cookies()->delete();
+                        foreach ($cookieData as $cookieDatum) {
+                            $case->cookies()->create($cookieDatum);
+                        }
                     }
                 }
+
+                //-- remove case which doesn't exist in input ids
+                foreach ($allCaseIds as $id) {
+                    $caseMutator->delete($id);
+                }
+
             }
 
             info("Order updated", $order->toArray());
