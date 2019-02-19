@@ -93,9 +93,9 @@ const OrderEditApp = new Vue({
 
             $.ajax({
                 url: orderUpdateUrl,
-                data: this.order,
+                data: JSON.stringify(this.order),
                 type: 'PUT',
-                dataType : 'json',
+                contentType: 'application/json'
             }).done(function( response ) {
                 Vue.swal({
                     type: 'success',

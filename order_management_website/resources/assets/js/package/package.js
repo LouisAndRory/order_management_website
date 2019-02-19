@@ -41,9 +41,9 @@ const PackageApp = new Vue({
 			return new Promise(function(resolve, reject) {
 				$.ajax({
 					url: `${that.packageBaseUrl}`,
-					data: { order_id: that.orderId, ...data },
+					data: JSON.stringify({ order_id: that.orderId, ...data }),
 					type: 'POST',
-					dataType: 'json'
+					contentType: 'application/json'
 				})
 					.done(function(response) {
 						resolve(_.get(window.notificationLang, 'created_package.title'))
@@ -71,9 +71,9 @@ const PackageApp = new Vue({
 			return new Promise(function(resolve, reject) {
 				$.ajax({
 					url: `${that.packageBaseUrl}/${data.id}`,
-					data: data,
+					data: JSON.stringify(data),
 					type: 'PUT',
-					dataType: 'json'
+					contentType: 'application/json'
 				})
 					.done(function(response) {
 						that.packages = response.packages
@@ -186,7 +186,6 @@ const PackageApp = new Vue({
 		showSentBtn: function (data) {
 			const target = moment(data)
 			const today = moment()
-			console.log(data, target, today, today.diff(target, 'day'));
 			return today.diff(target, 'day') >= 0
 		}
 	},

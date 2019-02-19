@@ -92,9 +92,9 @@ const OrderCreateApp = new Vue({
 
             $.ajax({
                 url: that.orderBaseUrl,
-                data: this.order,
+                data: JSON.stringify(this.order),
                 type: 'POST',
-                dataType : 'json',
+                contentType: 'application/json'
             }).done(function( response ) {
                 Vue.swal({
                     type: 'success',
