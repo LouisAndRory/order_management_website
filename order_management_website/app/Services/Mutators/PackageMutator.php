@@ -58,11 +58,9 @@ class PackageMutator implements MutatorContract
 
             if (array_has($data, 'cases')) {
                 $caseData = array_get($data, 'cases', []);
-                if (!empty($caseData)) {
-                    $package->cases()->delete();
-                    foreach ($caseData as $caseDatum) {
-                        $package->cases()->create($caseDatum);
-                    }
+                $package->cases()->delete();
+                foreach ($caseData as $caseDatum) {
+                    $package->cases()->create($caseDatum);
                 }
             }
 
