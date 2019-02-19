@@ -27,8 +27,8 @@ class AmountLimit implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  array  $cases
+     * @param  string $attribute
+     * @param  array $cases
      * @return bool
      */
     public function passes($attribute, $cases)
@@ -46,8 +46,12 @@ class AmountLimit implements Rule
             $calculatedCaseAmount[$case['case_id']] += $case['amount'];
         }
 
-        foreach ($calculatedCaseAmount as $caseId => $totalInputAmount){
-            $totalShippedAmountForCaseInDB = PackageHasCases::where('case_id', '=', $caseId)->sum('amount');
+        foreach ($calculatedCaseAmount as $caseId => $totalInputAmount) {
+            $totalShippedAmountForCaseInDB = PackageHasCases::where('case_id', '=', $caseId)
+                ->whereHas('package', function ($q) {
+                    $q->whereNull('deleted_at');
+                })
+                ->sum('amount');
             $case = CaseModel::find($caseId);
 
             if ($this->type === 'create') {
@@ -61,6 +65,9 @@ class AmountLimit implements Rule
                 $totalShippedAmountForPackageInDB = PackageHasCases::where(
                     'case_id', '=', $caseId
                 )->where('package_id', '=', $packageId)
+                    ->whereHas('package', function ($q) {
+                        $q->whereNull('deleted_at');
+                    })
                     ->sum('amount');
 
                 if ($case) {
