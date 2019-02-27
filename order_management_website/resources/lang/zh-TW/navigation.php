@@ -12,14 +12,13 @@ return [
     | you want to customize your views to better match your application.
     |
     */
-
     'order' => [
         'title' => '訂單管理',
         'create' => '新增訂單',
-        'search' => '查詢訂單'
+        'search' => '訂單查詢'
     ],
     'package' => [
-        'search' => '查詢包裹',
+        'search' => '包裹查詢',
     ],
     'options' => [
         'title' => '選項管理',

@@ -29,34 +29,34 @@
                         >
                             <a href="{{ route('order.create')}}">
                                 <i class="navigation__nav__item__icon ti-clipboard"></i>
-                                <div class="navigation__nav__item__text">新增訂單</div>
+                                <div class="navigation__nav__item__text">{{ __('navigation.order.create') }}</div>
                             </a>
                         </li>
                         <li class="navigation__nav__item {{ request()->is('order/search')? 'navigation__nav__item--active':''}}"
                         >
                             <a href="{{ route('order.search')}}">
                                 <i class="navigation__nav__item__icon ti-search"></i>
-                                <div class="navigation__nav__item__text">訂單查詢</div>
+                                <div class="navigation__nav__item__text">{{ __('navigation.order.search') }}</div>
                             </a>
                         </li>
                         <li class="navigation__nav__item {{ request()->is('package/search')? 'navigation__nav__item--active':''}}"
                         >
                             <a href="{{ route('package.search')}}">
                                 <i class="navigation__nav__item__icon ti-truck"></i>
-                                <div class="navigation__nav__item__text">包裹查詢</div>
+                                <div class="navigation__nav__item__text">{{ __('navigation.package.search') }}</div>
                             </a>
                         </li>
-                        <li class="navigation__nav__item {{ request()->is('items')? 'navigation__nav__item--active':''}}"
+                        <li class="navigation__nav__item {{ request()->is('management')? 'navigation__nav__item--active':''}}"
                         >
-                            <a href="">
+                            <a href="/management">
                                 <i class="navigation__nav__item__icon ti-panel"></i>
-                                <div class="navigation__nav__item__text">選項管理</div>
+                                <div class="navigation__nav__item__text">{{ __('navigation.options.title') }}</div>
                             </a>
                         </li>
                         <li class="navigation__nav__item">
                             <a href="{{ route('logout')}}">
                                 <i class="navigation__nav__item__icon ti-power-off"></i>
-                                <div class="navigation__nav__item__text">登出系統</div>
+                                <div class="navigation__nav__item__text">{{ __('navigation.logout') }}</div>
                             </a>
                         </li>
                     </nav>

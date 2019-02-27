@@ -61,4 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/{id}', 'PackController@update');
         Route::delete('/{id}', 'PackController@delete');
     });
+
+    Route::get('/management', function () {
+        return view('management.index');
+    });
 });
