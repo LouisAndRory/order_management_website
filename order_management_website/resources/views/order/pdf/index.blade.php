@@ -66,11 +66,11 @@
             </tr>
             <tr>
                 <td class="label">訂金</td>
-                <td>{{ number_format($order->deposit, 0).' 元' }}</td>
+                <td>{{ ($order->deposit ?: 0) . ' 元' }}</td>
                 <td class="label">總金額</td>
-                <td>{{ number_format($order->total_fee + $order->deposit, 0).' 元' }}</td>
+                <td>{{ ($order->total_fee ?: 0) + ($order->deposit ?: 0) . ' 元' }}</td>
                 <td class="label">尾款</td>
-                <td>{{ number_format($order->total_fee ?: '', 0).' 元' }}</td>
+                <td>{{ ($order->total_fee ?: 0) . ' 元' }}</td>
             </tr>
             <tr>
                 <td class="label">
