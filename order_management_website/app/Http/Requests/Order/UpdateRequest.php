@@ -44,7 +44,8 @@ class UpdateRequest extends FormRequest
             'cases.*.cookies' => 'nullable|array',
             'cases.*.cookies.*.cookie_id' => 'sometimes|required|exists:cookies,id',
             'cases.*.cookies.*.pack_id' => 'sometimes|required|exists:packs,id',
-            'cases.*.cookies.*.amount' => 'nullable|integer'
+            'cases.*.cookies.*.amount' => 'nullable|integer',
+            'img_urls' => 'nullable|array'
         ];
     }
 }

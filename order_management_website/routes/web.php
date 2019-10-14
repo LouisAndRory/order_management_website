@@ -19,6 +19,8 @@ Route::post('/login', 'Auth\LoginController@login')->name('login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::post('upload', 'AttachmentController@upload')->name('upload');
+
     Route::group(['prefix' => 'order'], function () {
         Route::get('/{id}/pdf', 'OrderController@pdf')->name('order.pdf');
 

@@ -26,10 +26,11 @@ class CaseType extends Model
     ];
 
     protected $casts = [
+        'img_urls' => 'array'
     ];
 
     protected $fillable = [
-        'name', 'slug','enabled'
+        'name', 'slug','enabled', 'img_urls'
     ];
 
     protected $appends = [

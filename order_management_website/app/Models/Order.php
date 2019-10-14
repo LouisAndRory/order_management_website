@@ -39,13 +39,14 @@ class Order extends Model
 
     protected $casts = [
         'engaged_date' => 'date:Y-m-d',
-        'married_date' => 'date:Y-m-d'
+        'married_date' => 'date:Y-m-d',
+        'img_urls' => 'array'
     ];
 
     protected $fillable = [
         'status_id', 'name', 'name_backup', 'phone', 'phone_backup',
         'email', 'deposit', 'extra_fee', 'engaged_date', 'married_date',
-        'remark', 'card_required', 'wood_required', 'final_paid'
+        'remark', 'card_required', 'wood_required', 'final_paid', 'img_urls'
     ];
 
     public function setEngagedDateAttribute($value)
