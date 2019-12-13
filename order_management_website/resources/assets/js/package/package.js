@@ -52,15 +52,6 @@ const PackageApp = new Vue({
 						if (errorResponse.hasOwnProperty('status')) {
 							if (errorResponse.status == 422) {
 								reject(errorResponse.responseJSON.errors)
-							} else {
-								localStorage.setItem(
-									'package',
-									JSON.stringify({
-										type: 'create',
-										orderId: that.orderId,
-										data
-									})
-								)
 							}
 						}
 					})
@@ -83,15 +74,6 @@ const PackageApp = new Vue({
 						if (errorResponse.hasOwnProperty('status')) {
 							if (errorResponse.status == 422) {
 								reject(errorResponse.responseJSON.errors)
-							} else {
-								localStorage.setItem(
-									'package',
-									JSON.stringify({
-										type: 'edit',
-										orderId: that.orderId,
-										data
-									})
-								)
 							}
 						}
 						reject(errorResponse)
@@ -191,18 +173,6 @@ const PackageApp = new Vue({
 	},
 	components: {
 		'package-modal': PackageModal
-	},
-	created: function() {
-		let tempPackage = localStorage.getItem('package')
-		tempPackage = JSON.parse(tempPackage)
-
-		if (tempPackage && tempPackage.orderId == this.orderId) {
-			if (tempPackage.type == 'edit' && !_.find(this.packages, { id: tempPackage.data.id })) {
-				return
-			}
-			this.$set(this.packageModal.data, tempPackage.type, tempPackage.data)
-			this.$set(this.packageModal.show, tempPackage.type, true)
-		}
 	}
 })
 

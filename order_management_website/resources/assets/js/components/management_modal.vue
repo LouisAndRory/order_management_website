@@ -118,12 +118,10 @@ export default {
             this.is_visible = false
             this.$emit('close')
             $(`#${this.modalId}`).modal('hide')
-            localStorage.removeItem('management')
             this.management = {}
             this.errors = {}
         },
         onSubmit: function() {
-            localStorage.removeItem('management')
             this.errors = {}
 
             this.fetchApi(this.management).then((response)=> {

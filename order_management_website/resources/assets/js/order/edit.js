@@ -87,7 +87,6 @@ const OrderEditApp = new Vue({
             return _.get(this.errors, `cases.${caseIndex}.cookies.${cookieIndex}.${key}`, [])
         },
         onSubmit: function() {
-            localStorage.removeItem('orderEdit')
             this.errors = {}
             const that = this
 
@@ -110,21 +109,10 @@ const OrderEditApp = new Vue({
                if(xhr.hasOwnProperty('status')) {
                    if(xhr.status == 422){
                         that.errors = xhr.responseJSON.errors
-                   }else{
-                        localStorage.setItem('orderEdit', JSON.stringify(that.order))
                    }
 
                }
              })
-        }
-    },
-    created: function() {
-        const tempOrder = localStorage.getItem('orderEdit')
-        if(tempOrder){
-            const parseTempOrderJSON = JSON.parse(tempOrder)
-            if(parseTempOrderJSON.id == this.order.id) {
-                _.set(this.order, parseTempOrderJSON)
-            }
         }
     }
 })

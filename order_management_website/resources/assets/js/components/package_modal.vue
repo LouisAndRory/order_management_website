@@ -78,7 +78,7 @@
                                 </label>
                                 <input
                                     v-model="package.address"
-                                    type="tel"
+                                    type="text"
                                     class="form-control"
                                     :id="`${modalId}-address`"
                                     :placeholder="langs.placeholder.address"
@@ -283,7 +283,6 @@ export default {
             this.is_visible = false
             this.$emit('close')
             $(`#${this.modalId}`).modal('hide')
-            localStorage.removeItem('package')
             this.package = {}
             this.errors = {}
         },
@@ -301,7 +300,6 @@ export default {
             this.$delete( this.package.cases, caseIndex )
         },
         onSubmit: function() {
-            localStorage.removeItem('package')
             this.errors = {}
 
             this.fetchApi(this.package).then((response)=> {

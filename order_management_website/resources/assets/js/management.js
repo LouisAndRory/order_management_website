@@ -37,15 +37,6 @@ const ManagementApp = new Vue({
                     if(errorResponse.hasOwnProperty('status')) {
                         if(errorResponse.status == 422){
                             reject(errorResponse.responseJSON.errors)
-                        }else{
-                            localStorage.setItem(
-                                'management',
-                                JSON.stringify({
-                                    type: 'create',
-                                    data,
-                                    category
-                                })
-                            )
                         }
                     }
                 })
@@ -72,14 +63,6 @@ const ManagementApp = new Vue({
                         }
                         else{
                             if(!needKeep) { return }
-                            localStorage.setItem(
-                                'management',
-                                JSON.stringify({
-                                    type: 'edit',
-                                    data,
-                                    category
-                                })
-                            )
                         }
                     }
                 })
@@ -153,18 +136,6 @@ const ManagementApp = new Vue({
                     timer: 1000
                 })
             })
-        }
-    },
-    created: function(){
-        let tempManagement= localStorage.getItem('management')
-        tempManagement= JSON.parse(tempManagement)
-
-        if(tempManagement && tempManagement.category == this.category){
-            if(tempManagement.type=='edit' && !_.find(list, { 'id': tempManagement.data.id })){
-                return
-            }
-            this.$set(this.managementModal.data, tempManagement.type, tempManagement.data)
-            this.$set(this.managementModal.show, tempManagement.type, true)
         }
     }
 })
