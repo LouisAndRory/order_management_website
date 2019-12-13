@@ -28,14 +28,24 @@ class PackageController extends Controller
         }
 
         $packageOrm = Package::select([
-            'packages.id', 'orders.id AS order_id', 'orders.name AS order_name', 'packages.phone AS package_phone',
-            'orders.phone AS order_phone', 'arrived_at', 'sent_at', 'orders.married_date', 'checked'
+            'packages.id',
+            'orders.id AS order_id',
+            'orders.name AS order_name',
+            'packages.phone AS package_phone',
+            'orders.phone AS order_phone',
+            'arrived_at',
+            'sent_at',
+            'orders.married_date',
+            'checked'
         ])->join('orders', 'orders.id', '=', 'packages.order_id')
             ->whereNull('orders.deleted_at')
             ->with([
                 'cases' => function ($q) {
                     $q->select([
-                        'case_id', 'package_id', 'case_types.name' , 'package_has_cases.amount'
+                        'case_id',
+                        'package_id',
+                        'case_types.name' ,
+                        'package_has_cases.amount'
                     ])->join('cases', 'cases.id', '=', 'package_has_cases.case_id')
                         ->join('case_types', 'case_types.id', '=', 'cases.case_type_id');
                 }
@@ -61,8 +71,17 @@ class PackageController extends Controller
 
         $packages = $packageOrm->orderBy('packages.arrived_at', 'ASC')->get();
 
+        $totalAmount = $packages->sum(function($package) {
+            $amount = 0;
+            foreach ($package['cases'] as $case) {
+                $amount += $case['amount'];
+            }
+            return $amount;
+        });
+
         return view('package.search', [
-            'packages' => $packages
+            'packages' => $packages,
+            'totalAmount' => $totalAmount ?? 0
         ]);
     }
 

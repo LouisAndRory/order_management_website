@@ -58,7 +58,7 @@
                     </button>
                 </div>
             </div>
-            <h4 class="mb-0">{{ __('navigation.package.search') }}</h4>
+            <h4 class="mb-0">{{ __('navigation.package.search') }} / 包裹總數量: {{ $totalAmount ?? 0 }}</h4>
             @if(isset($packages) && count($packages))
             <div class="row border bgc-white p-3 mt-3 mb-4 mx-0">
                 <div class="table-responsive">
