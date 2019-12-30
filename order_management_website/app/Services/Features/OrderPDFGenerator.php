@@ -2,7 +2,8 @@
 
 namespace App\Services\Features;
 
-
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 use App\Models\Order;
 
 class OrderPDFGenerator
@@ -22,7 +23,7 @@ class OrderPDFGenerator
         $this->loadPackages();
     }
 
-    public function create()
+    public function create($type = 'pdf')
     {
         $headerHtml = view()->make('order.pdf.header')->render();
         $footerHtml = view()->make('order.pdf.footer')->render();
@@ -40,11 +41,37 @@ class OrderPDFGenerator
             ->setOption('footer-html', $footerHtml)
             ->setWarnings(false);
 
-        return $dompdf->download('order_' . $this->order->id . '.pdf');
-        return view('order.pdf.index', [
-            'order' => $this->order,
-            'cases' => $this->cases,
-            'packages' => $this->packages
+        $fileName = 'order_files/order_' . $this->order->id . '.pdf';
+        if ($type === 'pdf') {
+            return $dompdf->download($fileName);
+        }
+
+        if ($type === 'image') {
+            if (\Storage::drive('local')->exists($fileName)) {
+                \Storage::drive('local')->delete($fileName);
+            }
+            $filePath = storage_path('app/' . $fileName);
+            $dompdf->save($filePath);
+
+            $binPy = config('filesystems.python_bin_path');
+            $scriptPy = base_path('pdftoimage.py');
+
+            $process = new Process("$binPy $scriptPy " . $this->order->id);
+            $process->run();
+
+            if (!$process->isSuccessful()) {
+                return response()->json([
+                    'message' => '發生錯誤，請聯絡你妹'
+                ]);
+            }
+
+            $zipFile = storage_path('app/order_files/' . $this->order->id . '.zip');
+
+            return response()->download($zipFile);
+        }
+
+        return response()->json([
+            'message' => '發生錯誤，請聯絡你妹'
         ]);
     }
 
@@ -119,15 +146,15 @@ class OrderPDFGenerator
         foreach ($this->order->packages as $package) {
             $caseTypes = [];
             foreach ($package->cases as $content) {
-                array_push($caseTypes, "$content->case_type_name $content->amount 盒");
+                $caseTypes[] = "$content->case_type_name $content->amount 盒";
             }
 
-            array_push($packages, [
+            $packages[] = [
                 'arrived_at' => $package->arrived_at ? $package->arrived_at->format('Y-m-d') : '',
                 'remark' => preg_replace("/\r|\n/", ' ', $package->remark),
                 'case_type' => implode('/', $caseTypes),
                 'address' => "$package->address $package->name $package->phone"
-            ]);
+            ];
         }
 
         $this->packages = $packages;

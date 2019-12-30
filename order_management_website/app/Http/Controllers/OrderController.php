@@ -242,6 +242,14 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
 
         $generator = new OrderPDFGenerator($order);
-        return $generator->create();
+        return $generator->create('pdf');
+    }
+
+    public function image($id)
+    {
+        $order = Order::findOrFail($id);
+
+        $generator = new OrderPDFGenerator($order);
+        return $generator->create('image');
     }
 }

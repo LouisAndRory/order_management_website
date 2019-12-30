@@ -4,6 +4,10 @@
 <div class="col-12">
     <div class="row mb-3" id="orderShowApp">
         <div class="col-12 text-right">
+            <a href="{{ route('order.image', ['id'=> $order->id])}}" class="custom-btn d-inline-flex align-items-center mx-md-2 green" >
+                <i class="fa fa-download"></i>
+                {{ __('order.functional.image')}}
+            </a>
             <a href="{{ route('order.pdf', ['id'=> $order->id])}}" class="custom-btn d-inline-flex align-items-center mx-md-2 green" >
                 <i class="fa fa-download"></i>
                 {{ __('order.functional.pdf')}}

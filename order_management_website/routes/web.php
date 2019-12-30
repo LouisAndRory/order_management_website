@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'order'], function () {
         Route::get('/{id}/pdf', 'OrderController@pdf')->name('order.pdf');
+        Route::get('/{id}/image', 'OrderController@image')->name('order.image');
 
         Route::get('/', 'OrderController@index')->name('order.index');
         Route::get('/search', 'OrderController@search')->name('order.search');

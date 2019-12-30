@@ -66,4 +66,6 @@ return [
 
     ],
 
+    'python_bin_path' => env('PYTHON_BIN_PATH')
+
 ];

@@ -18,6 +18,7 @@ return [
         'update' => '修改訂單',
         'delete' => '刪除訂單',
         'pdf' => '產生PDF',
+        'image' => '產生圖片',
         'search' => '搜尋'
     ],
     'fields' => [
