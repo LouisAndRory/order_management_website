@@ -46,7 +46,8 @@ class Order extends Model
     protected $fillable = [
         'status_id', 'name', 'name_backup', 'phone', 'phone_backup',
         'email', 'deposit', 'extra_fee', 'engaged_date', 'married_date',
-        'remark', 'card_required', 'wood_required', 'final_paid', 'img_urls'
+        'remark', 'card_required', 'wood_required', 'final_paid', 'img_urls',
+        'fb'
     ];
 
     public function setEngagedDateAttribute($value)

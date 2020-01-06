@@ -29,6 +29,7 @@ class UpdateRequest extends FormRequest
             'phone' => 'nullable|string|max:100',
             'phone_backup' => 'nullable|string|max:100',
             'email' => 'nullable|email|max:50',
+            'fb' => 'nullable|string|max:255',
             'deposit' => 'nullable|integer',
             'extra_fee' => 'nullable|integer',
             'final_paid' => 'nullable|boolean',
