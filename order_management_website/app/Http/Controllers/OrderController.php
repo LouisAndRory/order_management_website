@@ -94,7 +94,7 @@ class OrderController extends Controller
         $order = Order::select([
             'id', 'name', 'name_backup', 'phone', 'phone_backup',
             'email', 'deposit', 'extra_fee', 'final_paid', 'engaged_date',
-            'married_date', 'remark', 'card_required', 'wood_required'
+            'married_date', 'remark', 'card_required', 'wood_required', 'fb'
         ])->with([
             'cases:id,order_id,case_type_id,price,amount',
             'cases.cookies'
@@ -144,7 +144,7 @@ class OrderController extends Controller
         $order = Order::select([
             'id', 'name', 'name_backup', 'phone', 'phone_backup',
             'email', 'deposit', 'extra_fee', 'final_paid', 'engaged_date',
-            'married_date', 'remark', 'card_required', 'wood_required'
+            'married_date', 'remark', 'card_required', 'wood_required', 'fb'
         ])->with([
             'cases' => function ($q) {
                 $q->select([

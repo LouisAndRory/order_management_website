@@ -34,11 +34,13 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="orderEmail">{{ __('order.fields.email')}}</label>
-                <input type="email" class="form-control" id="orderEmail" placeholder="{{ __('order.placeholder.email')}}" v-model="order.email" :class="{'is-invalid': errors.email}">
-                <div class="invalid-feedback">
-                    <div v-for="msg in errors.email">@{{msg}}</div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="orderEmail">{{ __('order.fields.email')}}</label>
+                    <input type="email" class="form-control" id="orderEmail" placeholder="{{ __('order.placeholder.email')}}" v-model="order.email" :class="{'is-invalid': errors.email}">
+                    <div class="invalid-feedback">
+                        <div v-for="msg in errors.email">@{{msg}}</div>
+                    </div>
                 </div>
             </div>
 
@@ -114,6 +116,13 @@
                             <span class="peer peer-greed">{{ __('order.replace_string.required.yes')}}</span>
                         </label>
                     </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="orderFb">{{ __('order.fields.fb')}}</label>
+                    <input type="text" class="form-control" id="orderFb" placeholder="{{ __('order.placeholder.fb')}}" v-model="order.fb">
                 </div>
             </div>
 

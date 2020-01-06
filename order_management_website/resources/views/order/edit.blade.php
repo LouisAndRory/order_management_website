@@ -124,6 +124,13 @@
                 </div>
             </div>
 
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="orderFb">{{ __('order.fields.fb')}}</label>
+                    <input type="text" class="form-control" id="orderFb" placeholder="{{ __('order.placeholder.fb')}}" v-model="order.fb">
+                </div>
+            </div>
+
             <div class="form-group">
                 <label for="orderRemark">{{ __('order.fields.remark')}}</label>
                 <textarea name="Remark" class="form-control" rows="3" placeholder="{{ __('order.placeholder.remark')}}" v-model="order.remark"></textarea>

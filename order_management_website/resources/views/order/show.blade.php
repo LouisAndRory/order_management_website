@@ -69,6 +69,9 @@
                 <dt class="col-sm-4 col-md-2">{{ __('order.fields.wood_required')}}</dt>
                 <dd class="col-sm-8 col-md-4">{{ $order->wood_required? __('order.replace_string.required.yes'):__('order.replace_string.required.no') }}</dd>
 
+                <dt class="col-sm-4 col-md-2">{{ __('order.fields.fb')}}</dt>
+                <dd class="col-sm-8 col-md-10">{{ $order->fb ?? '-' }}</dd>
+
                 <dt class="col-sm-4 col-md-2">{{ __('order.fields.remark')}}</dt>
                 <dd class="col-sm-8 col-md-10 whs-p">{{ $order->remark? $order->remark:'-' }}</dd>
             </dl>
