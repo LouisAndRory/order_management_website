@@ -4,13 +4,16 @@
 <div class="col-12" id="orderSearchApp" style="min-height: 100vh" v-cloak>
     <form action="{{ route('order.search') }}" method="get" role="form">
         <div class="row p-3 mb-3 mx-0 base-box-shadow align-items-center">
-            <div class="col-12 col-md-6 col-lg-3 pr-md-0">
+            <div class="col-12 col-md-4 col-lg-3 pr-md-0">
                 <input type="text" name="name" class="form-control" placeholder="{{ __('order.placeholder.name')}}">
             </div>
-            <div class="col-12 col-md-6 col-lg-3 pr-lg-0">
+            <div class="col-12 col-md-4 col-lg-2 pr-lg-0">
                 <input type="phone" name="phone" class="form-control" placeholder="{{ __('order.placeholder.phone')}}">
             </div>
-            <div class="col-12 col-lg-3 col-xl-4 pr-lg-0">
+            <div class="col-12 col-md-4 col-lg-2 pr-lg-0">
+                <input type="fb" name="fb" class="form-control" placeholder="{{ __('order.placeholder.fb')}}">
+            </div>
+            <div class="col-12 col-lg-2 pr-lg-0">
                 <div class="input-group d-md-none">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
@@ -40,7 +43,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-12 col-lg-auto col-xl-1">
+            <div class="col-12 col-lg-auto">
                 <button type="submit" class="btn btn-primary w-100">
                     <i class="ti ti-search d-lg-none d-xl-inline-block"></i>
                     {{ __('order.functional.search') }}
@@ -57,6 +60,7 @@
                         <th class="border-top-0 pt-0 pb-2 align-middle text-nowrap text-center" style="width: 20px">{{ __('order.section.final_paid') }}</th>
                         <th class="border-top-0 pt-0 pb-2 align-middle text-nowrap">{{ __('order.fields.name') }}</th>
                         <th class="border-top-0 pt-0 pb-2 align-middle text-nowrap">{{ __('order.fields.phone') }}</th>
+                        <th class="border-top-0 pt-0 pb-2 align-middle text-nowrap">{{ __('order.fields.fb') }}</th>
                         <th class="border-top-0 pt-0 pb-2 align-middle text-nowrap text-center">{{ __('order.fields.married_date') }}</th>
                     </tr>
                     </thead>
@@ -65,6 +69,7 @@
                         <th class="pt-1 pb-0 align-middle text-center">{{ __('order.section.final_paid') }}</th>
                         <th class="pt-1 pb-0 align-middle">{{ __('order.fields.name') }}</th>
                         <th class="pt-1 pb-0 align-middle">{{ __('order.fields.phone') }}</th>
+                        <th class="pt-1 pb-0 align-middle">{{ __('order.fields.fb') }}</th>
                         <th class="pt-1 pb-0 align-middle text-center">{{ __('order.fields.married_date') }}</th>
                     </tr>
                     </tfoot>
@@ -78,7 +83,8 @@
                                 <td class="text-nowrap va-m">
                                     <a href="{{ route('order.show', ['id' => $order->id]) }}">{{ $order->name }}</a>
                                 </td>
-                                <td class="text-nowrap va-m">{{ $order->phone }}</td>
+                                <td class="text-nowrap va-m">{{ $order->phone ?? '-' }}</td>
+                                <td class="text-nowrap va-m">{{ $order->fb ?? '-' }}</td>
                                 <td class="text-nowrap va-m text-center">{{ $order->married_date ? $order->married_date->format('Y-m-d') : '-'  }}</td>
                             </tr>
                         @endforeach

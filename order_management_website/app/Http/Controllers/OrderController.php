@@ -48,7 +48,7 @@ class OrderController extends Controller
         }
 
         $orderOrm = Order::select([
-            'id', 'name', 'phone', 'final_paid', 'remark', 'married_date'
+            'id', 'name', 'phone', 'final_paid', 'remark', 'married_date', 'fb'
         ]);
 
         foreach ($queries as $key => $value) {
