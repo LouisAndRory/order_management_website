@@ -103,7 +103,7 @@ class OrderPDFGenerator
                         ])->join('cases', 'cases.id', '=', 'package_has_cases.case_id')
                             ->join('case_types', 'case_types.id', '=', 'cases.case_type_id');
                     }
-                ]);
+                ])->orderBy('arrived_at', 'DESC');
             }
         ]);
 
@@ -118,7 +118,7 @@ class OrderPDFGenerator
             $content = [];
             $packNames = $case->cookies->pluck('pack_name')->unique()->values()->toArray();
             foreach ($packNames as $packName) {
-                array_push($content, $packName . ' -');
+                $content[] = $packName . ' -';
                 $cookieNames = [];
 
                 foreach ($case->cookies as $cookie) {
@@ -129,12 +129,12 @@ class OrderPDFGenerator
                 array_push($content, implode(', ', $cookieNames));
             }
 
-            array_push($cases, [
+            $cases[] = [
                 'case_type_name' => $case->case_type_name,
                 'amount' => $case->amount,
                 'price' => $case->price,
                 'content' => $content
-            ]);
+            ];
         }
 
         $this->cases = $cases;
