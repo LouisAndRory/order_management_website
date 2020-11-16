@@ -15,6 +15,7 @@
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "~2.1.0",
         "setasign/fpdi": "^2.1",
+        "superbalist/laravel-google-cloud-storage": "^2.2",
         "tecnickcom/tcpdf": "^6.2"
     },
     "require-dev": {

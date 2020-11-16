@@ -35,6 +35,7 @@ return [
         'card_required' => '結婚小卡',
         'wood_required' => '準備木盛',
         'remark' => '備註',
+        'images' => '圖片',
         'final_paid' => '尾款'
     ],
     'placeholder' => [

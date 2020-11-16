@@ -131,6 +131,21 @@
                 <textarea name="Remark" class="form-control" rows="3" placeholder="{{ __('order.placeholder.remark')}}" v-model="order.remark"></textarea>
             </div>
 
+            <div class="form-row">
+                <label class="col-12" >{{ __('order.fields.images')}}</label>
+                <div class="col-12 form-group">
+                    <input type="file" class="form-control-file pb-3" name="file" id="file" accept="image/*"><button class="btn btn-primary" @click="uploadImage">上傳</button>
+                </div>
+                <div class="col-2" v-for="(imageUrl, imageIndex) in order.img_urls">
+                    <div class="card text-center">
+                        <img class="card-img-top" :src="imageUrl">
+                        <div class="card-body">
+                            <a class="btn btn-primary" @click="deleteImage(imageIndex)">刪除</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row mx-0">
                 <div class="col-12 mb-3" v-for="(caseItem, caseIndex) in order.cases">
                     <div class="row">
@@ -235,6 +250,7 @@
 
 @section('custom-js')
     const orderBaseUrl = '{{ route('order.index')}}';
+    const fileUploadUrl = '{{ route('file.upload')}}';
     const defaultCookieOption = '{{ env('DEFAULT_COOKIE_OPTION', '') }}'
     const orderDDL = {
         cases: @json($caseTypes),

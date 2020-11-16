@@ -113,6 +113,44 @@ const OrderEditApp = new Vue({
 
                }
              })
+        },
+        uploadImage: function(e) {
+            e.preventDefault()
+            e.stopPropagation()
+
+            const file = $('#file')[0]
+            if (!file.value) {
+                return;
+            }
+
+
+            this.errors = {}
+            const that = this
+
+            var fd = new FormData();
+            fd.append('file', file.files[0]);
+            fd.append('type', 'orders');
+
+            $.ajax({
+                url: fileUploadUrl,
+                type: 'post',
+                data: fd,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    const url = response.data.url
+                    if (that.order.img_urls == null) {
+                        that.order.img_urls = []
+                    }
+                    
+                    that.order.img_urls.push(url)
+
+                    file.value = null
+                },
+            });
+        },
+        deleteImage: function (idx) {
+            this.order.img_urls.splice(idx, 1);
         }
     }
 })

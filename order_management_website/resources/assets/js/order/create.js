@@ -14,7 +14,9 @@ const defaultCookie = {
 const OrderCreateApp = new Vue({
     el: '#orderCreateApp',
     data: {
-        order: {},
+        order: {
+            img_urls: []
+        },
         orderDDL: orderDDL,
         errors: {},
         orderBaseUrl: orderBaseUrl
@@ -103,15 +105,49 @@ const OrderCreateApp = new Vue({
                 }).then(() => {
                     window.location.href = `${that.orderBaseUrl}/${response.id}`
                 })
-             })
-             .fail(function( xhr) {
-               if(xhr.hasOwnProperty('status')) {
-                   if(xhr.status == 422){
-                        that.errors = xhr.responseJSON.errors
-                   }
+            })
+                .fail(function( xhr) {
+                    if(xhr.hasOwnProperty('status')) {
+                        if(xhr.status == 422){
+                            that.errors = xhr.responseJSON.errors
+                        }
 
-               }
-             })
+                    }
+                })
+        },
+        uploadImage: function(e) {
+            e.preventDefault()
+            e.stopPropagation()
+
+            const file = $('#file')[0]
+            if (!file.value) {
+                return;
+            }
+
+
+            this.errors = {}
+            const that = this
+
+            var fd = new FormData();
+            fd.append('file', file.files[0]);
+            fd.append('type', 'orders');
+
+            $.ajax({
+                url: fileUploadUrl,
+                type: 'post',
+                data: fd,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    const url = response.data.url
+                    that.order.img_urls.push(url)
+
+                    file.value = null
+                },
+            });
+        },
+        deleteImage: function (idx) {
+            this.order.img_urls.splice(idx, 1);
         }
     }
 })

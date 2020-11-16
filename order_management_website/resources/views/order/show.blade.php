@@ -74,6 +74,15 @@
 
                 <dt class="col-sm-4 col-md-2">{{ __('order.fields.remark')}}</dt>
                 <dd class="col-sm-8 col-md-10 whs-p">{{ $order->remark? $order->remark:'-' }}</dd>
+
+                <dt class="col-sm-4 col-md-2">圖片</dt>
+                @if (isset($order->img_urls))
+                    @foreach($order->img_urls as $url)
+                        <div class="col-2">
+                            <img src="{{ $url }}" class="img-thumbnail">
+                        </div>
+                    @endforeach
+                @endif
             </dl>
         </div>
 
