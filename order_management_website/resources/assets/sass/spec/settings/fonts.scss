@@ -1,11 +1,7 @@
-@font-face {
-	font-family: 'Noto Sans CJK TC';
-	src: url('../static/fonts/noto/NotoSansCJKtc-Regular.otf') format('opentype');
-	font-weight: normal;
-	font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap');
 
-$font-primary: 'Noto Sans CJK TC', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+
+$font-primary: 'Noto Sans TC', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
 	sans-serif;
 $font-secondary: $font-primary;
 $font-size-base: 1.2rem;
