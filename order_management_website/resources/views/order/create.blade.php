@@ -131,18 +131,14 @@
                 <textarea name="Remark" class="form-control" rows="3" placeholder="{{ __('order.placeholder.remark')}}" v-model="order.remark"></textarea>
             </div>
 
-            <div class="form-row">
+            <div class="form-row mb-4">
                 <label class="col-12" >{{ __('order.fields.images')}}</label>
                 <div class="col-12 form-group">
-                    <input type="file" class="form-control-file pb-3" name="file" id="file" accept="image/*"><button class="btn btn-primary" @click="uploadImage">上傳</button>
+                    <input id="image-file-upload" type="file" class="d-none" name="file" accept="image/*" multiple @change="uploadImages" />
+                    <label for="image-file-upload" class="btn btn-primary"><i class="ti ti-image"></i>上傳圖片</label>
                 </div>
-                <div class="col-2" v-for="(imageUrl, imageIndex) in order.img_urls">
-                    <div class="card text-center">
-                        <img class="card-img-top" :src="imageUrl">
-                        <div class="card-body">
-                            <a class="btn btn-primary" @click="deleteImage(imageIndex)">刪除</a>
-                        </div>
-                    </div>
+                <div class="col-12 form-group">
+                    <thumbnail class="mr-3" v-for="(imageUrl, index) in order.img_urls" :image-index="index" :url="imageUrl" :delete-image="deleteImage" />
                 </div>
             </div>
 

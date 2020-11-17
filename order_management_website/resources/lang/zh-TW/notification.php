@@ -94,6 +94,10 @@ return [
     ],
     'updat_item_status_error' => [
         'title' => '項目狀態修改失敗！'
+    ],
+    'upload_image_fail' => [
+        'title' => '上傳圖片失敗！',
+        'text' => '請重新上傳一次下列圖片',
     ]
 
 ];

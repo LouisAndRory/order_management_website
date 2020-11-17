@@ -1,5 +1,5 @@
 import Datepicker from 'vuejs-datepicker'
-
+import Thumbnail from '../components/thumbnail'
 
 const defaultCase = {
     case_type_id: '',
@@ -21,7 +21,8 @@ const OrderEditApp = new Vue({
         orderUpdateUrl: orderUpdateUrl
     },
     components: {
-        Datepicker
+        Datepicker,
+        Thumbnail
     },
     computed: {
         engagedDate: {
@@ -114,40 +115,52 @@ const OrderEditApp = new Vue({
                }
              })
         },
-        uploadImage: function(e) {
+        uploadImages: function(e) {
             e.preventDefault()
             e.stopPropagation()
 
-            const file = $('#file')[0]
-            if (!file.value) {
-                return;
-            }
-
+            const selectedFiles = event.target.files;
 
             this.errors = {}
-            const that = this
+            const that = this;
+            const uploadFails = [];
+            const fileInput = $('#image-file-upload')[0];
 
-            var fd = new FormData();
-            fd.append('file', file.files[0]);
-            fd.append('type', 'orders');
+            for (let i = 0; i < selectedFiles.length; i++) {
+                var fd = new FormData();
+                fd.append('file', selectedFiles[i]);
+                fd.append('type', 'orders');
 
-            $.ajax({
-                url: fileUploadUrl,
-                type: 'post',
-                data: fd,
-                contentType: false,
-                processData: false,
-                success: function(response){
-                    const url = response.data.url
-                    if (that.order.img_urls == null) {
-                        that.order.img_urls = []
+                $.ajax({
+                    url: fileUploadUrl,
+                    type: 'post',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: function(response){
+                        const url = response.data.url;
+
+                        if (!that.order.img_urls) {
+                            that.order.img_urls = []
+                        }
+
+                        that.order.img_urls.push(url);
+                    },
+                    error: function () {
+                        uploadFails.push(selectedFiles[i].name)
                     }
-                    
-                    that.order.img_urls.push(url)
+                });
+            }
+            if (uploadFails.length) {
+                Vue.swal({
+                    allowOutsideClick: true,
+                    type: 'error',
+                    title: _.get(window.notificationLang, 'upload_image_fail.title'),
+                    text: `${_.get(window.notificationLang, upload_image_fail.text)} ${uploadFails.join(', ')}`
+                })
+            }
 
-                    file.value = null
-                },
-            });
+            fileInput.value = null;
         },
         deleteImage: function (idx) {
             this.order.img_urls.splice(idx, 1);

@@ -78,9 +78,9 @@
                 <dt class="col-sm-4 col-md-2">圖片</dt>
                 @if (isset($order->img_urls))
                     @foreach($order->img_urls as $url)
-                        <div class="col-2">
-                            <img src="{{ $url }}" class="img-thumbnail">
-                        </div>
+                        <div class="mr-3 border border-secondary"
+                            style="height: 150px; width: 150px; background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url({{ $url }});"
+                        ></div>
                     @endforeach
                 @endif
             </dl>
