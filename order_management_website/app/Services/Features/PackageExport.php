@@ -169,7 +169,7 @@ class PackageExport
                     if ($cookieItem['id'] === $packageItem->cookie_id ||
                         $cookieItem['id'] === 'type' . $packageItem->cookie_type
                     ) {
-                        if (str_contains($cookieItem['id'], ['type'])) {
+                        if (str_contains($cookieItem['id'], 'type')) {
                             if (!array_key_exists($packageItem->pack_id, $cookieItem['ingredients'])) {
                                 $cookieItem['ingredients'][$packageItem->pack_id] = [];
                             }
