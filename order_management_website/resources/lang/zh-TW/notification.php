@@ -98,6 +98,9 @@ return [
     'upload_image_fail' => [
         'title' => '上傳圖片失敗！',
         'text' => '請重新上傳一次下列圖片',
+    ],
+    'duplicate_cookie_item' => [
+        'title' => '餅乾口味重複囉！'
     ]
 
 ];

@@ -261,3 +261,16 @@
 .radio-success input[type="radio"]:checked + label::after {
 	background-color: #5cb85c;
 }
+
+.is-duplicate {
+	border-color: #ffc107!important;
+}
+
+.invalid-duplicate {
+	display: none;
+}
+
+.is-duplicate ~ .duplicate-feedback{
+	display: block;
+	color: #ffc107;
+}

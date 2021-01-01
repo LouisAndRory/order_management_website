@@ -86,8 +86,25 @@ const OrderCreateApp = new Vue({
         hasCookieError: function(caseIndex, cookieIndex, key) {
             return _.has(this.errors, `cases.${caseIndex}.cookies.${cookieIndex}.${key}`)
         },
+        getDuplicateError: function (caseIndex, cookieIndex) {
+            return _.get(this.errors, `cases.${caseIndex}.cookies.${cookieIndex}.duplicate`)
+        },
         getCookieError: function(caseIndex, cookieIndex, key) {
             return _.get(this.errors, `cases.${caseIndex}.cookies.${cookieIndex}.${key}`, [])
+        },
+        validDuplicate: function (cookieId, caseIndex, cookieIndex) {
+            if (this.hasCookieError(caseIndex, cookieIndex, 'duplicate')) {
+                this.$delete(this.errors.cases[caseIndex].cookies[cookieIndex], 'duplicate');
+            }
+
+            const result = _.filter(this.order.cases[caseIndex].cookies, { 'cookie_id': cookieId });
+            if (result.length > 1) {
+                const msg = _.get(window.notificationLang, 'duplicate_cookie_item.title');
+                _.set(this.errors, `cases.${caseIndex}.cookies.${cookieIndex}.duplicate`, [msg]);
+
+                return false
+            }
+            return true
         },
         onSubmit: function() {
             this.errors = {}

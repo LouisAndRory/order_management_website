@@ -191,7 +191,10 @@
                             </div>
                             <div class="form-row mb-3 mb-md-0" :class="{'bg-light-primary': cookieIndex%2==0 }" v-for="(cookieItem, cookieIndex) in caseItem.cookies">
                                 <div class="form-group col-md-4 col-lg-5 col-xl-6">
-                                    <select class="form-control" v-model="cookieItem.cookie_id" :class="{'is-invalid': hasCookieError(caseIndex, cookieIndex, 'cookie_id')}" required>
+                                    <select class="form-control"
+                                        v-model="cookieItem.cookie_id"
+                                        :class="{'is-invalid': hasCookieError(caseIndex, cookieIndex, 'cookie_id'), 'is-duplicate': getDuplicateError(caseIndex, cookieIndex)}"
+                                        v-on:change="validDuplicate(cookieItem.cookie_id, caseIndex, cookieIndex)" required>
                                         <option value="" hidden>{{ __('cookie.placeholder.cookie_type')}}*</option>
                                         <option v-for="option in orderDDL.cookies" :value="option.id">
                                             @{{ option.name }}
@@ -199,6 +202,9 @@
                                     </select>
                                     <div class="invalid-feedback">
                                         <div v-for="msg in getCookieError(caseIndex, cookieIndex, 'cookie_id')">@{{msg}}</div>
+                                    </div>
+                                    <div class="duplicate-feedback">
+                                        <div v-for="msg in getDuplicateError(caseIndex, cookieIndex)">@{{msg}}</div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
