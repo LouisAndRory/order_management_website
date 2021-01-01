@@ -82,6 +82,8 @@
                             style="height: 150px; width: 150px; background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url({{ $url }});"
                         ></div>
                     @endforeach
+                @else
+                    <dd class="col-sm-8 col-md-10">-</dd>
                 @endif
             </dl>
         </div>
@@ -113,7 +115,7 @@
                             @else
                                 @foreach($case->cookies as $cookie)
                                     <div class="py-2 px-3 {{ ($loop->index%2 == 0)?'bgc-grey-100': ''}}">
-                                        <span>{{$cookie->cookie_name}}</span>
+                                        <span>{{$loop->index+1}}. {{$cookie->cookie_name}}</span>
                                         <span class="float-right">
                                         {{$cookie->pack_name}}
                                         <span class="mx-2">X</span>
